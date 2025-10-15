@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
+import { CustomerDto } from './dto/customer.dto';
 
 @Injectable()
 export class StablecoinsService {
-  getCustomersById(id: string): string {
+  getCustomersById(id: string): CustomerDto {
     console.log(id);
 
-    return 'Customers';
+    return {
+      name: 'John',
+      id: '123',
+    } as CustomerDto;
   }
-  getCustomersByName(name: string): string {
+  getCustomersByName(name: string): CustomerDto {
     console.log(name);
 
-    return 'Customers by Name';
+    return {
+      name: 'John',
+      id: '123',
+    } as CustomerDto;
   }
 }

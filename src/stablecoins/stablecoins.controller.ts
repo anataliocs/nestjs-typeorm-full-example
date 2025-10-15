@@ -17,7 +17,7 @@ export class StablecoinsController {
   @Get('/:id/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersById(@Param('id') id: string): string {
+  getCustomersById(@Param('id') id: string): CustomerDto {
     // Call Service layer to get customers
     return this.stablecoinsService.getCustomersById(id);
   }
@@ -25,7 +25,7 @@ export class StablecoinsController {
   @Get('/:name/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersByName(@Param('name') name: string): string {
+  getCustomersByName(@Param('name') name: string): CustomerDto {
     // Call Service layer to get customers
     return this.stablecoinsService.getCustomersByName(name);
   }
@@ -33,8 +33,8 @@ export class StablecoinsController {
   @Post('/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(201)
-  createCustomer(@Body() customer: CustomerDto): string {
+  createCustomer(@Body() customer: CustomerDto): CustomerDto {
     console.log(customer);
-    return 'Customer created';
+    return customer;
   }
 }
