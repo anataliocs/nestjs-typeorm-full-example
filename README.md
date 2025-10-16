@@ -4,18 +4,27 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript example API.
+Example of a NestJS application with PostgreSQL.
 
-Add Swagger OpenAPI Docs:
+**Tech Stack:**
+- [Nest](https://github.com/nestjs/nest)
+- TypeORM
+- PostgreSQL
+- Swagger
+- Typescript
+
+----
+
+## API Docs
 
 http://localhost:3000/api
 
+**Add Swagger OpenAPI Docs:**
 ```terminaloutput
 pnpm add @nestjs/swagger
 ```
 
-Add Swagger Docs to `main.ts`
-
+**Add Swagger Docs to `main.ts`**
 ```typescript
   const config = new DocumentBuilder()
   .setTitle('Treasury example')
@@ -35,16 +44,22 @@ $ pnpm install
 
 ## Run local PostgreSQL
 
-Endor CLI:
+https://docs.endor.dev/cli/services/postgres/
+
+**Endor CLI:**
 ```terminaloutput
 npm install -g @endorhq/cli
 ```
 
-Endor PostgreSQL
+**Endor PostgreSQL**
 ```terminaloutput
 endor run postgres
 ```
 
+**Connect to PostgreSQL**
+```terminaloutput
+psql -h localhost -U postgres -d postgres
+```
 
 ## Compile and run the project
 
@@ -71,24 +86,6 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it
-runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more
-information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check
-out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment
-straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than
-managing infrastructure.
 
 ## API URL Best Practices
 
