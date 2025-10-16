@@ -33,6 +33,19 @@ SwaggerModule.setup('api', app, documentFactory);
 $ pnpm install
 ```
 
+## Run local PostgreSQL
+
+Endor CLI:
+```terminaloutput
+npm install -g @endorhq/cli
+```
+
+Endor PostgreSQL
+```terminaloutput
+endor run postgres
+```
+
+
 ## Compile and run the project
 
 ```bash

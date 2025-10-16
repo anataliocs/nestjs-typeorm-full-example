@@ -6,6 +6,7 @@ import {
   HttpCode,
   Param,
   Post,
+  Version,
 } from '@nestjs/common';
 import { StablecoinsService } from './stablecoins.service';
 import { CustomerDto } from './dto/customer.dto';
@@ -14,6 +15,7 @@ import { CustomerDto } from './dto/customer.dto';
 export class StablecoinsController {
   constructor(private readonly stablecoinsService: StablecoinsService) {}
 
+  @Version('1')
   @Get('/:id/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
@@ -22,6 +24,7 @@ export class StablecoinsController {
     return this.stablecoinsService.getCustomersById(id);
   }
 
+  @Version('1')
   @Get('/:name/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
@@ -30,6 +33,7 @@ export class StablecoinsController {
     return this.stablecoinsService.getCustomersByName(name);
   }
 
+  @Version('1')
   @Post('/customers')
   @Header('Cache-Control', 'no-store')
   @HttpCode(201)
