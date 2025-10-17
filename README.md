@@ -7,11 +7,13 @@
 Example of a NestJS application with PostgreSQL.
 
 **Tech Stack:**
+
 - [Nest](https://github.com/nestjs/nest)
-- TypeORM
+- [TypeORM](https://docs.nestjs.com/techniques/database#typeorm-integration)
 - PostgreSQL
 - Swagger
 - Typescript
+- [Endor CLI](https://docs.endor.dev/cli/)
 
 ----
 
@@ -20,11 +22,13 @@ Example of a NestJS application with PostgreSQL.
 http://localhost:3000/api
 
 **Add Swagger OpenAPI Docs:**
-```terminaloutput
+
+```bash
 pnpm add @nestjs/swagger
 ```
 
 **Add Swagger Docs to `main.ts`**
+
 ```typescript
   const config = new DocumentBuilder()
   .setTitle('Treasury example')
@@ -47,17 +51,20 @@ $ pnpm install
 https://docs.endor.dev/cli/services/postgres/
 
 **Endor CLI:**
-```terminaloutput
+
+```bash
 npm install -g @endorhq/cli
 ```
 
 **Endor PostgreSQL**
-```terminaloutput
+
+```bash
 endor run postgres
 ```
 
 **Connect to PostgreSQL**
-```terminaloutput
+
+```bash
 psql -h localhost -U postgres -d postgres
 ```
 
@@ -73,6 +80,28 @@ $ pnpm run start:dev
 # production mode
 $ pnpm run start:prod
 ```
+
+----
+
+## NestJS CLI
+
+https://docs.nestjs.com/cli/overview
+
+**Create a new resource:**
+```bash
+nest g resource new-resource
+```
+
+**Create a new project:**
+
+Optional:
+`-c custom-schematic`
+
+```bash 
+nest n project-name -p pnpm -l TS --strict
+```
+
+----
 
 ## Run tests
 

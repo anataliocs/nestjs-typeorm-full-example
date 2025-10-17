@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { StablecoinsController } from './stablecoins/stablecoins.controller';
 import { StablecoinsService } from './stablecoins/stablecoins.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -14,10 +16,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'postgres',
       password: '',
       database: 'postgres',
-      entities: [],
+      entities: [User],
       synchronize: true,
       autoLoadEntities: true,
     }),
+    UserModule,
   ],
   controllers: [AppController, StablecoinsController],
   providers: [AppService, StablecoinsService],
