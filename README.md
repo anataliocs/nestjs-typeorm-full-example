@@ -130,4 +130,4 @@ Format `/[version]/[domain]/[resource]/[resource_id]/[hiearchical_resource]/[hie
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
