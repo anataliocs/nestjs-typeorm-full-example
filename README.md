@@ -1,8 +1,4 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
-
-## Description
+## Nestjs Typeorm Full Example
 
 Example of a NestJS application with PostgreSQL.
 
@@ -51,6 +47,8 @@ $ pnpm install
 https://docs.endor.dev/cli/services/postgres/
 
 **Endor CLI:**
+A lightweight developer tool to run local cloud services (like PostgreSQL) with one command
+using reproducible containers. See docs: https://docs.endor.dev/cli/
 
 ```bash
 npm install -g @endorhq/cli
@@ -88,6 +86,7 @@ $ pnpm run start:prod
 https://docs.nestjs.com/cli/overview
 
 **Create a new resource:**
+
 ```bash
 nest g resource new-resource
 ```
@@ -128,6 +127,37 @@ Format `/[version]/[domain]/[resource]/[resource_id]/[hiearchical_resource]/[hie
 - `[DELETE] /v1/treasury/customers/{customer_id}/orders/{order_id}`
 - `[PATCH] /v1/treasury/customers/{customer_id}/orders/{order_id}`
 
+1. **Versioning** (`/v1/`)
+    - Allows backward compatibility when introducing breaking changes
+2. **Domain** (`/treasury/`)
+    - Organizes APIs by business domain or bounded context
+3. **Resource** (`/customers/`)
+    - Everything is a resource
+    - collection → item → subcollection → subitem
+4. **Hierarchical Resource** (`/orders/`)
+    - Parent-child relationships: `customers ONEtoMANY orders`
+    - Child access in parent scope (Mirror database schema)
+
+**GOOD**
+```bash
+// Clear hierarchy and context
+GET /v1/treasury/customers/123/orders/456
+```
+
+**BAD**
+```bash
+// vs ambiguous flat structure
+GET /v1/orders/456  // Which customer? No context.
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+
+----
+
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
+
+
