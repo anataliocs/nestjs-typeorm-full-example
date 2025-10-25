@@ -1,13 +1,14 @@
 {
   "name": "nestjs-typeorm-full-example",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Example of a NestJS application with PostgreSQL",
+  "author": "anataliocs",
   "private": true,
   "license": "MIT",
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "db" : "endor run postgres",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

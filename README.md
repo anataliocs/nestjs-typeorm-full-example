@@ -115,6 +115,8 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+----
+
 ## API URL Best Practices
 
 **Examples:**
