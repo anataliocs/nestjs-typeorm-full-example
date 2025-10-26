@@ -1,0 +1,17 @@
+{
+  "name": "stellar-discord-bot",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:0-20-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "postCreateCommand": "pnpm install && pnpm build && pnpm check"
+}
