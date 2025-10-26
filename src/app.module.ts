@@ -18,6 +18,7 @@ import { UserService } from './user/user.service';
       password: '',
       database: 'postgres',
       entities: [User],
+      //synchronize: true should NOT be used in production
       synchronize: true,
       autoLoadEntities: true,
     }),
