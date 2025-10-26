@@ -8,7 +8,8 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "db" : "endor run postgres",
+    "db": "endor run postgres",
+    "dev": "pnpm lint && pnpm start:dev",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -22,11 +23,13 @@
     "dep:audit": "node scripts/dependency-audit.js"
   },
   "dependencies": {
+    "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/typeorm": "^11.0.0",
+    "axios": "^1.12.2",
     "mysql2": "^3.15.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",

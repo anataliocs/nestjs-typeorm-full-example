@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { StablecoinsController } from './stablecoins/stablecoins.controller';
 import { StablecoinsService } from './stablecoins/stablecoins.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { HttpModule } from '@nestjs/axios';
+import { UserController } from './user/user.controller';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { User } from './user/entities/user.entity';
       autoLoadEntities: true,
     }),
     UserModule,
+    HttpModule,
   ],
-  controllers: [AppController, StablecoinsController],
-  providers: [AppService, StablecoinsService],
+  controllers: [StablecoinsController, UserController],
+  providers: [StablecoinsService, UserService],
 })
 export class AppModule {}
