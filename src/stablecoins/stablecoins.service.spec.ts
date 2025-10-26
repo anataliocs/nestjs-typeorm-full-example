@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StablecoinsService } from './stablecoins.service';
 import { CustomerDto } from './dto/customer.dto';
+import { HttpService } from '@nestjs/axios';
 
 describe('StablecoinsService', () => {
   let service: StablecoinsService;
@@ -8,7 +9,13 @@ describe('StablecoinsService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [StablecoinsService],
-    }).compile();
+    })
+      .useMocker((token) => {
+        if (token === HttpService) {
+          return jest.fn();
+        }
+      })
+      .compile();
 
     service = module.get<StablecoinsService>(StablecoinsService);
   });

@@ -11,6 +11,8 @@ Example of a NestJS application with PostgreSQL.
 - Typescript
 - [Endor CLI](https://docs.endor.dev/cli/)
 
+**Examples:**  https://github.com/nestjs/nest/tree/master/sample
+**External API:**  https://reap.readme.io/reference/test-environment
 ----
 
 ## API Docs

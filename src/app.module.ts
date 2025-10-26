@@ -7,9 +7,15 @@ import { User } from './user/entities/user.entity';
 import { HttpModule } from '@nestjs/axios';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
+import { StablecoinModule } from './stablecoins/stablecoin.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env.development.local', '.env'],
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -23,6 +29,7 @@ import { UserService } from './user/user.service';
       autoLoadEntities: true,
     }),
     UserModule,
+    StablecoinModule,
     HttpModule,
   ],
   controllers: [StablecoinsController, UserController],
