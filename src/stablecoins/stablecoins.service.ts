@@ -6,8 +6,14 @@ import { HttpService } from '@nestjs/axios';
 export class StablecoinsService {
   constructor(private readonly httpService: HttpService) {}
 
+  private accountBalanceResource: string = 'account/balance';
+
   getCustomersById(id: string): CustomerDto {
     console.log(id);
+
+    this.httpService.get(this.accountBalanceResource).subscribe((res) => {
+      console.log(res.data);
+    });
 
     return {
       name: 'John',

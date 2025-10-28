@@ -4,11 +4,11 @@ import { StablecoinsService } from './stablecoins/stablecoins.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
-import { HttpModule } from '@nestjs/axios';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { StablecoinModule } from './stablecoins/stablecoin.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -30,7 +30,18 @@ import { ConfigModule } from '@nestjs/config';
     }),
     UserModule,
     StablecoinModule,
-    HttpModule,
+    HttpModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        baseURL: configService.get<string>('REAP_BASE_URL'),
+        headers: {
+          accept: 'application/json',
+          'Accept-Version': 'v1.0',
+          'x-reap-api-key': configService.get<string>('REAP_API_KEY'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [StablecoinsController, UserController],
   providers: [StablecoinsService, UserService],
