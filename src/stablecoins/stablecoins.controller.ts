@@ -10,18 +10,19 @@ import {
 } from '@nestjs/common';
 import { StablecoinsService } from './stablecoins.service';
 import { CustomerDto } from './dto/customer.dto';
+import { ReapAccountBalanceDto } from './dto/reap-account-balance.dto';
 
 @Controller('/v1/stablecoins')
 export class StablecoinsController {
   constructor(private readonly stablecoinsService: StablecoinsService) {}
 
   @Version('1')
-  @Get('/:id/customers')
+  @Get('/balance')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersById(@Param('id') id: string): CustomerDto {
-    // Call Service layer to get customers
-    return this.stablecoinsService.getCustomersById(id);
+  getMasterAccountBalance(): Promise<ReapAccountBalanceDto> {
+    // Call Service layer to get balance
+    return this.stablecoinsService.getMasterAccountBalance();
   }
 
   @Version('1')
