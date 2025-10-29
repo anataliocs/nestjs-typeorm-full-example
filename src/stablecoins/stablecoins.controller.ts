@@ -4,7 +4,6 @@ import {
   Get,
   Header,
   HttpCode,
-  Param,
   Post,
   Version,
 } from '@nestjs/common';
@@ -26,12 +25,12 @@ export class StablecoinsController {
   }
 
   @Version('1')
-  @Get('/:name/customers')
+  @Get('/cards')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersByName(@Param('name') name: string): CustomerDto {
+  getCustomersByName(): Promise<string> {
     // Call Service layer to get customers
-    return this.stablecoinsService.getCustomersByName(name);
+    return this.stablecoinsService.getCards();
   }
 
   @Version('1')
