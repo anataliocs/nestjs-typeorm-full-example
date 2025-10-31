@@ -15,6 +15,20 @@ Example of a NestJS application with PostgreSQL.
 **External API:**  https://reap.readme.io/reference/test-environment
 ----
 
+## Quick Start
+
+Start PostgreSQL:
+```terminaloutput
+pnpm db
+```
+
+Start service:
+```terminaloutput
+pnpm dev
+```
+
+----
+
 ## API Docs
 
 http://localhost:3000/api
