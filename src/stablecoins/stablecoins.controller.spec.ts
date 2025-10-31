@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { StablecoinsController } from './stablecoins.controller';
 import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
-import { ReapAccountBalanceDto } from './dto/reap-account-balance.dto';
+import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 
 describe('StablecoinsController', () => {
   let controller: StablecoinsController;
@@ -27,7 +27,7 @@ describe('StablecoinsController', () => {
   });
 
   it('getCustomersById response should be defined', async () => {
-    const balance: ReapAccountBalanceDto =
+    const balance: AccountBalanceDto =
       await controller.getMasterAccountBalance();
     console.log(balance);
     expect(balance).toBeDefined();

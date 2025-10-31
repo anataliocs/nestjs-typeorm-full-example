@@ -5,7 +5,7 @@
  * having access to the metatype of variables at runtime
  */
 
-export class ReapAccountBalanceDto {
+export class AccountBalanceDto {
   availableBalance: string;
   availableToAllocate: string;
 }

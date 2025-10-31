@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
-import { ReapAccountBalanceDto } from './dto/reap-account-balance.dto';
+import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 
 describe('StablecoinsService', () => {
   let service: StablecoinsService;
@@ -25,8 +25,7 @@ describe('StablecoinsService', () => {
   });
 
   it('getCustomersById response should be defined', async () => {
-    const balance: ReapAccountBalanceDto =
-      await service.getMasterAccountBalance();
+    const balance: AccountBalanceDto = await service.getMasterAccountBalance();
     console.log(balance);
     expect(balance).toBeDefined();
     expect(balance).toHaveProperty('name', 'John');

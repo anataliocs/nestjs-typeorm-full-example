@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ReapAccountBalanceDto } from './dto/reap-account-balance.dto';
+import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 
@@ -20,19 +20,17 @@ export class StablecoinsService {
    * @returns  `ReapAccountBalanceDto`
    * @throws Error in case of invalid data
    */
-  async getMasterAccountBalance(): Promise<ReapAccountBalanceDto> {
+  async getMasterAccountBalance(): Promise<AccountBalanceDto> {
     const res = await firstValueFrom(
-      this.httpService
-        .get<ReapAccountBalanceDto>(this.accountBalanceResource)
-        .pipe(
-          catchError((error: AxiosError) => {
-            this.logger.error(error.response);
-            throw error;
-          }),
-        ),
+      this.httpService.get<AccountBalanceDto>(this.accountBalanceResource).pipe(
+        catchError((error: AxiosError) => {
+          this.logger.error(error.response);
+          throw error;
+        }),
+      ),
     );
 
-    const balance: ReapAccountBalanceDto = res.data;
+    const balance: AccountBalanceDto = res.data;
     this.logger.log(`Available Balance ${balance.availableBalance}: `);
 
     return balance;

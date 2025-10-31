@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { StablecoinsService } from './stablecoins.service';
 import { CustomerDto } from './dto/customer.dto';
-import { ReapAccountBalanceDto } from './dto/reap-account-balance.dto';
+import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 
 @Controller('/v1/stablecoins')
 export class StablecoinsController {
@@ -19,7 +19,7 @@ export class StablecoinsController {
   @Get('/balance')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getMasterAccountBalance(): Promise<ReapAccountBalanceDto> {
+  getMasterAccountBalance(): Promise<AccountBalanceDto> {
     // Call Service layer to get balance
     return this.stablecoinsService.getMasterAccountBalance();
   }
