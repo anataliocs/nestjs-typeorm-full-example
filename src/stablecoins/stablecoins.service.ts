@@ -5,6 +5,7 @@ import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
 import { CardDto } from './dto/reap/card.dto';
 import { CardWrapperDto } from './dto/reap/card.wrapper.dto';
+import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
 
 @Injectable()
 export class StablecoinsService {
@@ -16,10 +17,10 @@ export class StablecoinsService {
   private cardsResource: string = 'cards';
 
   /**
-   * Handles `ReapAccountBalanceDto` returned from the `httpService.get()`
+   * Handles `AccountBalanceDto` returned from the `httpService.get()`
    * [Get master account balance](https://reap.readme.io/reference/get_account-balance) call.
    *
-   * @returns  `ReapAccountBalanceDto`
+   * @returns  `AccountBalanceDto`
    * @throws Error in case of invalid data
    */
   async getMasterAccountBalance(): Promise<AccountBalanceDto> {
@@ -40,10 +41,10 @@ export class StablecoinsService {
 
   /**
    * Get all cards
-   * Handles `` returned from the `httpService.get()`
+   * Handles `CardDto` array returned from the `httpService.get()`
    * [Retrieve all cards](https://reap.readme.io/reference/get_cards) call.
    *
-   * @returns  ``
+   * @returns  `CardDto[]`
    * @throws Error in case of invalid data
    */
   async getCards(): Promise<CardDto[]> {
@@ -65,5 +66,31 @@ export class StablecoinsService {
     });
 
     return cards;
+  }
+
+  /**
+   * Create new card
+   * Handles `CreateCardResponseDto` returned from the `httpService.post()`
+   * [Create new card](https://reap.readme.io/reference/post_cards) call.
+   *
+   * @returns  `CreateCardResponseDto`
+   * @throws Error in case of invalid data
+   */
+  async createCard(card: CardDto): Promise<CreateCardResponseDto> {
+    const res = await firstValueFrom(
+      this.httpService
+        .post<CreateCardResponseDto>(this.cardsResource, card)
+        .pipe(
+          catchError((error: AxiosError) => {
+            this.logger.error(error.response);
+            throw error;
+          }),
+        ),
+    );
+
+    const createdCard: CreateCardResponseDto = res.data;
+    this.logger.log(`Created Card: ${createdCard.id}:`);
+
+    return createdCard;
   }
 }

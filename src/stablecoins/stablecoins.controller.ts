@@ -8,9 +8,9 @@ import {
   Version,
 } from '@nestjs/common';
 import { StablecoinsService } from './stablecoins.service';
-import { CustomerDto } from './dto/customer.dto';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import { CardDto } from './dto/reap/card.dto';
+import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
 
 @Controller('/v1/stablecoins')
 export class StablecoinsController {
@@ -29,17 +29,16 @@ export class StablecoinsController {
   @Get('/cards')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersByName(): Promise<CardDto[]> {
-    // Call Service layer to get customers
+  getCardsByName(): Promise<CardDto[]> {
+    // Call Service layer to get cards
     return this.stablecoinsService.getCards();
   }
 
   @Version('1')
-  @Post('/customers')
+  @Post('/cards')
   @Header('Cache-Control', 'no-store')
   @HttpCode(201)
-  createCustomer(@Body() customer: CustomerDto): CustomerDto {
-    console.log(customer);
-    return customer;
+  createCard(@Body() card: CardDto): Promise<CreateCardResponseDto> {
+    return this.stablecoinsService.createCard(card);
   }
 }
