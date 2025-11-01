@@ -1,4 +1,5 @@
 /*
+Sample payload used to shape this DTO:
 {
   "id": "507e7dd7-5c8f-480f-9cf3-2500ae807e16",
   "cardName": "Chris Anatalio",
@@ -48,9 +49,68 @@
     }
   }
 }
- */
+*/
 
-export class AccountBalanceDto {
+export class SpendControlAmountDto {
+  dailySpent: string;
+  weeklySpent: string;
+  monthlySpent: string;
+  yearlySpent: string;
+  allTimeSpent: string;
+}
+
+export class SpendControlCapDto {
+  transactionLimit: string;
+  dailyLimit: string;
+  weeklyLimit: string;
+  monthlyLimit: string;
+  yearlyLimit: string;
+  allTimeLimit: string;
+}
+
+export class AtmControlDto {
+  dailyFrequency: string;
+  monthlyFrequency: string;
+  dailyWithdrawal: string;
+  monthlyWithdrawal: string;
+}
+
+export class SpendControlDto {
+  spendControlAmount: SpendControlAmountDto;
+  spendControlCap: SpendControlCapDto;
+  atmControl: AtmControlDto;
+}
+
+export class ShippingInformationDto {
+  bulkShippingID: string | null;
+  sku: string | null;
+}
+
+export class OtpPhoneNumberDto {
+  dialCode: number;
+  phoneNumber: string;
+}
+
+export class MetaDto {
+  id: string;
+  email: string;
+  otpPhoneNumber: OtpPhoneNumberDto;
+}
+
+export class CardDto {
+  id: string;
+  cardName: string;
+  secondaryCardName: string;
+  last4: string;
   cardType: string;
-  customerType: string;
+  availableCredit: string;
+  status: string;
+  physicalCardStatus: string;
+  shippingAddress: string | null;
+  spendControl: SpendControlDto;
+  cardDesign: string;
+  threeDSForwarding: boolean;
+  shippingInformation: ShippingInformationDto;
+  bulkShippingID: string | null;
+  meta: MetaDto;
 }

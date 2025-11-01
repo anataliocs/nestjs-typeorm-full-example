@@ -10,6 +10,7 @@ import {
 import { StablecoinsService } from './stablecoins.service';
 import { CustomerDto } from './dto/customer.dto';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
+import { CardDto } from './dto/reap/card.dto';
 
 @Controller('/v1/stablecoins')
 export class StablecoinsController {
@@ -28,7 +29,7 @@ export class StablecoinsController {
   @Get('/cards')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getCustomersByName(): Promise<string> {
+  getCustomersByName(): Promise<CardDto[]> {
     // Call Service layer to get customers
     return this.stablecoinsService.getCards();
   }

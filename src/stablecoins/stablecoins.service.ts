@@ -3,6 +3,8 @@ import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import { AxiosError } from 'axios';
+import { CardDto } from './dto/reap/card.dto';
+import { CardWrapperDto } from './dto/reap/card.wrapper.dto';
 
 @Injectable()
 export class StablecoinsService {
@@ -44,9 +46,9 @@ export class StablecoinsService {
    * @returns  ``
    * @throws Error in case of invalid data
    */
-  async getCards(): Promise<string> {
+  async getCards(): Promise<CardDto[]> {
     const res = await firstValueFrom(
-      this.httpService.get<string>(this.cardsResource).pipe(
+      this.httpService.get<CardWrapperDto>(this.cardsResource).pipe(
         catchError((error: AxiosError) => {
           this.logger.error(error.response);
           throw error;
@@ -54,9 +56,14 @@ export class StablecoinsService {
       ),
     );
 
-    const balance = res.data;
-    this.logger.log(`Available Cards ${balance}: `);
+    const cardCount = res.data.meta.totalItems;
+    this.logger.log(`Available Cards ${cardCount}: `);
 
-    return balance;
+    const cards: CardDto[] = res.data.items;
+    cards.forEach((card) => {
+      this.logger.log(`Card: ${card.id}`);
+    });
+
+    return cards;
   }
 }
