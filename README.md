@@ -17,13 +17,23 @@ Example of a NestJS application with PostgreSQL.
 
 ## Quick Start
 
-Start PostgreSQL:
-```terminaloutput
+**Build/install and add Endor cli.**
+```bash
+pnpm install
+npm install -g @endorhq/cli
+```
+
+**Start PostgreSQL:**
+
+**ℹ️ NOTE:** _Start each in a separate terminal tab_
+
+```bash
 pnpm db
 ```
 
-Start service:
-```terminaloutput
+**Start service:**
+
+```bash
 pnpm dev
 ```
 
@@ -157,12 +167,14 @@ Format `/[version]/[domain]/[resource]/[resource_id]/[hiearchical_resource]/[hie
     - Child access in parent scope (Mirror database schema)
 
 **GOOD**
+
 ```bash
 // Clear hierarchy and context
 GET /v1/treasury/customers/123/orders/456
 ```
 
 **BAD**
+
 ```bash
 // vs ambiguous flat structure
 GET /v1/orders/456  // Which customer? No context.
