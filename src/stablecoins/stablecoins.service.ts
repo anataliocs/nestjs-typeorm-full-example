@@ -18,10 +18,10 @@ export class StablecoinsService {
 
   /**
    * Handles `AccountBalanceDto` returned from the `httpService.get()`
-   * [Get master account balance](https://reap.readme.io/reference/get_account-balance) call.
+   * [Get primary account balance](https://reap.readme.io/reference/get_account-balance) call.
    *
    * @returns  `AccountBalanceDto`
-   * @throws Error in case of invalid data
+   * @throws AxiosError in case of HTTP error
    */
   async getMasterAccountBalance(): Promise<AccountBalanceDto> {
     const res = await firstValueFrom(
@@ -45,7 +45,7 @@ export class StablecoinsService {
    * [Retrieve all cards](https://reap.readme.io/reference/get_cards) call.
    *
    * @returns  `CardDto[]`
-   * @throws Error in case of invalid data
+   * @throws AxiosError in case of HTTP error
    */
   async getCards(): Promise<CardDto[]> {
     const res = await firstValueFrom(
@@ -69,12 +69,12 @@ export class StablecoinsService {
   }
 
   /**
-   * Create new card
+   * Create a new card
    * Handles `CreateCardResponseDto` returned from the `httpService.post()`
    * [Create new card](https://reap.readme.io/reference/post_cards) call.
    *
    * @returns  `CreateCardResponseDto`
-   * @throws Error in case of invalid data
+   * @throws AxiosError in case of HTTP error
    */
   async createCard(card: CardDto): Promise<CreateCardResponseDto> {
     const res = await firstValueFrom(

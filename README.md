@@ -37,6 +37,10 @@ pnpm db
 pnpm dev
 ```
 
+**Open browser:**
+* http://127.0.0.1:3000/api
+* http://127.0.0.1:3000/
+
 ----
 
 ## API Docs
@@ -182,7 +186,7 @@ GET /v1/orders/456  // Which customer? No context.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License—see the [LICENSE](./LICENSE) file for details.
 
 ----
 
