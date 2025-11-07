@@ -1,6 +1,6 @@
-## Nestjs Typeorm Full Example
+## Nestjs TypeORM Full Example
 
-Example of a NestJS application with PostgreSQL.
+Example of a NestJS application with PostgreSQL and Axios.
 
 **Tech Stack:**
 
@@ -38,7 +38,7 @@ pnpm dev
 ```
 
 **Open browser:**
-* http://127.0.0.1:3000/api
+* Swagger API Docs:  http://127.0.0.1:3000/api
 * http://127.0.0.1:3000/
 
 ----
