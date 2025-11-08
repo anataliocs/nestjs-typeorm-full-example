@@ -1,0 +1,5 @@
+# This file defines code owners for the repository.
+# See: https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo
+* @anataliocs
