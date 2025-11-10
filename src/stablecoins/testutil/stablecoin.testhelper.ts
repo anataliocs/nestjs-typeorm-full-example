@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { CardDto } from '../dto/reap/card.dto';
 import { CardWrapperDto } from '../dto/reap/card.wrapper.dto';
 
+// Mock account-balance.dto.ts for account/balance endpoint
 const mockAccountDataDto = {
   availableBalance: '100',
   availableToAllocate: '1000',
@@ -17,6 +18,7 @@ const mockPaginationMetaDto = {
   currentPage: 1,
 };
 
+// Mock card.dto.ts for card endpoint
 const mockCardDtoArray: CardDto[] = [
   {
     id: '00000000-0000-0000-0000-000000000000',
@@ -69,10 +71,6 @@ const mockCardDtoArray: CardDto[] = [
   } as CardDto,
 ];
 
-type StandardHeaders = {
-  'content-type': 'application/json';
-};
-
 const mockCardDtoWrapperDto = {
   items: mockCardDtoArray,
   meta: mockPaginationMetaDto,
@@ -90,9 +88,15 @@ export function successfulResponse<T>(dto: T) {
   } as AxiosResponse<T, any, StandardHeaders>;
 }
 
+type StandardHeaders = {
+  'content-type': 'application/json';
+};
+
+type ExpectedDtoTypes = AccountBalanceDto | CardWrapperDto;
+
 export function mockAxiosResponseByUrl(
   url: string,
-): Observable<AxiosResponse<any, any, StandardHeaders>> {
+): Observable<AxiosResponse<ExpectedDtoTypes, any, StandardHeaders>> {
   switch (url) {
     case 'account/balance':
       return of(successfulResponse<AccountBalanceDto>(mockAccountDataDto));

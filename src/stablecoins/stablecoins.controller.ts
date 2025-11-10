@@ -12,7 +12,7 @@ import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import { CardDto } from './dto/reap/card.dto';
 import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
 
-@Controller('/v1/stablecoins')
+@Controller('/stablecoins')
 export class StablecoinsController {
   constructor(private readonly stablecoinsService: StablecoinsService) {}
 

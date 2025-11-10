@@ -9,7 +9,7 @@ curl --location 'https://sandbox.api.caas.reap.global/cards' \
 --header 'Accept-Version: v1.0' \
 --header 'accept: application/json' \
 --header 'content-type: application/json' \
---header 'x-reap-api-key: 9t3e02yy41b47vn82udehmeim' \
+--header 'x-reap-api-key: ' \
 --data-raw '{
     "cardType": "Virtual",
     "spendLimit": 0,
