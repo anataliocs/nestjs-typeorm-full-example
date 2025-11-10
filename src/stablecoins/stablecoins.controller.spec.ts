@@ -3,21 +3,8 @@ import { StablecoinsController } from './stablecoins.controller';
 import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
-import { of } from 'rxjs';
-import { AxiosResponse } from 'axios';
-
-const mockAccountDataDto = {
-  availableBalance: '100',
-  availableToAllocate: '1000',
-} as AccountBalanceDto;
-
-const mockAxiosResponse = {
-  data: mockAccountDataDto,
-  status: 200,
-  statusText: 'OK',
-  headers: {},
-  config: {},
-} as AxiosResponse<AccountBalanceDto, any, object>;
+import { mockAxiosResponseByUrl } from './testutil/stablecoin.testhelper';
+import { CardDto } from './dto/reap/card.dto';
 
 describe('StablecoinsController', () => {
   let controller: StablecoinsController;
@@ -31,8 +18,8 @@ describe('StablecoinsController', () => {
         {
           provide: HttpService,
           useValue: {
-            get: jest.fn(() => of(mockAxiosResponse)),
-            pipe: jest.fn(() => of(mockAxiosResponse)),
+            get: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
+            pipe: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
           },
         },
       ],
@@ -60,5 +47,17 @@ describe('StablecoinsController', () => {
     expect(httpService['get']).toHaveBeenCalledWith('account/balance');
     expect(balance).toHaveProperty('availableBalance', '100');
     expect(balance).toHaveProperty('availableToAllocate', '1000');
+  });
+
+  it('getCards response should be defined', async () => {
+    const cards: CardDto[] = await controller.getCardsByName();
+    expect(cards).toBeDefined();
+    expect(httpService['get']).toHaveBeenCalledWith('cards');
+    expect(cards).toHaveLength(1);
+    expect(cards[0]).toHaveProperty(
+      'id',
+      '00000000-0000-0000-0000-000000000000',
+    );
+    expect(cards[0]).toHaveProperty('cardName', 'John Doe');
   });
 });
