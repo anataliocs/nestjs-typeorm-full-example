@@ -1,5 +1,15 @@
 ## Nestjs TypeORM Full Example
 
+<div style="text-align: center;" align="center">
+<a href="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml">
+<img alt="Build Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml/badge.svg">
+</a>
+<br/>
+<a href="https://codespaces.new/anataliocs/nestjs-typeorm-full-example">
+<img alt="Build Status" src="https://github.com/codespaces/badge.svg">
+</a>
+</div>
+
 Example of a NestJS application with PostgreSQL and Axios.
 
 **Tech Stack:**
