@@ -46,13 +46,13 @@ describe('StablecoinsService', () => {
     service = module.get<StablecoinsService>(StablecoinsService);
   });
 
-  it('should be defined', () => {
+  it('service and dependencies should be defined', () => {
     expect(service).toBeDefined();
+    expect(httpService).toBeDefined();
   });
 
-  it('getCustomersById response should be defined', async () => {
+  it('getMasterAccountBalance response should be defined', async () => {
     const balance: AccountBalanceDto = await service.getMasterAccountBalance();
-    console.log(balance);
     expect(balance).toBeDefined();
     expect(httpService['get']).toHaveBeenCalledWith('account/balance');
     expect(balance).toHaveProperty('availableBalance', '100');
