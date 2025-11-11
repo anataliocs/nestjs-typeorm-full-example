@@ -7,6 +7,13 @@ on:
   pull_request:
     branches:
       - '**'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason'
+        required: false
+        default: 'Manual run'
+        type: string
 
 permissions:
   contents: read
@@ -16,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -24,7 +31,7 @@ jobs:
           run_install: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: 'pnpm'
@@ -33,4 +40,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run pnpm check
-        run: pnpm check
+        run: pnpm test:ci
