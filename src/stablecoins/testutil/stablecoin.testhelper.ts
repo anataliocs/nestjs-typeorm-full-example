@@ -1,5 +1,5 @@
 import { AccountBalanceDto } from '../dto/reap/account-balance.dto';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { Observable, of } from 'rxjs';
 import { CardDto } from '../dto/reap/card.dto';
 import { CardWrapperDto } from '../dto/reap/card.wrapper.dto';
@@ -80,6 +80,18 @@ const mockCardDtoWrapperDto = {
   items: mockCardDtoArray,
   meta: mockPaginationMetaDto,
 } as CardWrapperDto;
+
+export function clientErrorResponse(errorMsg: string): AxiosError {
+  return {
+    message: errorMsg,
+    name: 'AxiosError',
+    stack:
+      'AxiosError: Request failed with status code 404\n    at settle (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/core/settle.js:19:12)\n    at Unzip.handleStreamEnd (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/adapters/http.js:617:11)\n    at Unzip.emit (node:events:530:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n    at Axios.request (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/core/Axios.js:45:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)',
+    config: {},
+    code: 'ERR_BAD_REQUEST',
+    status: 404,
+  } as AxiosError;
+}
 
 export function successfulResponse<T>(dto: T) {
   return {

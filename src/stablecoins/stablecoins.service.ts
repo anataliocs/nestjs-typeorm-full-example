@@ -27,7 +27,7 @@ export class StablecoinsService {
     const res = await firstValueFrom(
       this.httpService.get<AccountBalanceDto>(this.accountBalanceResource).pipe(
         catchError((error: AxiosError) => {
-          this.logger.error(error.response);
+          this.logger.error(error);
           throw error;
         }),
       ),
@@ -51,7 +51,7 @@ export class StablecoinsService {
     const res = await firstValueFrom(
       this.httpService.get<CardWrapperDto>(this.cardsResource).pipe(
         catchError((error: AxiosError) => {
-          this.logger.error(error.response);
+          this.logger.error(error);
           throw error;
         }),
       ),
@@ -82,7 +82,7 @@ export class StablecoinsService {
         .post<CreateCardResponseDto>(this.cardsResource, card)
         .pipe(
           catchError((error: AxiosError) => {
-            this.logger.error(error.response);
+            this.logger.error(error);
             throw error;
           }),
         ),
