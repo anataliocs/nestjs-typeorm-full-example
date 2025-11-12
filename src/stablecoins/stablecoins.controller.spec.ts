@@ -3,7 +3,7 @@ import { StablecoinsController } from './stablecoins.controller';
 import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
-import { mockAxiosResponseByUrl } from './testutil/stablecoin.testhelper';
+import { mockAxiosGetResponseByUrl } from './testutil/stablecoin.testhelper';
 import { CardDto } from './dto/reap/card.dto';
 
 describe('StablecoinsController', () => {
@@ -18,8 +18,8 @@ describe('StablecoinsController', () => {
         {
           provide: HttpService,
           useValue: {
-            get: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
-            pipe: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
+            get: jest.fn((url: string) => mockAxiosGetResponseByUrl(url)),
+            pipe: jest.fn((url: string) => mockAxiosGetResponseByUrl(url)),
           },
         },
       ],

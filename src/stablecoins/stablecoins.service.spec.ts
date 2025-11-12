@@ -2,8 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
-import { mockAxiosResponseByUrl } from './testutil/stablecoin.testhelper';
+import {
+  mockAxiosGetResponseByUrl,
+  mockAxiosPostResponseByUrl,
+  mockCardDto,
+} from './testutil/stablecoin.testhelper';
 import { CardDto } from './dto/reap/card.dto';
+import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
 
 describe('StablecoinsService', () => {
   let service: StablecoinsService;
@@ -16,8 +21,11 @@ describe('StablecoinsService', () => {
         {
           provide: HttpService,
           useValue: {
-            get: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
-            pipe: jest.fn((url: string) => mockAxiosResponseByUrl(url)),
+            get: jest.fn((url: string) => mockAxiosGetResponseByUrl(url)),
+            post: jest.fn((url: string, body: object) =>
+              mockAxiosPostResponseByUrl(url, body),
+            ),
+            pipe: jest.fn((url: string) => mockAxiosGetResponseByUrl(url)),
           },
         },
       ],
@@ -56,5 +64,16 @@ describe('StablecoinsService', () => {
       '00000000-0000-0000-0000-000000000000',
     );
     expect(cards[0]).toHaveProperty('cardName', 'John Doe');
+  });
+
+  it('createCard response should be defined', async () => {
+    const responseDto: CreateCardResponseDto =
+      await service.createCard(mockCardDto);
+    expect(responseDto).toBeDefined();
+    expect(httpService['post']).toHaveBeenCalledWith('cards', mockCardDto);
+    expect(responseDto).toHaveProperty(
+      'id',
+      '507e7dd7-5c8f-480f-9cf3-2500ae807e16',
+    );
   });
 });

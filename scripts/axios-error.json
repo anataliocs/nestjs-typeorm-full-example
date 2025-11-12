@@ -1,0 +1,46 @@
+{
+  "message": "Request failed with status code 404",
+  "name": "AxiosError",
+  "stack": "AxiosError: Request failed with status code 404\n    at settle (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/core/settle.js:19:12)\n    at Unzip.handleStreamEnd (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/adapters/http.js:617:11)\n    at Unzip.emit (node:events:530:35)\n    at endReadableNT (node:internal/streams/readable:1698:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)\n    at Axios.request (/Users/chrisanatalio/WebstormProjects/nestjs-typeorm-full-example/node_modules/.pnpm/axios@1.12.2/node_modules/axios/lib/core/Axios.js:45:41)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)",
+  "config": {
+    "transitional": {
+      "silentJSONParsing": true,
+      "forcedJSONParsing": true,
+      "clarifyTimeoutError": false
+    },
+    "adapter": [
+      "xhr",
+      "http",
+      "fetch"
+    ],
+    "transformRequest": [
+      null
+    ],
+    "transformResponse": [
+      null
+    ],
+    "timeout": 0,
+    "xsrfCookieName": "XSRF-TOKEN",
+    "xsrfHeaderName": "X-XSRF-TOKEN",
+    "maxContentLength": -1,
+    "maxBodyLength": -1,
+    "env": {},
+    "headers": {
+      "Accept": "application/json",
+      "Accept-Version": "v1.0",
+      "x-reap-api-key": "",
+      "User-Agent": "axios/1.12.2",
+      "Accept-Encoding": "gzip, compress, deflate, br"
+    },
+    "baseURL": "https://sandbox.api.caas.reap.global/",
+    "cancelToken": {
+      "promise": {},
+      "_listeners": []
+    },
+    "method": "get",
+    "url": "account/balance/er",
+    "allowAbsoluteUrls": true
+  },
+  "code": "ERR_BAD_REQUEST",
+  "status": 404
+}
