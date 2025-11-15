@@ -81,7 +81,17 @@ describe('StablecoinsService', () => {
   });
 });
 
-describe('StablecoinsService Failure Cases', () => {
+describe('StablecoinsService Client-side Failure Cases', () => {
+  const failedWithStatusCode404Msg = 'Request failed with status code 404';
+  const assertError404 = (
+    e: AxiosError<unknown, any>,
+    failedWithStatusCode404Msg: string,
+  ) => {
+    expect(e).toBeDefined();
+    expect(e).toHaveProperty('status', 404);
+    expect(e).toHaveProperty('message', failedWithStatusCode404Msg);
+  };
+
   let service: StablecoinsService;
   let httpService: HttpService;
 
@@ -93,14 +103,13 @@ describe('StablecoinsService Failure Cases', () => {
           provide: HttpService,
           useValue: {
             get: jest.fn(() =>
-              throwError(() =>
-                clientErrorResponse('Request failed with status code 404'),
-              ),
+              throwError(() => clientErrorResponse(failedWithStatusCode404Msg)),
             ),
             pipe: jest.fn(() =>
-              throwError(() =>
-                clientErrorResponse('Request failed with status code 404'),
-              ),
+              throwError(() => clientErrorResponse(failedWithStatusCode404Msg)),
+            ),
+            post: jest.fn(() =>
+              throwError(() => clientErrorResponse(failedWithStatusCode404Msg)),
             ),
           },
         },
@@ -116,29 +125,27 @@ describe('StablecoinsService Failure Cases', () => {
     expect(httpService).toBeDefined();
   });
 
-  it('call to getMasterAccountBalance fails', async () => {
+  it('call to getMasterAccountBalance fails 404', async () => {
     await service.getMasterAccountBalance().catch((e: AxiosError) => {
-      expect(e).toBeDefined();
-      expect(e).toHaveProperty('status', 404);
-      expect(e).toHaveProperty(
-        'message',
-        'Request failed with status code 404',
-      );
+      assertError404(e, failedWithStatusCode404Msg);
     });
 
     expect(httpService['get']).toHaveBeenCalledWith('account/balance');
   });
 
-  it('call to getCards fails', async () => {
+  it('call to getCards fails 404', async () => {
     await service.getCards().catch((e: AxiosError) => {
-      expect(e).toBeDefined();
-      expect(e).toHaveProperty('status', 404);
-      expect(e).toHaveProperty(
-        'message',
-        'Request failed with status code 404',
-      );
+      assertError404(e, failedWithStatusCode404Msg);
     });
 
     expect(httpService['get']).toHaveBeenCalledWith('cards');
+  });
+
+  it('call to createCard fails 404', async () => {
+    await service.createCard(mockCardDto).catch((e: AxiosError) => {
+      assertError404(e, failedWithStatusCode404Msg);
+    });
+
+    expect(httpService['post']).toHaveBeenCalledWith('cards', mockCardDto);
   });
 });
