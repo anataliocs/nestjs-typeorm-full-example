@@ -84,7 +84,7 @@ describe('StablecoinsService', () => {
 describe('StablecoinsService Client-side Failure Cases', () => {
   const failedWithStatusCode404Msg = 'Request failed with status code 404';
   const assertError404 = (
-    e: AxiosError<unknown, any>,
+    e: AxiosError,
     failedWithStatusCode404Msg: string,
   ) => {
     expect(e).toBeDefined();
@@ -126,26 +126,38 @@ describe('StablecoinsService Client-side Failure Cases', () => {
   });
 
   it('call to getMasterAccountBalance fails 404', async () => {
+    let error404: boolean = false;
     await service.getMasterAccountBalance().catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
+      error404 = true;
     });
 
+    expect(error404).toBeTruthy();
     expect(httpService['get']).toHaveBeenCalledWith('account/balance');
+    expect(httpService['get']).toHaveReturnedTimes(1);
   });
 
   it('call to getCards fails 404', async () => {
+    let error404: boolean = false;
     await service.getCards().catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
+      error404 = true;
     });
 
+    expect(error404).toBeTruthy();
     expect(httpService['get']).toHaveBeenCalledWith('cards');
+    expect(httpService['get']).toHaveReturnedTimes(1);
   });
 
   it('call to createCard fails 404', async () => {
+    let error404: boolean = false;
     await service.createCard(mockCardDto).catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
+      error404 = true;
     });
 
+    expect(error404).toBeTruthy();
     expect(httpService['post']).toHaveBeenCalledWith('cards', mockCardDto);
+    expect(httpService['post']).toHaveReturnedTimes(1);
   });
 });
