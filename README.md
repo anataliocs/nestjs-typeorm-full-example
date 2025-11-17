@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="60" alt="Nest Logo" /></a>
+</p>
+
+----
+
 ## Nestjs TypeORM Full Example
 
 <div style="text-align: center;" align="center">
@@ -16,14 +22,15 @@ Example of a NestJS application with PostgreSQL and Axios.
 
 - [Nest](https://github.com/nestjs/nest)
 - [TypeORM](https://docs.nestjs.com/techniques/database#typeorm-integration)
-- PostgreSQL
-- Swagger
-- Typescript
+- [PostgreSQL](https://www.postgresql.org/)
+- [Swagger](https://swagger.io/)
+- [Typescript](https://www.typescriptlang.org/)
 - [Endor CLI](https://docs.endor.dev/cli/)
 
 ### Docs
 - **Examples:**  https://github.com/nestjs/nest/tree/master/sample
-- **External API:**  https://reap.readme.io/reference/test-environment
+- **External API Reap:**  https://reap.readme.io/reference/test-environment
+- **Wormhole SDK:** https://github.com/wormholenetwork/wormhole-sdk
 
 ----
 

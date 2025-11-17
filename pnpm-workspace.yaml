@@ -2,4 +2,9 @@ onlyBuiltDependencies:
   - '@nestjs/core'
   - '@scarf/scarf'
   - '@swc/core'
+  - bigint-buffer
+  - bufferutil
+  - protobufjs
+  - secp256k1
   - unrs-resolver
+  - utf-8-validate
