@@ -4,21 +4,34 @@
 
 ----
 
-## Nestjs TypeORM Full Example
+<div style="text-align: center;" align="center"> 
 
-<div style="text-align: center;" align="center">
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![WebStorm](https://img.shields.io/badge/WebStorm-000?logo=webstorm&logoColor=fff)](https://www.jetbrains.com/webstorm)
+[![Polkadot](https://img.shields.io/badge/Polkadot-E6007A?logo=polkadot&logoColor=white)](https://wiki.polkadot.com/)
+[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?logo=ethereum&logoColor=white)](https://ethereum.org/)
+
 <a href="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml">
-<img alt="Build Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml/badge.svg">
-</a>
-<br/>
-<a href="https://codespaces.new/anataliocs/nestjs-typeorm-full-example">
-<img alt="Build Status" src="https://github.com/codespaces/badge.svg">
+    <img alt="Build Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml/badge.svg">
 </a>
 </div>
 
-Example of a NestJS application with PostgreSQL and Axios.
+----
 
-**Tech Stack:**
+<div style="text-align: center;" align="center"> 
+    <a href="https://codespaces.new/anataliocs/nestjs-typeorm-full-example">
+        <img alt="Build Status" src="https://github.com/codespaces/badge.svg">
+    </a>
+</div>
+
+# Nestjs TypeORM Full Example
+
+Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
+- [Reap](https://reap.readme.io/reference/test-environment)
+- [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
+- [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
+
+#### Tech Stack:
 
 - [Nest](https://github.com/nestjs/nest)
 - [TypeORM](https://docs.nestjs.com/techniques/database#typeorm-integration)
@@ -27,10 +40,11 @@ Example of a NestJS application with PostgreSQL and Axios.
 - [Typescript](https://www.typescriptlang.org/)
 - [Endor CLI](https://docs.endor.dev/cli/)
 
-### Docs
+**Docs**
 - **Examples:**  https://github.com/nestjs/nest/tree/master/sample
-- **External API Reap:**  https://reap.readme.io/reference/test-environment
+- **Reap API:**  https://reap.readme.io/reference/test-environment
 - **Wormhole SDK:** https://github.com/wormholenetwork/wormhole-sdk
+- **Peaq SDK:** https://docs.peaq.xyz/build/getting-started/install-peaq-sdk
 
 ----
 
@@ -212,5 +226,9 @@ This project is licensed under the MIT License—see the [LICENSE](./LICENSE) fi
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
+
+----
+
+[🥚](%F0%9F%A5%9A)
 
 
