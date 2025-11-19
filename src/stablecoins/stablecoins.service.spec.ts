@@ -83,13 +83,10 @@ describe('StablecoinsService', () => {
 
 describe('StablecoinsService Client-side Failure Cases', () => {
   const failedWithStatusCode404Msg = 'Request failed with status code 404';
-  const assertError404 = (
-    e: AxiosError,
-    failedWithStatusCode404Msg: string,
-  ) => {
+  const assertError404 = (e: AxiosError, expectedErrorMsg: string) => {
     expect(e).toBeDefined();
     expect(e).toHaveProperty('status', 404);
-    expect(e).toHaveProperty('message', failedWithStatusCode404Msg);
+    expect(e).toHaveProperty('message', expectedErrorMsg);
   };
 
   let service: StablecoinsService;
