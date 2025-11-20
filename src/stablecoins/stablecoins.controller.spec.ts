@@ -4,7 +4,9 @@ import { StablecoinsService } from './stablecoins.service';
 import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import {
+  assertError404,
   clientErrorResponse,
+  failedWithStatusCode404Msg,
   mockAxiosGetResponseByUrl,
   mockAxiosPostResponseByUrl,
   mockCardDto,
@@ -85,13 +87,6 @@ describe('StablecoinsController', () => {
 });
 
 describe('StablecoinsController Client-side Failure Cases', () => {
-  const failedWithStatusCode404Msg = 'Request failed with status code 404';
-  const assertError404 = (e: AxiosError, expectedErrMsg: string) => {
-    expect(e).toBeDefined();
-    expect(e).toHaveProperty('status', 404);
-    expect(e).toHaveProperty('message', expectedErrMsg);
-  };
-
   let controller: StablecoinsController;
   let httpService: HttpService;
 

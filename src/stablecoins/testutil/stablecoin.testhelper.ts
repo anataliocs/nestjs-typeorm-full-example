@@ -4,6 +4,10 @@ import { Observable, of } from 'rxjs';
 import { CardDto } from '../dto/reap/card.dto';
 import { CardWrapperDto } from '../dto/reap/card.wrapper.dto';
 import { CreateCardResponseDto } from '../dto/reap/create-card-response.dto';
+import { StablecoinsController } from '../stablecoins.controller';
+import { HttpService } from '@nestjs/axios';
+import { Test, TestingModule } from '@nestjs/testing';
+import { StablecoinsService } from '../stablecoins.service';
 
 const mockCreateCardResponseDto: CreateCardResponseDto = {
   id: '507e7dd7-5c8f-480f-9cf3-2500ae807e16',
@@ -142,3 +146,13 @@ export function mockAxiosPostResponseByUrl(
       return of(successfulResponse<AccountBalanceDto>(mockAccountDataDto));
   }
 }
+
+/*
+ * Helper functions for assertions
+ */
+export const failedWithStatusCode404Msg = 'Request failed with status code 404';
+export const assertError404 = (e: AxiosError, expectedErrMsg: string) => {
+  expect(e).toBeDefined();
+  expect(e).toHaveProperty('status', 404);
+  expect(e).toHaveProperty('message', expectedErrMsg);
+};
