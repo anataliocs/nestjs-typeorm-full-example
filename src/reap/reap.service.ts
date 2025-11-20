@@ -8,8 +8,8 @@ import { CardWrapperDto } from './dto/reap/card.wrapper.dto';
 import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
 
 @Injectable()
-export class StablecoinsService {
-  private readonly logger = new Logger(StablecoinsService.name);
+export class ReapService {
+  private readonly logger = new Logger(ReapService.name);
 
   constructor(private readonly httpService: HttpService) {}
 

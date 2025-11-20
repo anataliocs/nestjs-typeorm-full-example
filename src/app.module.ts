@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { StablecoinsController } from './stablecoins/stablecoins.controller';
-import { StablecoinsService } from './stablecoins/stablecoins.service';
+import { ReapController } from './reap/reap.controller';
+import { ReapService } from './reap/reap.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
-import { StablecoinModule } from './stablecoins/stablecoin.module';
+import { ReapModule } from './reap/reap.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 
@@ -29,7 +29,7 @@ import { HttpModule } from '@nestjs/axios';
       autoLoadEntities: true,
     }),
     UserModule,
-    StablecoinModule,
+    ReapModule,
     HttpModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -43,7 +43,7 @@ import { HttpModule } from '@nestjs/axios';
       inject: [ConfigService],
     }),
   ],
-  controllers: [StablecoinsController, UserController],
-  providers: [StablecoinsService, UserService],
+  controllers: [ReapController, UserController],
+  providers: [ReapService, UserService],
 })
 export class AppModule {}

@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { StablecoinsService } from './stablecoins.service';
+import { ReapController } from './reap.controller';
+import { ReapService } from './reap.service';
 import { HttpService } from '@nestjs/axios';
 import { AccountBalanceDto } from './dto/reap/account-balance.dto';
 import {
@@ -9,20 +10,21 @@ import {
   mockAxiosGetResponseByUrl,
   mockAxiosPostResponseByUrl,
   mockCardDto,
-} from './testutil/stablecoin.testhelper';
+} from './testutil/reap.testhelper';
 import { CardDto } from './dto/reap/card.dto';
 import { CreateCardResponseDto } from './dto/reap/create-card-response.dto';
-import { throwError } from 'rxjs';
 import { AxiosError } from 'axios';
+import { throwError } from 'rxjs';
 
-describe('StablecoinsService', () => {
-  let service: StablecoinsService;
+describe('StablecoinsController', () => {
+  let controller: ReapController;
   let httpService: HttpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [ReapController],
       providers: [
-        StablecoinsService,
+        ReapService,
         {
           provide: HttpService,
           useValue: {
@@ -43,16 +45,17 @@ describe('StablecoinsService', () => {
       .compile();
 
     httpService = module.get<HttpService>(HttpService);
-    service = module.get<StablecoinsService>(StablecoinsService);
+    controller = module.get<ReapController>(ReapController);
   });
 
   it('service and dependencies should be defined', () => {
-    expect(service).toBeDefined();
+    expect(controller).toBeDefined();
     expect(httpService).toBeDefined();
   });
 
   it('getMasterAccountBalance response should be defined', async () => {
-    const balance: AccountBalanceDto = await service.getMasterAccountBalance();
+    const balance: AccountBalanceDto =
+      await controller.getMasterAccountBalance();
     expect(balance).toBeDefined();
     expect(httpService['get']).toHaveBeenCalledWith('account/balance');
     expect(balance).toHaveProperty('availableBalance', '100');
@@ -60,7 +63,7 @@ describe('StablecoinsService', () => {
   });
 
   it('getCards response should be defined', async () => {
-    const cards: CardDto[] = await service.getCards();
+    const cards: CardDto[] = await controller.getCardsByName();
     expect(cards).toBeDefined();
     expect(httpService['get']).toHaveBeenCalledWith('cards');
     expect(cards).toHaveLength(1);
@@ -73,7 +76,7 @@ describe('StablecoinsService', () => {
 
   it('createCard response should be defined', async () => {
     const responseDto: CreateCardResponseDto =
-      await service.createCard(mockCardDto);
+      await controller.createCard(mockCardDto);
     expect(responseDto).toBeDefined();
     expect(httpService['post']).toHaveBeenCalledWith('cards', mockCardDto);
     expect(responseDto).toHaveProperty(
@@ -83,14 +86,15 @@ describe('StablecoinsService', () => {
   });
 });
 
-describe('StablecoinsService Client-side Failure Cases', () => {
-  let service: StablecoinsService;
+describe('StablecoinsController Client-side Failure Cases', () => {
+  let controller: ReapController;
   let httpService: HttpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [ReapController],
       providers: [
-        StablecoinsService,
+        ReapService,
         {
           provide: HttpService,
           useValue: {
@@ -109,17 +113,17 @@ describe('StablecoinsService Client-side Failure Cases', () => {
     }).compile();
 
     httpService = module.get<HttpService>(HttpService);
-    service = module.get<StablecoinsService>(StablecoinsService);
+    controller = module.get<ReapController>(ReapController);
   });
 
-  it('service and dependencies should be defined', () => {
-    expect(service).toBeDefined();
+  it('controller and dependencies should be defined', () => {
+    expect(controller).toBeDefined();
     expect(httpService).toBeDefined();
   });
 
   it('call to getMasterAccountBalance fails 404', async () => {
     let error404: boolean = false;
-    await service.getMasterAccountBalance().catch((e: AxiosError) => {
+    await controller.getMasterAccountBalance().catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
       error404 = true;
     });
@@ -131,7 +135,7 @@ describe('StablecoinsService Client-side Failure Cases', () => {
 
   it('call to getCards fails 404', async () => {
     let error404: boolean = false;
-    await service.getCards().catch((e: AxiosError) => {
+    await controller.getCardsByName().catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
       error404 = true;
     });
@@ -143,7 +147,7 @@ describe('StablecoinsService Client-side Failure Cases', () => {
 
   it('call to createCard fails 404', async () => {
     let error404: boolean = false;
-    await service.createCard(mockCardDto).catch((e: AxiosError) => {
+    await controller.createCard(mockCardDto).catch((e: AxiosError) => {
       assertError404(e, failedWithStatusCode404Msg);
       error404 = true;
     });
