@@ -9,6 +9,7 @@ import { UserService } from './user/user.service';
 import { ReapModule } from './reap/reap.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
+import { PeaqModule } from './peaq/peaq.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { HttpModule } from '@nestjs/axios';
       }),
       inject: [ConfigService],
     }),
+    PeaqModule,
   ],
   controllers: [ReapController, UserController],
   providers: [ReapService, UserService],

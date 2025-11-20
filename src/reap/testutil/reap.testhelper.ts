@@ -4,10 +4,6 @@ import { Observable, of } from 'rxjs';
 import { CardDto } from '../dto/reap/card.dto';
 import { CardWrapperDto } from '../dto/reap/card.wrapper.dto';
 import { CreateCardResponseDto } from '../dto/reap/create-card-response.dto';
-import { ReapController } from '../reap.controller';
-import { HttpService } from '@nestjs/axios';
-import { Test, TestingModule } from '@nestjs/testing';
-import { ReapService } from '../reap.service';
 
 const mockCreateCardResponseDto: CreateCardResponseDto = {
   id: '507e7dd7-5c8f-480f-9cf3-2500ae807e16',
