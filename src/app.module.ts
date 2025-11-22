@@ -10,6 +10,7 @@ import { ReapModule } from './reap/reap.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
 import { PeaqModule } from './peaq/peaq.module';
+import { PeaqSdkModule } from './peaqsdk/peaqSdkModule';
 
 @Module({
   imports: [
@@ -42,6 +43,9 @@ import { PeaqModule } from './peaq/peaq.module';
         },
       }),
       inject: [ConfigService],
+    }),
+    PeaqSdkModule.register({
+      rpcServerUrl: 'https://quicknode1.peaq.xyz',
     }),
     PeaqModule,
   ],
