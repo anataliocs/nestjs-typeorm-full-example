@@ -10,14 +10,21 @@ async function bootstrap() {
     cors: false, // Only disable CORS locally
   } as NestApplicationOptions);
 
+  const logger = new Logger(NestApplication.name);
+
   const config = new DocumentBuilder()
-    .setTitle('Reap API example')
-    .setDescription('The Reap API description')
+    .setTitle('Web3 SDK/API integration examples')
+    .setDescription(
+      'Examples of integrating Web3 SDK/APIs into NestJS applications.',
+    )
     .setVersion('1.0')
-    .addTag('stablecoin')
+    .addTag(
+      'reap, peaq, sdk, web3, nestjs, ethereum, blockchain, api, sdk-integration',
+    )
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
+  logger.log(`Swagger Open API docs enabled: ${config.info.title}}`);
 
   //TODO only enable this is local an dev envs
   app.enableCors({
@@ -38,14 +45,15 @@ async function bootstrap() {
       true,
     ],
   } as CorsOptions);
+  logger.log(`WARNING: CORS is enabled for local development only.`);
 
   app.enableVersioning({
     type: VersioningType.URI,
   });
+  logger.log(`API versioning enabled.`);
+
   const DEFAULT_PORT = 3000;
   await app.listen(process.env.PORT ?? DEFAULT_PORT);
-
-  const logger = new Logger(NestApplication.name);
 
   logger.log(
     `Application is running on: http://${process.env.APP_URL}:${process.env.PORT ?? DEFAULT_PORT}`,
