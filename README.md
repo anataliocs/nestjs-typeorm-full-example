@@ -70,7 +70,40 @@ pnpm db
 pnpm dev
 ```
 
+### Setup Config
+
+**Setup `.env` file:**
+Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
+
+```dotenv
+REAP_BASE_URL=https://sandbox.api.caas.reap.global/
+REAP_API_KEY=
+REAP_DOCS=https://reap.readme.io/reference/test-environment
+APP_URL=127.0.0.1
+PEAQ_RPC_SERVER_URL=https://quicknode1.peaq.xyz
+PEAQ_WSS_SERVER_URL=wss://quicknode1.peaq.xyz
+ETH_DEV_SEED=
+```
+
+**Install Foundry CLI:**
+[Foundry](https://getfoundry.sh/introduction/installation) is a CLI too suite for working with Ethereum/Solidity smart contracts.
+We will use `cast` to create a new wallet.
+
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+```
+
+**Create a new EVM wallet:**
+Set this as your `ETH_DEV_SEED`.  Only use this for dev.
+https://getfoundry.sh/cast/reference/wallet
+```bash
+cast wallet new
+```
+- Fund wallet with peaq: https://docs.peaq.xyz/build/getting-started/fund-your-wallet
+
 **Open browser:**
+After starting the service, open the following:
 * Swagger API Docs:  http://127.0.0.1:3000/api
 * http://127.0.0.1:3000/
 
@@ -123,7 +156,7 @@ npm install -g @endorhq/cli
 endor run postgres
 ```
 
-**Connect to PostgreSQL**
+**Connect to PostgreSQL via CLI**
 
 ```bash
 psql -h localhost -U postgres -d postgres
