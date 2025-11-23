@@ -7,6 +7,11 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Sdk } from '@peaq-network/sdk';
+import {
+  ChainType,
+  CreateInstanceOptions,
+} from '@peaq-network/sdk/src/types/common';
+import { PeaqConfigDataTypes } from './peaqConfig';
 
 const NOT_CONNECTED = 'Not Connected';
 const CONNECTED = 'Connected';
@@ -18,10 +23,14 @@ type AsyncRpcServerProvider = () => Promise<PeaqSdk>;
 export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
   private readonly logger = new Logger(PeaqSdkService.name);
 
-  get rpcServer() {
+  get rpcServer(): PeaqSdk {
     if (!this._rpcServer || this._rpcServerStatus === NOT_CONNECTED)
       throw new Error(`Peaq SDK Rpc Server is not initialized.`);
     return this._rpcServer;
+  }
+
+  get rpcServerStatus(): string {
+    return this._rpcServerStatus;
   }
 
   private readonly _rpcServerProvider: AsyncRpcServerProvider;
@@ -29,19 +38,23 @@ export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
   private _rpcServerStatus: string = NOT_CONNECTED;
   private readonly _rpcServerUrl: string;
 
-  // https://docs.peaq.xyz/sdk-reference/javascript/create-instance
   constructor(
     private configService: ConfigService,
-    @Inject('CONFIG_OPTIONS') private options: Record<string, string>,
+    @Inject('CONFIG_OPTIONS')
+    private options: Record<string, PeaqConfigDataTypes>,
   ) {
+    // Use environment variable if set, otherwise use the value from module options
     this._rpcServerUrl =
       this.configService.get<string>('PEAQ_RPC_SERVER_URL') ||
       options.rpcServerUrl;
+    // https://docs.peaq.xyz/sdk-reference/javascript/create-instance
     this._rpcServerProvider = async () =>
       await Sdk.createInstance({
+        chainType: options.chainType as ChainType,
         baseUrl: this._rpcServerUrl,
-        chainType: Sdk.ChainType.EVM,
-      });
+      } as CreateInstanceOptions);
+
+    this.logger.log(`Peaq SDK Rpc Server Type: ${options.chainType}`);
   }
 
   async onModuleInit() {

@@ -1,7 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get, Header, HttpCode, Version } from '@nestjs/common';
 import { PeaqService } from './peaq.service';
 
-@Controller('peaq')
+@Controller('/peaq')
 export class PeaqController {
   constructor(private readonly peaqService: PeaqService) {}
+
+  @Version('1')
+  @Get('/server-status')
+  @Header('Cache-Control', 'no-store')
+  @HttpCode(200)
+  getMasterAccountBalance(): string {
+    // Call Service layer to get balance
+    return this.peaqService.serverStatus();
+  }
 }

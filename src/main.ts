@@ -24,7 +24,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-  logger.log(`Swagger Open API docs enabled: ${config.info.title}}`);
+  logger.log(`Swagger Open API docs enabled: ${config.info.title}`);
 
   //TODO only enable this is local an dev envs
   app.enableCors({
@@ -45,7 +45,7 @@ async function bootstrap() {
       true,
     ],
   } as CorsOptions);
-  logger.log(`WARNING: CORS is enabled for local development only.`);
+  logger.warn(`WARNING: CORS is enabled for local development only.`);
 
   app.enableVersioning({
     type: VersioningType.URI,

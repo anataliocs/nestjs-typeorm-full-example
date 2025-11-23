@@ -2,15 +2,16 @@ import { Module } from '@nestjs/common';
 import { ReapController } from './reap/reap.controller';
 import { ReapService } from './reap/reap.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
-import { ReapModule } from './reap/reap.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
-import { PeaqModule } from './peaq/peaq.module';
 import { PeaqSdkModule } from './peaqsdk/peaqSdkModule';
+import { Sdk } from '@peaq-network/sdk';
+import { PeaqController } from './peaq/peaq.controller';
+import { PeaqService } from './peaq/peaq.service';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -30,8 +31,6 @@ import { PeaqSdkModule } from './peaqsdk/peaqSdkModule';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    UserModule,
-    ReapModule,
     HttpModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -45,11 +44,14 @@ import { PeaqSdkModule } from './peaqsdk/peaqSdkModule';
       inject: [ConfigService],
     }),
     PeaqSdkModule.register({
+      // Environment variable PEAQ_RPC_SERVER_URL, if set, will override this default value
       rpcServerUrl: 'https://quicknode1.peaq.xyz',
+      chainType: Sdk.ChainType.EVM,
     }),
-    PeaqModule,
+    UserModule,
   ],
-  controllers: [ReapController, UserController],
-  providers: [ReapService, UserService],
+  controllers: [ReapController, UserController, PeaqController],
+  providers: [ReapService, UserService, PeaqService],
+  exports: [PeaqSdkModule],
 })
 export class AppModule {}

@@ -16,6 +16,15 @@ GET {{host}}/v1/reap/cards
   });
 %}
 
+### GET request for peaq server status
+GET {{host}}/v1/peaq/server-status
+
+> {%
+  client.test("Get peaq server status request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
 ### GET request for local users
 GET {{host}}/user
 
