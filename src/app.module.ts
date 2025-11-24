@@ -16,6 +16,8 @@ import { WormholeModule } from './wormhole/wormhole.module';
 import { WormholeSdkModule } from './wormholesdk/wormholeSdkModule';
 import { WormholeController } from './wormhole/wormhole.controller';
 import { WormholeService } from './wormhole/wormhole.service';
+import evm from '@wormhole-foundation/sdk/evm';
+import solana from '@wormhole-foundation/sdk/solana';
 
 @Module({
   imports: [
@@ -56,6 +58,7 @@ import { WormholeService } from './wormhole/wormhole.service';
     WormholeModule,
     WormholeSdkModule.register({
       wormholeNetwork: 'Testnet',
+      platformArray: [evm, solana],
     }),
   ],
   controllers: [

@@ -27,6 +27,7 @@
 # Nestjs TypeORM Full Example
 
 Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
+
 - [Reap](https://reap.readme.io/reference/test-environment)
 - [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
@@ -41,12 +42,14 @@ Example of a NestJS application with PostgreSQL and Axios integrating into multi
 - [Endor CLI](https://docs.endor.dev/cli/)
 
 **Docs**
-- **Examples:**  https://github.com/nestjs/nest/tree/master/sample
-- **Reap API:**  https://reap.readme.io/reference/test-environment
+
+- **Nest.js Examples:**  https://github.com/nestjs/nest/tree/master/sample
+- **Reap API:**  https://reap.readme.io/docs/
 - **Wormhole SDK:** https://wormhole.com/docs/
 - **Peaq SDK:** https://docs.peaq.xyz/home
 
 **Block Explorers**
+
 - https://wormholescan.io/
 - https://peaqscan.xyz/
 
@@ -55,6 +58,7 @@ Example of a NestJS application with PostgreSQL and Axios integrating into multi
 ## Quick Start
 
 **Build/install and add Endor cli.**
+
 ```bash
 pnpm install
 npm install -g @endorhq/cli
@@ -90,7 +94,8 @@ ETH_DEV_SEED=
 ```
 
 **Install Foundry CLI:**
-[Foundry](https://getfoundry.sh/introduction/installation) is a CLI too suite for working with Ethereum/Solidity smart contracts.
+[Foundry](https://getfoundry.sh/introduction/installation) is a CLI too suite for working with Ethereum/Solidity smart
+contracts.
 We will use `cast` to create a new wallet.
 
 ```bash
@@ -99,15 +104,18 @@ foundryup
 ```
 
 **Create a new EVM wallet:**
-Set this as your `ETH_DEV_SEED`.  Only use this for dev.
+Set this as your `ETH_DEV_SEED`. Only use this for dev.
 https://getfoundry.sh/cast/reference/wallet
+
 ```bash
 cast wallet new
 ```
+
 - Fund wallet with peaq: https://docs.peaq.xyz/build/getting-started/fund-your-wallet
 
 **Open browser:**
 After starting the service, open the following:
+
 * Swagger API Docs:  http://127.0.0.1:3000/api
 * Home page: http://127.0.0.1:3000/
 

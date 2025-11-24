@@ -6,8 +6,13 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Network, Wormhole, wormhole } from '@wormhole-foundation/sdk';
-import evm from '@wormhole-foundation/sdk/evm';
+import {
+  Network,
+  PlatformLoader,
+  Wormhole,
+  wormhole,
+} from '@wormhole-foundation/sdk';
+import { WormholeConfigDataTypes } from './wormholeConfig';
 
 const NOT_CONNECTED = 'Not Connected';
 const CONNECTED = 'Connected';
@@ -37,20 +42,30 @@ export class WormholeSdkService implements OnApplicationShutdown, OnModuleInit {
   constructor(
     private configService: ConfigService,
     @Inject('CONFIG_OPTIONS')
-    private options: Record<string, string>,
+    private options: Record<string, WormholeConfigDataTypes>,
   ) {
     this._wormholeProvider = async () =>
-      await wormhole(options.wormholeNetwork as Network, [evm]);
+      await wormhole(
+        options.wormholeNetwork as Network,
+        options.platformArray as PlatformLoader<any>[],
+      );
   }
 
   async onModuleInit() {
     this._wormhole = await this._wormholeProvider();
     this._wormholeServerStatus = CONNECTED;
+
     this.logger.log(
       `Wormhole SDK Server Status: ${this._wormholeServerStatus} - Wormhole network: ${this._wormhole.network}`,
     );
     this.logger.log(
       `Wormhole SDK Server API URL: ${this._wormhole.config.api}`,
+    );
+    this.logger.log(
+      `Wormhole SDK Server Circle API URL: ${this._wormhole.config.circleAPI}`,
+    );
+    this.logger.log(
+      `Wormhole SDK Server Executor API URL: ${this._wormhole.config.executorAPI}`,
     );
   }
 

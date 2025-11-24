@@ -1,4 +1,3 @@
-import { ChainType } from '@peaq-network/sdk/src/types/common';
 import type { Network, PlatformLoader } from '@wormhole-foundation/sdk';
 
 /*type SupportedChains =
@@ -31,4 +30,4 @@ export interface WormholeConfig {
 
 export const CONFIG_OPTIONS = 'CONFIG_OPTIONS';
 
-export type PeaqConfigDataTypes = string | ChainType;
+export type WormholeConfigDataTypes = Network | PlatformLoader<any>[];
