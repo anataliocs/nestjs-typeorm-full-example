@@ -24,7 +24,7 @@
     </a>
 </div>
 
-# Nestjs TypeORM Full Example
+# Nestjs TypeORM Full Example for Web3 SDKs
 
 Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
 
@@ -125,42 +125,16 @@ After starting the service, open the following:
 
 http://localhost:3000/api
 
-**Add Swagger OpenAPI Docs:**
-
-```bash
-pnpm add @nestjs/swagger
-```
-
-**Add Swagger Docs to `main.ts`**
-
-```typescript
-  const config = new DocumentBuilder()
-  .setTitle('Treasury example')
-  .setDescription('The Treasury API description')
-  .setVersion('1.0')
-  .addTag('stablecoin')
-  .build();
-const documentFactory = () => SwaggerModule.createDocument(app, config);
-SwaggerModule.setup('api', app, documentFactory);
-```
-
-## Project setup
-
-```bash
-$ pnpm install
-```
-
 ## Run local PostgreSQL
+
+The command pnpm db abstracts away the complexity of running a local PostgreSQL node.  
+Here are more details on how it's used.
 
 https://docs.endor.dev/cli/services/postgres/
 
 **Endor CLI:**
 A lightweight developer tool to run local cloud services (like PostgreSQL) with one command
 using reproducible containers. See docs: https://docs.endor.dev/cli/
-
-```bash
-npm install -g @endorhq/cli
-```
 
 **Endor PostgreSQL**
 
@@ -174,7 +148,7 @@ endor run postgres
 psql -h localhost -U postgres -d postgres
 ```
 
-## Compile and run the project
+## Run the Project in Different Environments
 
 ```bash
 # development
@@ -189,7 +163,7 @@ $ pnpm run start:prod
 
 ----
 
-## NestJS CLI
+## NestJS CLI Usage
 
 https://docs.nestjs.com/cli/overview
 

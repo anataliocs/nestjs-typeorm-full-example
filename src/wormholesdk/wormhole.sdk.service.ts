@@ -26,7 +26,7 @@ export class WormholeSdkService implements OnApplicationShutdown, OnModuleInit {
 
   get wormholeServer(): WormholeServer {
     if (!this._wormhole || this._wormholeServerStatus === NOT_CONNECTED)
-      throw new Error(`Peaq SDK Rpc Server is not initialized.`);
+      throw new Error(`Wormhole SDK Server is not initialized.`);
     return this._wormhole;
   }
 
