@@ -13,6 +13,9 @@ import { PeaqController } from './peaq/peaq.controller';
 import { PeaqService } from './peaq/peaq.service';
 import { UserModule } from './user/user.module';
 import { WormholeModule } from './wormhole/wormhole.module';
+import { WormholeSdkModule } from './wormholesdk/wormholeSdkModule';
+import { WormholeController } from './wormhole/wormhole.controller';
+import { WormholeService } from './wormhole/wormhole.service';
 
 @Module({
   imports: [
@@ -51,9 +54,17 @@ import { WormholeModule } from './wormhole/wormhole.module';
     }),
     UserModule,
     WormholeModule,
+    WormholeSdkModule.register({
+      wormholeNetwork: 'Testnet',
+    }),
   ],
-  controllers: [ReapController, UserController, PeaqController],
-  providers: [ReapService, UserService, PeaqService],
-  exports: [PeaqSdkModule],
+  controllers: [
+    ReapController,
+    UserController,
+    PeaqController,
+    WormholeController,
+  ],
+  providers: [ReapService, UserService, PeaqService, WormholeService],
+  exports: [PeaqSdkModule, WormholeSdkModule],
 })
 export class AppModule {}
