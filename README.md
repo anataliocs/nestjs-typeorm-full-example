@@ -43,8 +43,12 @@ Example of a NestJS application with PostgreSQL and Axios integrating into multi
 **Docs**
 - **Examples:**  https://github.com/nestjs/nest/tree/master/sample
 - **Reap API:**  https://reap.readme.io/reference/test-environment
-- **Wormhole SDK:** https://github.com/wormholenetwork/wormhole-sdk
-- **Peaq SDK:** https://docs.peaq.xyz/build/getting-started/install-peaq-sdk
+- **Wormhole SDK:** https://wormhole.com/docs/
+- **Peaq SDK:** https://docs.peaq.xyz/home
+
+**Block Explorers**
+- https://wormholescan.io/
+- https://peaqscan.xyz/
 
 ----
 
@@ -105,7 +109,7 @@ cast wallet new
 **Open browser:**
 After starting the service, open the following:
 * Swagger API Docs:  http://127.0.0.1:3000/api
-* http://127.0.0.1:3000/
+* Home page: http://127.0.0.1:3000/
 
 ----
 

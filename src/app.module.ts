@@ -12,6 +12,7 @@ import { Sdk } from '@peaq-network/sdk';
 import { PeaqController } from './peaq/peaq.controller';
 import { PeaqService } from './peaq/peaq.service';
 import { UserModule } from './user/user.module';
+import { WormholeModule } from './wormhole/wormhole.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { UserModule } from './user/user.module';
       chainType: Sdk.ChainType.EVM,
     }),
     UserModule,
+    WormholeModule,
   ],
   controllers: [ReapController, UserController, PeaqController],
   providers: [ReapService, UserService, PeaqService],
