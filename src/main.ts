@@ -61,6 +61,9 @@ async function bootstrap() {
   logger.log(
     `Swagger docs are at: http://${process.env.APP_URL}:${process.env.PORT ?? DEFAULT_PORT}/api`,
   );
+  logger.log(
+    `Swagger JSON is at: http://${process.env.APP_URL}:${process.env.PORT ?? DEFAULT_PORT}/api-json`,
+  );
   logger.log(`Reap API docs are at: ${process.env.REAP_DOCS}`);
 }
 

@@ -22,12 +22,19 @@ export class WormholeService {
   getChainContext(platform: string): ChainConfigDto {
     assertChain(platform);
 
-    const chainContext =
-      this.wormholeSdkService.wormholeServer.getChain<Chain>(platform);
+    const chainConfig =
+      this.wormholeSdkService.wormholeServer.getChain<Chain>(platform).config;
 
     return {
-      chainId: chainContext.config.chainId,
-      rpc: chainContext.config.rpc || '',
+      chainId: chainConfig.chainId,
+      rpc: chainConfig.rpc || '',
+      platform: chainConfig.platform || '',
+      network: chainConfig.network || '',
+      blockTime: chainConfig.blockTime,
+      finality: chainConfig.finalityThreshold,
+      nativeTokenDecimals: chainConfig.nativeTokenDecimals,
+      wrappedNativeSymbol: chainConfig.wrappedNative?.symbol || '',
+      coreBridgeAddress: chainConfig.contracts.coreBridge || '',
     } as ChainConfigDto;
   }
 }
