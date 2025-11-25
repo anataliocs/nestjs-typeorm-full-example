@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { WormholeService } from './wormhole.service';
 import { ChainConfigDto } from './dto/chain-config.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('/wormhole')
 export class WormholeController {
@@ -31,6 +32,11 @@ export class WormholeController {
     return this.wormholeService.network();
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'Chain Configuration info',
+    type: ChainConfigDto,
+  })
   @Version('1')
   @Get('/chain-context/:platform')
   @Header('Cache-Control', 'no-store')

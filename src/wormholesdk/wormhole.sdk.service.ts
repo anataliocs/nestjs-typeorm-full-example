@@ -6,16 +6,9 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  Network,
-  PlatformLoader,
-  Wormhole,
-  wormhole,
-} from '@wormhole-foundation/sdk';
-import { WormholeConfigDataTypes } from './wormholeConfig';
-
-const NOT_CONNECTED = 'Not Connected';
-const CONNECTED = 'Connected';
+import { Wormhole, wormhole } from '@wormhole-foundation/sdk';
+import { CONFIG_OPTIONS, ServerStatus } from '../sdk/sdk.common';
+import * as wormholeSdkConfig from './wormholeSdkConfig';
 
 export type WormholeServer = Wormhole<'Testnet' | 'Devnet' | 'Mainnet'>;
 type AsyncWormholeProvider = () => Promise<WormholeServer>;
@@ -24,8 +17,24 @@ type AsyncWormholeProvider = () => Promise<WormholeServer>;
 export class WormholeSdkService implements OnApplicationShutdown, OnModuleInit {
   private readonly logger = new Logger(WormholeSdkService.name);
 
+  private readonly _wormholeProvider: AsyncWormholeProvider;
+  private _wormhole: WormholeServer;
+  private _wormholeServerStatus: ServerStatus = ServerStatus.NotConnected;
+
+  constructor(
+    private configService: ConfigService,
+    @Inject(CONFIG_OPTIONS)
+    private options: wormholeSdkConfig.WormholeSdkConfig,
+  ) {
+    this._wormholeProvider = async () =>
+      await wormhole(options.wormholeNetwork, options.platformArray);
+  }
+
   get wormholeServer(): WormholeServer {
-    if (!this._wormhole || this._wormholeServerStatus === NOT_CONNECTED)
+    if (
+      !this._wormhole ||
+      this._wormholeServerStatus === ServerStatus.NotConnected
+    )
       throw new Error(`Wormhole SDK Server is not initialized.`);
     return this._wormhole;
   }
@@ -34,26 +43,9 @@ export class WormholeSdkService implements OnApplicationShutdown, OnModuleInit {
     return this._wormholeServerStatus;
   }
 
-  private readonly _wormholeProvider: AsyncWormholeProvider;
-  private _wormhole: WormholeServer;
-  private _wormholeServerStatus: string = NOT_CONNECTED;
-  private readonly _wormholeEnv: string;
-
-  constructor(
-    private configService: ConfigService,
-    @Inject('CONFIG_OPTIONS')
-    private options: Record<string, WormholeConfigDataTypes>,
-  ) {
-    this._wormholeProvider = async () =>
-      await wormhole(
-        options.wormholeNetwork as Network,
-        options.platformArray as PlatformLoader<any>[],
-      );
-  }
-
   async onModuleInit() {
     this._wormhole = await this._wormholeProvider();
-    this._wormholeServerStatus = CONNECTED;
+    this._wormholeServerStatus = ServerStatus.Connected;
 
     this.logger.log(
       `Wormhole SDK Server Status: ${this._wormholeServerStatus} - Wormhole network: ${this._wormhole.network}`,
@@ -70,7 +62,7 @@ export class WormholeSdkService implements OnApplicationShutdown, OnModuleInit {
   }
 
   onApplicationShutdown(_signal?: string) {
-    this._wormholeServerStatus = NOT_CONNECTED;
+    this._wormholeServerStatus = ServerStatus.NotConnected;
     this.logger.log(`Closing Wormhole SDK Server Connection: ${_signal}`);
   }
 }

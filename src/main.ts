@@ -18,9 +18,7 @@ async function bootstrap() {
       'Examples of integrating Web3 SDK/APIs into NestJS applications.',
     )
     .setVersion('1.0')
-    .addTag(
-      'reap, peaq, sdk, web3, nestjs, ethereum, blockchain, api, sdk-integration',
-    )
+    .addTag('reap, peaq, wormhole, sdk, web3, nestjs')
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);

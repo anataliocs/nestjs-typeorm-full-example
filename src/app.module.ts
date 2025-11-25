@@ -17,6 +17,8 @@ import { WormholeController } from './wormhole/wormhole.controller';
 import { WormholeService } from './wormhole/wormhole.service';
 import evm from '@wormhole-foundation/sdk/evm';
 import solana from '@wormhole-foundation/sdk/solana';
+import { WormholeSdkConfig } from './wormholesdk/wormholeSdkConfig';
+import { PeaqSdkConfig } from './peaqsdk/peaqSdkConfig';
 
 @Module({
   imports: [
@@ -52,12 +54,12 @@ import solana from '@wormhole-foundation/sdk/solana';
       // Environment variable PEAQ_RPC_SERVER_URL, if set, will override this default value
       rpcServerUrl: 'https://quicknode1.peaq.xyz',
       chainType: Sdk.ChainType.EVM,
-    }),
+    } as PeaqSdkConfig),
     UserModule,
     WormholeSdkModule.register({
       wormholeNetwork: 'Testnet',
       platformArray: [evm, solana],
-    }),
+    } as WormholeSdkConfig),
   ],
   controllers: [
     ReapController,
