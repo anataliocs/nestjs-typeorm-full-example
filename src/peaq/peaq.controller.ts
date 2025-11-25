@@ -9,7 +9,7 @@ export class PeaqController {
   @Get('/server-status')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getMasterAccountBalance(): string {
+  getServerStatus(): string {
     // Call Service layer to get balance
     return this.peaqService.serverStatus();
   }

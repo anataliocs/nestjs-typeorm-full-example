@@ -12,7 +12,6 @@ import { Sdk } from '@peaq-network/sdk';
 import { PeaqController } from './peaq/peaq.controller';
 import { PeaqService } from './peaq/peaq.service';
 import { UserModule } from './user/user.module';
-import { WormholeModule } from './wormhole/wormhole.module';
 import { WormholeSdkModule } from './wormholesdk/wormholeSdkModule';
 import { WormholeController } from './wormhole/wormhole.controller';
 import { WormholeService } from './wormhole/wormhole.service';
@@ -22,7 +21,7 @@ import solana from '@wormhole-foundation/sdk/solana';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local', '.env'],
+      envFilePath: ['.env.dev.local', '.env'],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
@@ -55,7 +54,6 @@ import solana from '@wormhole-foundation/sdk/solana';
       chainType: Sdk.ChainType.EVM,
     }),
     UserModule,
-    WormholeModule,
     WormholeSdkModule.register({
       wormholeNetwork: 'Testnet',
       platformArray: [evm, solana],

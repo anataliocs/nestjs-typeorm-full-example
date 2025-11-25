@@ -8,7 +8,7 @@ import { Sdk } from '@peaq-network/sdk';
 
 @Module({
   imports: [
-    ConfigModule,
+    ConfigModule.forRoot(),
     PeaqSdkModule.register({
       // Environment variable PEAQ_RPC_SERVER_URL, if set, will override this default value
       rpcServerUrl: 'https://quicknode1.peaq.xyz',
