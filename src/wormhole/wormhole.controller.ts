@@ -1,5 +1,13 @@
-import { Controller, Get, Header, HttpCode, Version } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Header,
+  HttpCode,
+  Param,
+  Version,
+} from '@nestjs/common';
 import { WormholeService } from './wormhole.service';
+import { ChainConfigDto } from './dto/chain-config.dto';
 
 @Controller('/wormhole')
 export class WormholeController {
@@ -12,5 +20,23 @@ export class WormholeController {
   getServerStatus(): string {
     // Call Service layer to get balance
     return this.wormholeService.serverStatus();
+  }
+
+  @Version('1')
+  @Get('/network')
+  @Header('Cache-Control', 'no-store')
+  @HttpCode(200)
+  network(): string {
+    // Call Service layer to get balance
+    return this.wormholeService.network();
+  }
+
+  @Version('1')
+  @Get('/chain-context/:platform')
+  @Header('Cache-Control', 'no-store')
+  @HttpCode(200)
+  chainContext(@Param('platform') platform: string): ChainConfigDto {
+    //TODO capitalize first letter filter
+    return this.wormholeService.getChainContext(platform);
   }
 }

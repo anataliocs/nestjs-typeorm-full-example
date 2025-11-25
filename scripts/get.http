@@ -25,11 +25,29 @@ GET {{host}}/v1/peaq/server-status
   });
 %}
 
-### GET request for peaq server status
+### GET request for Wormhole server status
 GET {{host}}/v1/wormhole/server-status
 
 > {%
   client.test("Get wormhole server status request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
+### GET request for Wormhole network
+GET {{host}}/v1/wormhole/network
+
+> {%
+  client.test("Get wormhole network request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
+### GET request for Wormhole chain context
+GET {{host}}/v1/wormhole/chain-context/Solana
+
+> {%
+  client.test("Get wormhole chain context successful", function() {
     client.assert(response.status === 200, "Status is NOT 200");
   });
 %}

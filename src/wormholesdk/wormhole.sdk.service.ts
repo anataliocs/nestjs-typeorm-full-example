@@ -17,7 +17,7 @@ import { WormholeConfigDataTypes } from './wormholeConfig';
 const NOT_CONNECTED = 'Not Connected';
 const CONNECTED = 'Connected';
 
-type WormholeServer = Wormhole<'Testnet' | 'Devnet' | 'Mainnet'>;
+export type WormholeServer = Wormhole<'Testnet' | 'Devnet' | 'Mainnet'>;
 type AsyncWormholeProvider = () => Promise<WormholeServer>;
 
 @Injectable()
