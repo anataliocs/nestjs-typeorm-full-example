@@ -7,18 +7,18 @@ import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { HttpModule } from '@nestjs/axios';
-import { PeaqSdkModule } from './peaqsdk/peaqSdkModule';
 import { Sdk } from '@peaq-network/sdk';
 import { PeaqController } from './peaq/peaq.controller';
 import { PeaqService } from './peaq/peaq.service';
 import { UserModule } from './user/user.module';
-import { WormholeSdkModule } from './wormholesdk/wormholeSdkModule';
 import { WormholeController } from './wormhole/wormhole.controller';
 import { WormholeService } from './wormhole/wormhole.service';
 import evm from '@wormhole-foundation/sdk/evm';
 import solana from '@wormhole-foundation/sdk/solana';
 import { WormholeSdkConfig } from './wormholesdk/wormholeSdkConfig';
 import { PeaqSdkConfig } from './peaqsdk/peaqSdkConfig';
+import { PeaqSdkModule } from './peaqsdk/peaqSdk.module';
+import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
 
 @Module({
   imports: [
