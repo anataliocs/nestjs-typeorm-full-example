@@ -37,6 +37,7 @@
     "@swc/core": "^1.13.5",
     "@wormhole-foundation/sdk": "^4.0.0",
     "axios": "^1.13.0",
+    "ethers": "^6.16.0",
     "mysql2": "^3.15.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.2.2",

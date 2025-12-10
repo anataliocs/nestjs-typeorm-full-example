@@ -31,6 +31,7 @@ Example of a NestJS application with PostgreSQL and Axios integrating into multi
 - [Reap](https://reap.readme.io/reference/test-environment)
 - [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
+- [Ethers](https://docs.ethers.org/v6/)
 
 #### Tech Stack:
 
