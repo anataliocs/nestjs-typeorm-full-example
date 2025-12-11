@@ -19,6 +19,7 @@ import { WormholeSdkConfig } from './wormholesdk/wormholeSdkConfig';
 import { PeaqSdkConfig } from './peaqsdk/peaqSdkConfig';
 import { PeaqSdkModule } from './peaqsdk/peaqSdk.module';
 import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
+import { EthersModule } from './ethers/ethers.module';
 
 @Module({
   imports: [
@@ -60,6 +61,7 @@ import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
       wormholeNetwork: 'Testnet',
       platformArray: [evm, solana],
     } as WormholeSdkConfig),
+    EthersModule,
   ],
   controllers: [
     ReapController,

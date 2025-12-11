@@ -28,10 +28,25 @@
 
 Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
 
+This project modularizes popular Web3 SDKs, handles the lifecycle management, abstracts away complexity, adds
+configuration mgmt and exposes simplified interfaces in common REST API, GraphQL, Websocket and SSE endpoints.
+
+The resulting NestJS app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
+microservice-oriented backend for a decentralized application.
+
 - [Reap](https://reap.readme.io/reference/test-environment)
 - [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
 - [Ethers](https://docs.ethers.org/v6/)
+
+**WIP**
+
+- GraphQL
+- Websockets
+- SSE
+- Observability
+- K8s readiness
+- Other production readiness features
 
 #### Tech Stack:
 
