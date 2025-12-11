@@ -19,7 +19,9 @@ import { WormholeSdkConfig } from './wormholesdk/wormholeSdkConfig';
 import { PeaqSdkConfig } from './peaqsdk/peaqSdkConfig';
 import { PeaqSdkModule } from './peaqsdk/peaqSdk.module';
 import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
-import { EthersModule } from './ethers/ethers.module';
+import { EthersSdkModule } from './etherssdk/ethersSdk.module';
+import { EthersController } from './ethers/ethers.controller';
+import { EthersService } from './ethers/ethers.service';
 
 @Module({
   imports: [
@@ -61,15 +63,25 @@ import { EthersModule } from './ethers/ethers.module';
       wormholeNetwork: 'Testnet',
       platformArray: [evm, solana],
     } as WormholeSdkConfig),
-    EthersModule,
+    EthersSdkModule.register({
+      rpcServerUrl: '',
+      network: 'Testnet',
+    }),
   ],
   controllers: [
     ReapController,
     UserController,
     PeaqController,
     WormholeController,
+    EthersController,
   ],
-  providers: [ReapService, UserService, PeaqService, WormholeService],
+  providers: [
+    ReapService,
+    UserService,
+    PeaqService,
+    WormholeService,
+    EthersService,
+  ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })
 export class AppModule {}
