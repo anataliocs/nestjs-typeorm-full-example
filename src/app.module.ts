@@ -22,6 +22,7 @@ import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
 import { EthersSdkModule } from './etherssdk/ethersSdk.module';
 import { EthersController } from './ethers/ethers.controller';
 import { EthersService } from './ethers/ethers.service';
+import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
 
 @Module({
   imports: [
@@ -64,9 +65,9 @@ import { EthersService } from './ethers/ethers.service';
       platformArray: [evm, solana],
     } as WormholeSdkConfig),
     EthersSdkModule.register({
-      rpcServerUrl: '',
+      rpcServerUrl: 'https://mainnet.infura.io/v3/',
       network: 'Testnet',
-    }),
+    } as EthersSdkConfig),
   ],
   controllers: [
     ReapController,

@@ -52,6 +52,15 @@ GET {{host}}/v1/wormhole/chain-context/Solana
   });
 %}
 
+### GET request for Ethers server status
+GET {{host}}/v1/ethers/server-status
+
+> {%
+  client.test("Get ethers server status request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
 ### GET request for local users
 GET {{host}}/user
 

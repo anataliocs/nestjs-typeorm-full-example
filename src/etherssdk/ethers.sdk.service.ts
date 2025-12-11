@@ -29,7 +29,7 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
   private readonly _rpcServer: EthersProvider;
   private _rpcServerStatus: ServerStatus = ServerStatus.NotConnected;
   private readonly _rpcServerUrl: string;
-  private _network;
+  private _network: string | ethers.Network;
 
   constructor(
     private configService: ConfigService,
@@ -40,12 +40,13 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
     this._rpcServerUrl =
       this.configService.get<string>('ETHERS_RPC_SERVER_URL') ||
       options.rpcServerUrl;
+    this._network = options.network;
     // https://docs.ethers.org/v6/api/providers/jsonrpc/#JsonRpcProvider
     this._rpcServer = new ethers.JsonRpcProvider(
       this._rpcServerUrl + this.configService.get<string>('ETHERS_RPC_API_KEY'),
     );
 
-    this.logger.log(`Ethers SDK Rpc Server Type: ${options.network}`);
+    this.logger.log(`Ethers SDK Rpc Server Type: ${this._network}`);
   }
 
   async onModuleInit() {
