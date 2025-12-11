@@ -1,33 +1,18 @@
-import {
-  Inject,
-  Injectable,
-  Logger,
-  OnApplicationShutdown,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as ethersSdkConfig from './ethersSdkConfig';
-import { CONFIG_OPTIONS, ServerStatus } from '../sdk/sdk.common';
+import { CONFIG_OPTIONS, SdkService, SdkServiceBase } from '../sdk/sdk.common';
 import { ethers, JsonRpcProvider } from 'ethers';
 
 type EthersProvider = JsonRpcProvider;
 
 @Injectable()
-export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
-  private readonly logger = new Logger(EthersSdkService.name);
+export class EthersSdkService
+  extends SdkServiceBase<EthersProvider>
+  implements SdkService
+{
+  private readonly logger: Logger = new Logger(EthersSdkService.name);
 
-  get rpcServer(): EthersProvider {
-    if (!this._rpcServer || this._rpcServerStatus === ServerStatus.NotConnected)
-      throw new Error(`Ethers SDK Rpc Server is not initialized.`);
-    return this._rpcServer;
-  }
-
-  get rpcServerStatus(): string {
-    return this._rpcServerStatus;
-  }
-
-  private readonly _rpcServer: EthersProvider;
-  private _rpcServerStatus: ServerStatus = ServerStatus.NotConnected;
   private readonly _rpcServerUrl: string;
   private _network: string | ethers.Network;
 
@@ -36,6 +21,7 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
     @Inject(CONFIG_OPTIONS)
     private options: ethersSdkConfig.EthersSdkConfig,
   ) {
+    super(`Ethers SDK Rpc Server is not initialized.`);
     // Use environment variable if set, otherwise use the value from module options
     this._rpcServerUrl =
       this.configService.get<string>('ETHERS_RPC_SERVER_URL') ||
@@ -61,7 +47,7 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
 
   async onModuleInit() {
     this._network = await this._rpcServer.getNetwork();
-    this._rpcServerStatus = ServerStatus.Connected;
+    this.connected();
     this.logger.log(
       `Ethers SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this._rpcServerUrl}`,
     );
@@ -69,7 +55,7 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
 
   async onApplicationShutdown(_signal?: string) {
     await this._rpcServer?.off({});
-    this._rpcServerStatus = ServerStatus.NotConnected;
+    this.disconnected();
     this.logger.log(`Closing Ethers SDK Rpc Server Connection: ${_signal}`);
   }
 }

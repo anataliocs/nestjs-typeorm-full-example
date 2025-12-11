@@ -33,6 +33,7 @@ describe('WormholeService', () => {
       .compile();
 
     service = module.get<WormholeService>(WormholeService);
+
     wormholeSdkService = module.get<WormholeSdkService>(WormholeSdkService);
     configService = module.get<ConfigService>(ConfigService);
   });
@@ -49,7 +50,7 @@ describe('WormholeService', () => {
 
   it('serverStatus() response should be defined', () => {
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServerStatus', 'get')
+      .spyOn(wormholeSdkService, 'rpcServerStatus', 'get')
       .mockReturnValue('Connected');
 
     const status: string = service.serverStatus();
@@ -64,7 +65,7 @@ describe('WormholeService', () => {
       .spyOn(wormholeServer, 'network', 'get')
       .mockReturnValue('Testnet');
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServer', 'get')
+      .spyOn(wormholeSdkService, 'rpcServer', 'get')
       .mockReturnValue(wormholeServer);
 
     const status: string = service.network();
@@ -80,7 +81,7 @@ describe('WormholeService', () => {
       .spyOn(wormholeServer, 'getChain')
       .mockReturnValue(chainContextMockResponse);
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServer', 'get')
+      .spyOn(wormholeSdkService, 'rpcServer', 'get')
       .mockReturnValue(wormholeServer);
 
     const chainConfig: ChainConfigDto = service.getChainContext('Ethereum');

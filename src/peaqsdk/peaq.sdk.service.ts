@@ -1,36 +1,21 @@
-import {
-  Inject,
-  Injectable,
-  Logger,
-  OnApplicationShutdown,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Sdk } from '@peaq-network/sdk';
 import { CreateInstanceOptions } from '@peaq-network/sdk/src/types/common';
 import * as peaqSdkConfig from './peaqSdkConfig';
-import { CONFIG_OPTIONS, ServerStatus } from '../sdk/sdk.common';
+import { CONFIG_OPTIONS, SdkService, SdkServiceBase } from '../sdk/sdk.common';
 
 type PeaqSdk = Sdk;
 type AsyncRpcServerProvider = () => Promise<PeaqSdk>;
 
 @Injectable()
-export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
+export class PeaqSdkService
+  extends SdkServiceBase<PeaqSdk>
+  implements SdkService
+{
   private readonly logger = new Logger(PeaqSdkService.name);
 
-  get rpcServer(): PeaqSdk {
-    if (!this._rpcServer || this._rpcServerStatus === ServerStatus.NotConnected)
-      throw new Error(`Peaq SDK Rpc Server is not initialized.`);
-    return this._rpcServer;
-  }
-
-  get rpcServerStatus(): string {
-    return this._rpcServerStatus;
-  }
-
   private readonly _rpcServerProvider: AsyncRpcServerProvider;
-  private _rpcServer: PeaqSdk;
-  private _rpcServerStatus: ServerStatus = ServerStatus.NotConnected;
   private readonly _rpcServerUrl: string;
 
   constructor(
@@ -38,6 +23,7 @@ export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
     @Inject(CONFIG_OPTIONS)
     private options: peaqSdkConfig.PeaqSdkConfig,
   ) {
+    super(`Peaq SDK Rpc Server is not initialized.`);
     // Use environment variable if set, otherwise use the value from module options
     this._rpcServerUrl =
       this.configService.get<string>('PEAQ_RPC_SERVER_URL') ||
@@ -55,7 +41,7 @@ export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
   async onModuleInit() {
     this._rpcServer = await this._rpcServerProvider();
     await this._rpcServer.connect();
-    this._rpcServerStatus = ServerStatus.Connected;
+    this.connected();
     this.logger.log(
       `Peaq SDK Rpc Server Status: ${this._rpcServerStatus} - Rpc Server URL: ${this._rpcServerUrl}`,
     );
@@ -63,7 +49,7 @@ export class PeaqSdkService implements OnApplicationShutdown, OnModuleInit {
 
   async onApplicationShutdown(_signal?: string) {
     await this._rpcServer?.disconnect();
-    this._rpcServerStatus = ServerStatus.NotConnected;
+    this.disconnected();
     this.logger.log(`Closing Peaq SDK Rpc Server Connection: ${_signal}`);
   }
 }

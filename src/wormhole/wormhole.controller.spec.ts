@@ -53,7 +53,7 @@ describe('WormholeController', () => {
 
   it('serverStatus() response should be defined', () => {
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServerStatus', 'get')
+      .spyOn(wormholeSdkService, 'rpcServerStatus', 'get')
       .mockReturnValue('Connected');
 
     const status: string = controller.getServerStatus();
@@ -68,7 +68,7 @@ describe('WormholeController', () => {
       .spyOn(wormholeServer, 'network', 'get')
       .mockReturnValue('Testnet');
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServer', 'get')
+      .spyOn(wormholeSdkService, 'rpcServer', 'get')
       .mockReturnValue(wormholeServer);
 
     const status: string = controller.network();
@@ -84,7 +84,7 @@ describe('WormholeController', () => {
       .spyOn(wormholeServer, 'getChain')
       .mockReturnValue(chainContextMockResponse);
     const wormholeSdkMock = jest
-      .spyOn(wormholeSdkService, 'wormholeServer', 'get')
+      .spyOn(wormholeSdkService, 'rpcServer', 'get')
       .mockReturnValue(wormholeServer);
 
     const chainConfig: ChainConfigDto = controller.chainContext('Ethereum');

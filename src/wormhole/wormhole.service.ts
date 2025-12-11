@@ -8,22 +8,22 @@ export class WormholeService {
   constructor(private readonly wormholeSdkService: WormholeSdkService) {}
 
   serverStatus(): string {
-    return this.wormholeSdkService.wormholeServerStatus;
+    return this.wormholeSdkService.rpcServerStatus;
   }
 
   config(): WormholeConfig {
-    return this.wormholeSdkService.wormholeServer.config;
+    return this.wormholeSdkService.rpcServer.config;
   }
 
   network(): string {
-    return this.wormholeSdkService.wormholeServer.network;
+    return this.wormholeSdkService.rpcServer.network;
   }
 
   getChainContext(platform: string): ChainConfigDto {
     assertChain(platform);
 
     const chainConfig =
-      this.wormholeSdkService.wormholeServer.getChain<Chain>(platform).config;
+      this.wormholeSdkService.rpcServer.getChain<Chain>(platform).config;
 
     return {
       chainId: chainConfig.chainId,
