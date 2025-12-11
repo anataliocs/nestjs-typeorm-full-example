@@ -13,4 +13,13 @@ export class EthersController {
     // Call Service layer to get status
     return this.ethersService.serverStatus();
   }
+
+  @Version('1')
+  @Get('/block-number')
+  @Header('Cache-Control', 'no-store')
+  @HttpCode(200)
+  getBlockNumber(): Promise<number> {
+    // Call Service layer to get status
+    return this.ethersService.blockNumber();
+  }
 }

@@ -51,4 +51,26 @@ describe('EthersController', () => {
     expect(ethersSdkService).toBeDefined();
     expect(configService).toBeDefined();
   });
+
+  it('serverStatus() response should be defined', () => {
+    const ethersSdkMock = jest
+      .spyOn(ethersSdkService, 'rpcServerStatus', 'get')
+      .mockReturnValue('Connected');
+
+    const status: string = controller.getServerStatus();
+    expect(status).toBeDefined();
+    expect(ethersSdkMock).toHaveBeenCalledTimes(1);
+    expect(status).toBe('Connected');
+  });
+
+  it('blockNumber() response should be defined', async () => {
+    const ethersSdkMock = jest
+      .spyOn(ethersSdkService, 'getBlockNumber')
+      .mockReturnValue(Promise.resolve(123456789));
+
+    const blockNumber: number = await controller.getBlockNumber();
+    expect(blockNumber).toBeDefined();
+    expect(ethersSdkMock).toHaveBeenCalledTimes(1);
+    expect(blockNumber).toBe(123456789);
+  });
 });

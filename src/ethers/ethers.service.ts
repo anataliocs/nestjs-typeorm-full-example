@@ -8,10 +8,13 @@ export class EthersService {
   constructor(private readonly ethersSdkService: EthersSdkService) {}
 
   serverStatus(): string {
-    this.logger.log(
-      `Ethers SDK Server Status: ${this.ethersSdkService.rpcServerStatus}`,
-    );
+    const rpcServerStatus = this.ethersSdkService.rpcServerStatus;
+    this.logger.log(`Ethers SDK Server Status: ${rpcServerStatus}`);
 
-    return this.ethersSdkService.rpcServerStatus;
+    return rpcServerStatus;
+  }
+
+  blockNumber(): Promise<number> {
+    return this.ethersSdkService.getBlockNumber();
   }
 }

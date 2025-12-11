@@ -49,6 +49,16 @@ export class EthersSdkService implements OnApplicationShutdown, OnModuleInit {
     this.logger.log(`Ethers SDK Rpc Server Type: ${this._network}`);
   }
 
+  /**
+   * Get the current block number (block height).
+   * https://docs.ethers.org/v6/api/providers/#Block
+   *
+   * @returns  `Promise<number>`
+   */
+  getBlockNumber(): Promise<number> {
+    return this._rpcServer.getBlockNumber();
+  }
+
   async onModuleInit() {
     this._network = await this._rpcServer.getNetwork();
     this._rpcServerStatus = ServerStatus.Connected;
