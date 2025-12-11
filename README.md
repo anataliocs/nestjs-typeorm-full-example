@@ -12,8 +12,13 @@
 [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?logo=ethereum&logoColor=white)](https://ethereum.org/)
 
 <a href="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml">
-    <img alt="Build Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml/badge.svg">
+    <img alt="Build+Test Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/pnpm-check.yml/badge.svg">
 </a>
+
+<a href="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/github-code-scanning/codeql">
+    <img alt="Code QL Status" src="https://github.com/anataliocs/nestjs-typeorm-full-example/actions/workflows/github-code-scanning/codeql/badge.svg">
+</a>
+
 </div>
 
 ----
