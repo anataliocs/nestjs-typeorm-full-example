@@ -127,8 +127,13 @@ foundryup
 Set this as your `ETH_DEV_SEED`. Only use this for dev.
 https://getfoundry.sh/cast/reference/wallet
 
-```bash
+```
 cast wallet new
+```
+
+**Run local eth node**
+```bash
+anvil --fork-url https://reth-ethereum.ithaca.xyz/rpc
 ```
 
 - Fund wallet with peaq: https://docs.peaq.xyz/build/getting-started/fund-your-wallet
