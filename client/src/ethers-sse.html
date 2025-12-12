@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script type="text/javascript">
+    const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/blocknumber/', {
+      withCredentials: false,
+    });
+    console.log(eventSource.readyState);
+    console.log(eventSource.url);
+
+    eventSource.onmessage = (msg) => {
+      console.log('Received SSE data:' + msg);
+      console.log('Received SSE data:' + msg.data);
+      const message = document.createElement('div');
+      message.innerText = `New message: ${msg.data}`;
+      document.querySelector('#messages').appendChild(message);
+    };
+    eventSource.onerror = (err) => {
+      console.log('Error: ' + JSON.stringify(err));
+      const message = document.createElement('div');
+      message.innerText = 'New Error: ' + JSON.stringify(err);
+      document.body.appendChild(message);
+    };
+
+    eventSource.onopen = () => {
+      console.log('SSE connection opened');
+    };
+    eventSource.onclose = () => {
+      console.log('SSE connection closed');
+    };
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+
+  <title>Ethers.js SDK with SSE</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <h1>Ethers.js SDK with SSE</h1>
+    <p>Nest.js Server Sent Events with RxJS Observables</p>
+    <nav>
+      <ul>
+        <li><strong>Server Sent Events Demo</strong></li>
+        <li>Event Source: http://127.0.0.1:3000/ethers/sse/blocknumber/</li>
+      </ul>
+    </nav>
+  </header>
+</hgroup>
+<main class="container">
+  <div class="grid">
+    <div>
+      <h4>Emitted Events - New Blocks by Block Number</h4>
+      <progress id="progress-2"></progress>
+    </div>
+  </div>
+  <article id="messages">
+
+  </article>
+  <div id="scroll-anchor"></div>
+
+</main>
+<footer class="container-fluid pico-background-pumpkin-50">
+  Server Sent Events Demo
+</footer>
+</body>
+</html>

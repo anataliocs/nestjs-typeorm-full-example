@@ -23,6 +23,7 @@ import { EthersSdkModule } from './etherssdk/ethersSdk.module';
 import { EthersController } from './ethers/ethers.controller';
 import { EthersService } from './ethers/ethers.service';
 import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
+import EthersSseController from './ethers/ethers.sse.controller';
 
 @Module({
   imports: [
@@ -75,6 +76,7 @@ import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
     PeaqController,
     WormholeController,
     EthersController,
+    EthersSseController,
   ],
   providers: [
     ReapService,

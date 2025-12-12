@@ -30,7 +30,7 @@ async function bootstrap() {
       'http://localhost:3000',
       'http://localhost:63343',
       'http://localhost:63342',
-      'http://localhost:63342/index.html',
+      'http://localhost:63342/nestjs-typeorm-full-example/client/src/mock-sse.html',
     ],
     credentials: true,
     preflightContinue: true,

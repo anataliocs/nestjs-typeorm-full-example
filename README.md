@@ -47,7 +47,7 @@ microservice-oriented backend for a decentralized application.
 
 - GraphQL
 - Websockets
-- SSE
+- SSE - `client/src/ethers-sse.html`
 - Observability
 - K8s readiness
 - Other production readiness features
@@ -132,6 +132,7 @@ cast wallet new
 ```
 
 **Run local eth node**
+
 ```bash
 anvil --fork-url https://reth-ethereum.ithaca.xyz/rpc
 ```
@@ -221,6 +222,19 @@ $ pnpm run test:e2e
 # test coverage
 $ pnpm run test:cov
 ```
+
+----
+
+## Server Sent Events
+
+In this example, we use `ethers.js` to check for new blocks
+and use an `Observable` to emit to blocks to a `html` file and display them with just a couple lines of vanilla JS.
+
+The client is a single `HTML` file: `client/src/ethers-sse.html`
+
+We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/blocknumber/`.
+
+- https://docs.nestjs.com/techniques/server-sent-events
 
 ----
 
