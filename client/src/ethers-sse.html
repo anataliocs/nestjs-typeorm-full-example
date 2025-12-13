@@ -5,16 +5,23 @@
     const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/blocknumber/', {
       withCredentials: false,
     });
-    console.log(eventSource.readyState);
-    console.log(eventSource.url);
 
     eventSource.onmessage = (msg) => {
-      console.log('Received SSE data:' + msg);
-      console.log('Received SSE data:' + msg.data);
+      const data = JSON.parse(msg.data);
+      console.log(data);
       const message = document.createElement('div');
-      message.innerText = `New message: ${msg.data}`;
+      message.appendChild(document.createTextNode(msg.data));
+      message.appendChild(document.createElement('br'));
+      const link = document.createElement('a');
+      link.href = `https://etherscan.io/block/${data.blockNumber}`;
+      link.text = data.blockNumber;
+      link.target = '_blank';
+      link.title = 'Open Block in Etherscan';
+      message.appendChild(link);
+      message.appendChild(document.createElement('hr'));
       document.querySelector('#messages').appendChild(message);
     };
+
     eventSource.onerror = (err) => {
       console.log('Error: ' + JSON.stringify(err));
       const message = document.createElement('div');
@@ -23,11 +30,26 @@
     };
 
     eventSource.onopen = () => {
+      console.log(`Event source state: ${eventSource.readyState}`);
+      console.log(`Event source URL: ${eventSource.url}`);
       console.log('SSE connection opened');
+      if (eventSource.readyState === 1) {
+        document.querySelector('#connection-status')
+          .appendChild(document.createTextNode('Connected!'));
+      }
     };
+
     eventSource.onclose = () => {
       console.log('SSE connection closed');
     };
+
+    function closeEventSource() {
+      document.querySelector('#connection-status').innerHTML = "";
+      document.querySelector('#progress-bar').value = 0;
+      console.log('Closing SSE connection...');
+      eventSource.close();
+    }
+
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,37 +57,45 @@
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
-
   <title>Ethers.js SDK with SSE</title>
 </head>
 <body class="pico-background-pumpkin-30">
 <hgroup>
   <header class="container-fluid pico-background-pumpkin-50">
-    <h1>Ethers.js SDK with SSE</h1>
-    <p>Nest.js Server Sent Events with RxJS Observables</p>
     <nav>
       <ul>
         <li><strong>Server Sent Events Demo</strong></li>
-        <li>Event Source: http://127.0.0.1:3000/ethers/sse/blocknumber/</li>
+      </ul>
+      <ul>
+        <li><a href="http://127.0.0.1:3000/ethers/sse/blocknumber/" target="_blank">Event Source:
+          http://127.0.0.1:3000/ethers/sse/blocknumber/</a></li>
       </ul>
     </nav>
+    <hr />
   </header>
 </hgroup>
 <main class="container">
+  <h4>Ethers.js SDK with SSE</h4>
+  <p>Nest.js Server Sent Events with RxJS Observables</p>
+
   <div class="grid">
     <div>
-      <h4>Emitted Events - New Blocks by Block Number</h4>
-      <progress id="progress-2"></progress>
+      <article>
+        <strong>Emitted Events - New Blocks by Block Number</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages"></article>
+      </article>
+      <button onclick="closeEventSource()">Close Stream</button>
     </div>
+    <div></div>
   </div>
-  <article id="messages">
-
-  </article>
-  <div id="scroll-anchor"></div>
-
 </main>
-<footer class="container-fluid pico-background-pumpkin-50">
-  Server Sent Events Demo
+<footer class="container-fluid">
+  <hr />
+  <article>Server Sent Events Demo</article>
 </footer>
 </body>
 </html>
