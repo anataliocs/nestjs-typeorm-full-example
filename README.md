@@ -54,11 +54,15 @@ microservice-oriented backend for a decentralized application.
     - Script: `scripts/get.http`
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
 - GraphQL: WIP
-- Websockets - WIP
+- Websockets
+    - Vanilla.js: [client/src/sse/ethers/ws-block-number.html](client/src/sse/ethers/ws-block-number.html)
 - SSE
     - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
     - Vanilla.js: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
     - HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
+
+**WIP**
+
 - Observability - WIP
 - K8s readiness - WIP
 - Other production readiness features - WIP
@@ -259,7 +263,6 @@ const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-numb
 
 ### With htmx
 
-
 **Example minimal client using `.htmx`: `client/src/sse/ethers/htmx-block-number.html`**
 
 - Raw HTML with [htmx](https://htmx.org/)
@@ -276,6 +279,27 @@ const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-numb
 We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
 
 - https://docs.nestjs.com/techniques/server-sent-events
+
+----
+
+## WebSocket
+
+Again we use, `ethers.js` to check for new blocks and use an `Observable` to emit to blocks
+to a `html` file and display the results with vanilla JS.
+
+### With html and vanilla.js
+
+**Example minimal client using a SINGLE `.html` file: `client/src/sse/ethers/ws-block-number.html`**
+
+- Raw HTML with vanilla.js
+- Uses `WebSocket` API - https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+- Uses `picocss` delivered via public CDN for styling
+
+**Example setting up a EventSource with a NestJS SSE Endpoint**
+
+```typescript
+const socket = new WebSocket('ws://localhost:81');
+```
 
 ----
 
