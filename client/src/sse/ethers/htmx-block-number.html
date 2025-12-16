@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"
+          integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz"
+          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htmx-ext-sse@2.2.4"
+          integrity="sha384-A986SAtodyH8eg8x8irJnYUk7i9inVQqYigD6qZ9evobksGNIXfeFvDwLSHcp31N"
+          crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+    // Set Verbose logging and log everything
+    htmx.logAll();
+
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+  <title>Ethers.js SDK with SSE & HTMX: Latest Block Number</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <nav>
+      <ul>
+        <li><strong>HTMX Client - Server Sent Events Demo</strong></li>
+      </ul>
+      <ul>
+        <li><a href="http://127.0.0.1:3000/ethers/sse/block-number/" target="_blank">Event Source:
+          http://127.0.0.1:3000/ethers/sse/block-number/</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+</hgroup>
+<main class="container">
+  <h4>Ethers.js SDK with SSE: Latest Block Number</h4>
+  <p>Nest.js Server Sent Events with RxJS Observables with Htmx Client</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        <strong>Emitted Events - New Blocks by Block Number</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages" hx-ext="sse" sse-connect="http://127.0.0.1:3000/ethers/sse/block-number/"
+                 sse-swap="message"></article>
+      </article>
+      <button onclick="closeEventSource()">Close Stream</button>
+    </div>
+    <div></div>
+  </div>
+</main>
+<footer class="container-fluid">
+  <hr />
+  <article>Server Sent Events Demo with HTMX</article>
+</footer>
+</body>
+</html>

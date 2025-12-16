@@ -30,12 +30,16 @@
 
 # Nestjs TypeORM Full Example for Web3 SDKs
 
-Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
+Example of a **NestJS** application with **PostgreSQL** and **Axios** integrating into multiple Web3 SDKs.
 
 This project modularizes popular Web3 SDKs, handles the lifecycle management, abstracts away complexity, adds
-configuration mgmt and exposes simplified interfaces in REST API, GraphQL, Websocket and SSE endpoint formats.
+configuration mgmt and exposes simplified interfaces in **REST API**, **GraphQL**, **Websocket** and **SSE(Server-Sent
+Events)** endpoint formats.
 
-The resulting NestJS app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
+These endpoints are consumed by ultra-lightweight, nano-clients including: raw html+vanilla.js(Single-file)
+and [htmx(single-file)](https://htmx.org/).
+
+The resulting **NestJS** app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
 microservice-oriented backend for a decentralized application.
 
 - [Reap](https://reap.readme.io/reference/test-environment)
@@ -52,8 +56,9 @@ microservice-oriented backend for a decentralized application.
 - GraphQL: WIP
 - Websockets - WIP
 - SSE
-    - [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
-    - [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
+    - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
+    - Vanilla.js: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
+    - HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
 - Observability - WIP
 - K8s readiness - WIP
 - Other production readiness features - WIP
@@ -236,6 +241,8 @@ $ pnpm run test:cov
 In this example, we use `ethers.js` to check for new blocks
 and use an `Observable` to emit to blocks to a `html` file and display them with just a couple lines of vanilla JS.
 
+### With html and vanilla.js
+
 **Example minimal client using a SINGLE `.html` file: `client/src/sse/ethers/block-number.html`**
 
 - Raw HTML with vanilla.js
@@ -248,6 +255,22 @@ and use an `Observable` to emit to blocks to a `html` file and display them with
 const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
   withCredentials: false,
 });
+```
+
+### With htmx
+
+
+**Example minimal client using `.htmx`: `client/src/sse/ethers/htmx-block-number.html`**
+
+- Raw HTML with [htmx](https://htmx.org/)
+- Uses `picocss` delivered via public CDN for styling
+
+**Example setting up a SSE with htmx**
+
+```html
+
+<article id="messages" hx-ext="sse" sse-connect="http://127.0.0.1:3000/ethers/sse/block-number/"
+         sse-swap="message"></article>
 ```
 
 We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
