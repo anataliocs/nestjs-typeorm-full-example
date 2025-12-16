@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger, VersioningType } from '@nestjs/common';
 import { NestApplicationOptions } from '@nestjs/common/interfaces/nest-application-options.interface';
 import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
+import { WsAdapter } from '@nestjs/platform-ws';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -50,6 +51,7 @@ async function bootstrap() {
   });
   logger.log(`API versioning enabled.`);
 
+  app.useWebSocketAdapter(new WsAdapter(app));
   const DEFAULT_PORT = 3000;
   await app.listen(process.env.PORT ?? DEFAULT_PORT);
 

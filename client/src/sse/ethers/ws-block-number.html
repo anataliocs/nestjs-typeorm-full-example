@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>
+    const socket = new WebSocket('ws://localhost:81');
+    socket.onopen = function() {
+      console.log('Connected');
+      socket.send(
+        JSON.stringify({
+          event: 'events',
+          data: 'test',
+        }),
+      );
+      socket.onmessage = function(data) {
+        console.log(data);
+      };
+    };
+
+    // Example of sending a message to the server
+    function sendMessage(message) {
+      console.log('Sending message', message);
+      socket.send(
+        JSON.stringify({
+          event: 'events',
+          data: 'test',
+        }),
+      );
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+  <title>Ethers.js SDK with Websocket: Latest Block Number</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <nav>
+      <ul>
+        <li><strong>Websocket Demo</strong></li>
+      </ul>
+      <ul>
+        <li><a href="ws://localhost:81" target="_blank">Event Source: ws://localhost:81</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+</hgroup>
+<main class="container">
+  <h4>Ethers.js SDK with Websocket: Latest Block Number</h4>
+  <p>Nest.js Websocket with RxJS Observables with Websocket Client</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        <strong>Emitted Events - New Blocks by Block Number</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages"></article>
+      </article>
+      <button onclick="sendMessage('test')">Send WS Message</button>
+    </div>
+    <div></div>
+  </div>
+</main>
+<footer class="container-fluid">
+  <hr />
+  <article>Websocket Demo</article>
+</footer>
+</body>
+</html>

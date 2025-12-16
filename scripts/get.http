@@ -87,3 +87,4 @@ GET {{host}}/user
     client.assert(response.status === 200, "Status is NOT 200");
   });
 %}
+

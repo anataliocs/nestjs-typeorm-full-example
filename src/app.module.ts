@@ -24,6 +24,7 @@ import { EthersController } from './ethers/ethers.controller';
 import { EthersService } from './ethers/ethers.service';
 import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
 import EthersSseController from './ethers/ethers.sse.controller';
+import { EthersGateway } from './ethers/ethers.gateway';
 
 @Module({
   imports: [
@@ -84,6 +85,7 @@ import EthersSseController from './ethers/ethers.sse.controller';
     PeaqService,
     WormholeService,
     EthersService,
+    EthersGateway,
   ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })

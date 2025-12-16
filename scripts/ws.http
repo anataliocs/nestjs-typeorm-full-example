@@ -1,0 +1,3 @@
+### Simple WebSocket Request
+//TIP It is possible to send messages to server right from the Services tool window
+WEBSOCKET {{ws}}
