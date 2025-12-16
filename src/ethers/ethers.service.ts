@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { BlockOrNull, EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { from, Observable } from 'rxjs';
+import { WsResponse } from '@nestjs/websockets';
 
 export interface BlockNumber {
   blockNumber: number;
@@ -16,13 +17,13 @@ export interface FinalizedBlock {
 export class EthersService {
   private readonly logger = new Logger(EthersService.name);
 
-  private _getBlockNumberJson: () => Promise<BlockNumber> =
+  readonly _getBlockNumberJson: () => Promise<BlockNumber> =
     async (): Promise<BlockNumber> =>
       ({
         blockNumber: await this.ethersSdkService.getBlockNumber(),
       }) as BlockNumber;
 
-  private _getFinalizedBlocksJson: () => Promise<FinalizedBlock> =
+  readonly _getFinalizedBlocksJson: () => Promise<FinalizedBlock> =
     async (): Promise<FinalizedBlock> => {
       const blockOrNull = await this.ethersSdkService.getFinalizedBlock();
       if (blockOrNull === null) {
@@ -56,6 +57,18 @@ export class EthersService {
   }
 
   /**
+   * Convert `Promise<WsResponse<BlockNumber>>` to `Observable<WsResponse<BlockNumber>>`
+   *
+   * @returns  `Observable<WsResponse<BlockNumber>`
+   */
+  webSocketNewBlocksStream(): (
+    n: number,
+  ) => Observable<WsResponse<BlockNumber>> {
+    return (n: number): Observable<WsResponse<BlockNumber>> =>
+      from(this.buildWsResponse<BlockNumber>(n, this._getBlockNumberJson));
+  }
+
+  /**
    * Convert `Promise<MessageEvent>` to `Observable<MessageEvent>`
    *
    * @returns  `Observable<MessageEvent<BlockNumber>`
@@ -77,6 +90,16 @@ export class EthersService {
       from(
         this.buildMessageEvent<FinalizedBlock>(n, this._getFinalizedBlocksJson),
       );
+  }
+
+  private async buildWsResponse<DataType>(
+    n: number,
+    sdkFunction: () => Promise<DataType>,
+  ): Promise<WsResponse<DataType>> {
+    return {
+      type: 'events',
+      data: await sdkFunction(),
+    } as unknown as WsResponse;
   }
 
   private async buildMessageEvent<DataType>(

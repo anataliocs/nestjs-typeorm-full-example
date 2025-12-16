@@ -10,8 +10,9 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 
-import { from, map, Observable } from 'rxjs';
+import { distinct, interval, mergeMap, Observable } from 'rxjs';
 import { Server } from 'ws';
+import { BlockNumber, EthersService } from './ethers.service';
 
 @WebSocketGateway(81, { cors: { origin: '*' } })
 export class EthersGateway
@@ -21,21 +22,16 @@ export class EthersGateway
 
   @WebSocketServer() server: Server;
 
-  @SubscribeMessage('message')
-  handleMessage(@MessageBody() data: string): void {
-    this.logger.log(`Received message from client ${data}`);
-    // Emit the received message back to all connected clients
-  }
+  constructor(private readonly ethersService: EthersService) {}
 
   @SubscribeMessage('events')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onEvent(@MessageBody() _data: unknown): Observable<WsResponse<number>> {
-    const event = 'events';
-    const response = [1, 2, 3];
-
+  onEvent(@MessageBody() _data: unknown): Observable<WsResponse<BlockNumber>> {
     this.logger.log(`Received message from client`);
 
-    return from(response).pipe(map((data) => ({ event, data })));
+    return interval(5000)
+      .pipe(mergeMap(this.ethersService.webSocketNewBlocksStream()))
+      .pipe(distinct(({ data }) => data.blockNumber));
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -46,6 +42,7 @@ export class EthersGateway
   handleConnection(client: any, ..._args: any[]) {
     this.logger.log(`Connected Websocket`);
   }
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   afterInit(_server: Server) {
     this.logger.log(`WebSocket Gateway Initialized`);
