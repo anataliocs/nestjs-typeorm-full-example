@@ -4,6 +4,7 @@ import { EthersService } from './ethers.service';
 import { ConfigService } from '@nestjs/config';
 import { EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { EthersSdkConfig } from '../etherssdk/ethersSdkConfig';
+import { firstValueFrom } from 'rxjs';
 
 describe('EthersController', () => {
   let controller: EthersController;
@@ -68,7 +69,9 @@ describe('EthersController', () => {
       .spyOn(ethersSdkService, 'getBlockNumber')
       .mockReturnValue(Promise.resolve(123456789));
 
-    const blockNumber: number = await controller.getBlockNumber();
+    const blockNumber: number = await firstValueFrom(
+      controller.getBlockNumber(),
+    );
     expect(blockNumber).toBeDefined();
     expect(ethersSdkMock).toHaveBeenCalledTimes(1);
     expect(blockNumber).toBe(123456789);

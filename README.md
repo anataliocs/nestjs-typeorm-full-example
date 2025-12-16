@@ -33,7 +33,7 @@
 Example of a NestJS application with PostgreSQL and Axios integrating into multiple Web3 SDKs.
 
 This project modularizes popular Web3 SDKs, handles the lifecycle management, abstracts away complexity, adds
-configuration mgmt and exposes simplified interfaces in common REST API, GraphQL, Websocket and SSE endpoints.
+configuration mgmt and exposes simplified interfaces in REST API, GraphQL, Websocket and SSE endpoint formats.
 
 The resulting NestJS app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
 microservice-oriented backend for a decentralized application.
@@ -43,14 +43,20 @@ microservice-oriented backend for a decentralized application.
 - [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
 - [Ethers](https://docs.ethers.org/v6/)
 
-**WIP**
+**Endpoints**
 
-- GraphQL
-- Websockets
-- SSE - `client/src/ethers-sse.html`
-- Observability
-- K8s readiness
-- Other production readiness features
+- REST API
+    - Swagger: http://127.0.0.1:3000/api
+    - Script: `scripts/get.http`
+    - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
+- GraphQL: WIP
+- Websockets - WIP
+- SSE
+    - [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
+    - [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
+- Observability - WIP
+- K8s readiness - WIP
+- Other production readiness features - WIP
 
 #### Tech Stack:
 
@@ -230,9 +236,21 @@ $ pnpm run test:cov
 In this example, we use `ethers.js` to check for new blocks
 and use an `Observable` to emit to blocks to a `html` file and display them with just a couple lines of vanilla JS.
 
-The client is a single `HTML` file: `client/src/ethers-sse.html`
+**Example minimal client using a SINGLE `.html` file: `client/src/sse/ethers/block-number.html`**
 
-We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/blocknumber/`.
+- Raw HTML with vanilla.js
+- Uses `EventSource` API - https://developer.mozilla.org/en-US/docs/Web/API/EventSource
+- Uses `picocss` delivered via public CDN for styling
+
+**Example setting up a EventSource with a NestJS SSE Endpoint**
+
+```typescript
+const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
+  withCredentials: false,
+});
+```
+
+We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
 
 - https://docs.nestjs.com/techniques/server-sent-events
 

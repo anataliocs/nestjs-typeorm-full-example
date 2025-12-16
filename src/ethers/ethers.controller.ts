@@ -1,5 +1,7 @@
 import { Controller, Get, Header, HttpCode, Version } from '@nestjs/common';
 import { EthersService } from './ethers.service';
+import { BlockOrNull } from '../etherssdk/ethers.sdk.service';
+import { Observable } from 'rxjs';
 
 @Controller('/ethers')
 export class EthersController {
@@ -18,8 +20,17 @@ export class EthersController {
   @Get('/block-number')
   @Header('Cache-Control', 'no-store')
   @HttpCode(200)
-  getBlockNumber(): Promise<number> {
+  getBlockNumber(): Observable<number> {
     // Call Service layer to get status
     return this.ethersService.blockNumber();
+  }
+
+  @Version('1')
+  @Get('/finalized-block')
+  @Header('Cache-Control', 'no-store')
+  @HttpCode(200)
+  getFinalizedBlock(): Observable<BlockOrNull> {
+    // Call Service layer to get status
+    return this.ethersService.finalizedBlock();
   }
 }

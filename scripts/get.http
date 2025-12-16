@@ -61,11 +61,20 @@ GET {{host}}/v1/ethers/server-status
   });
 %}
 
-### GET request for Ethers block number
+### GET request for Ethers latest block number
 GET {{host}}/v1/ethers/block-number
 
 > {%
-  client.test("Get ethers block number request successful", function() {
+  client.test("Get ethers latest block number request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
+### GET request for Ethers finalized block
+GET {{host}}/v1/ethers/finalized-block
+
+> {%
+  client.test("Get ethers finalized block number request successful", function() {
     client.assert(response.status === 200, "Status is NOT 200");
   });
 %}

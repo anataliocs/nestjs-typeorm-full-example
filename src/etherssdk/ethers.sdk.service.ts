@@ -2,9 +2,11 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as ethersSdkConfig from './ethersSdkConfig';
 import { CONFIG_OPTIONS, SdkService, SdkServiceBase } from '../sdk/sdk.common';
-import { ethers, JsonRpcProvider } from 'ethers';
+import { Block, ethers, JsonRpcProvider } from 'ethers';
 
 type EthersProvider = JsonRpcProvider;
+
+export type BlockOrNull = Block | null;
 
 @Injectable()
 export class EthersSdkService
@@ -43,6 +45,16 @@ export class EthersSdkService
    */
   getBlockNumber(): Promise<number> {
     return this._rpcServer.getBlockNumber();
+  }
+
+  /**
+   * Get the current FINALIZED block.
+   * https://docs.ethers.org/v6/api/providers/#Block
+   *
+   * @returns  `Promise<BlockOrNull>`
+   */
+  getFinalizedBlock(): Promise<BlockOrNull> {
+    return this._rpcServer.getBlock('finalized');
   }
 
   async onModuleInit() {
