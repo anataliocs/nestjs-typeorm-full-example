@@ -55,7 +55,8 @@ microservice-oriented backend for a decentralized application.
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
 - GraphQL: WIP
 - Websockets
-    - Vanilla.js: [client/src/ws/ethers/block-number.html](client/src/ws/ethers/block-number.html)
+    - Vanilla.js: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
+    - Vanilla.js: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
     - [scripts/ws.http](scripts/ws.http)
 - SSE
     - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
@@ -248,13 +249,13 @@ and use an `Observable` to emit to blocks to a `html` file and display them with
 
 ### With html and vanilla.js
 
-**Example minimal client using a SINGLE `.html` file: `client/src/sse/ethers/block-number.html`**
+**Minimal client using a SINGLE `.html` file: `client/src/sse/ethers/block-number.html`**
 
 - Raw HTML with vanilla.js
 - Uses `EventSource` API - https://developer.mozilla.org/en-US/docs/Web/API/EventSource
 - Uses `picocss` delivered via public CDN for styling
 
-**Example setting up a EventSource with a NestJS SSE Endpoint**
+**Setting up a EventSource with a NestJS SSE Endpoint**
 
 ```typescript
 const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
@@ -262,14 +263,17 @@ const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-numb
 });
 ```
 
-### With htmx
+### With HTMX
 
-**Example minimal client using `.htmx`: `client/src/sse/ethers/htmx-block-number.html`**
+HTMX further abstracts away logic, using custom HTML tags to replace even the Javascript
+from the previous example with vanilla.js.
+
+**Minimal client using `.htmx`: `client/src/sse/ethers/htmx-block-number.html`**
 
 - Raw HTML with [htmx](https://htmx.org/)
 - Uses `picocss` delivered via public CDN for styling
 
-**Example setting up a SSE with htmx**
+**Setting up SSE with htmx**
 
 ```html
 
@@ -277,7 +281,7 @@ const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-numb
          sse-swap="message"></article>
 ```
 
-We used the `nest.js` Server sent event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
+We used the `nest.js` Server Sent Event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
 
 - https://docs.nestjs.com/techniques/server-sent-events
 
@@ -285,18 +289,18 @@ We used the `nest.js` Server sent event controller annotation to create a SSE en
 
 ## WebSocket
 
-Again we use, `ethers.js` to check for new blocks and use an `Observable` to emit to blocks
-to a `html` file and display the results with vanilla JS.
+We use, `ethers.js` to poll for new blocks and use an rxjs `Observable` to emit blocks
+via a websocket gateway and display the results using the `vanilla.js` Websocket API.
 
 ### With html and vanilla.js
 
-**Example minimal client using a SINGLE `.html` file: `client/src/sse/ethers/ws-block-number.html`**
+**Example minimal client using `.html` file: `client/src/ws/ethers/ws-block-number.html`**
 
 - Raw HTML with vanilla.js
 - Uses `WebSocket` API - https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 - Uses `picocss` delivered via public CDN for styling
 
-**Example setting up a EventSource with a NestJS SSE Endpoint**
+**Setting up a Websocket with a NestJS WS Gateway**
 
 ```typescript
 const socket = new WebSocket('ws://localhost:81');

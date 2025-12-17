@@ -69,6 +69,20 @@ export class EthersService {
   }
 
   /**
+   * Convert `Promise<WsResponse<FinalizedBlock>>` to `Observable<WsResponse<FinalizedBlock>>`
+   *
+   * @returns  `Observable<WsResponse<FinalizedBlock>`
+   */
+  webSocketFinalizedBlocksStream(): (
+    n: number,
+  ) => Observable<WsResponse<FinalizedBlock>> {
+    return (n: number): Observable<WsResponse<FinalizedBlock>> =>
+      from(
+        this.buildWsResponse<FinalizedBlock>(n, this._getFinalizedBlocksJson),
+      );
+  }
+
+  /**
    * Convert `Promise<MessageEvent>` to `Observable<MessageEvent>`
    *
    * @returns  `Observable<MessageEvent<BlockNumber>`

@@ -8,7 +8,22 @@ Content-Type: application/json // We use it for highlighting
   "event": "events",
   "data": {
     "client": "vanilla.js",
-    "topic": "blocknumber"
+    "topic": "block-number"
+  }
+}
+=== wait-for-server
+
+### WebSocket Message to subscribe to Finalized Blocks
+//Subscribe to websocket pipe
+WEBSOCKET {{ws}}
+Content-Type: application/json // We use it for highlighting
+
+===
+{
+  "event": "events",
+  "data": {
+    "client": "vanilla.js",
+    "topic": "finalized-blocks"
   }
 }
 === wait-for-server

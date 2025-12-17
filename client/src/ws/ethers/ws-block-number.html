@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>
+    const socket = new WebSocket('ws://localhost:81');
+    socket.onopen = function() {
+      console.log(`Connected to: ${socket.url}`);
+
+      socket.onmessage = function(msg) {
+        console.log(msg);
+        const data = JSON.parse(msg.data).data;
+        console.log(data);
+        const message = document.createElement('div');
+        message.appendChild(document.createTextNode(msg.data));
+        message.appendChild(document.createElement('br'));
+        const link = document.createElement('a');
+        link.href = `https://etherscan.io/block/${data.blockNumber}`;
+        link.text = data.blockNumber;
+        link.target = '_blank';
+        link.title = 'Open Block in Etherscan';
+        message.appendChild(link);
+        message.appendChild(document.createElement('hr'));
+        document.querySelector('#messages').appendChild(message);
+      };
+    };
+
+    // Sending websocket message to the server
+    function sendMessage() {
+      console.log('Sending message to subscribe to block-number');
+      socket.send(
+        JSON.stringify({
+          event: 'events',
+          data: {
+            client: 'vanilla.js',
+            topic: 'block-number',
+          },
+        }),
+      );
+
+      if (socket.readyState === 1) {
+        document.querySelector('#connection-status')
+          .appendChild(document.createTextNode('Connected!'));
+      }
+    }
+
+    function closeConnection(reason) {
+      console.log('Closing websocket connection', reason);
+      socket.close(1000, reason);
+      document.querySelector('#connection-status').innerHTML = "";
+      document.querySelector('#progress-bar').value = 0;
+    }
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+  <title>Ethers.js SDK with Websocket: Latest Block Number</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <nav>
+      <ul>
+        <li><strong>Websocket Demo</strong></li>
+      </ul>
+      <ul>
+        <li><a href="ws://localhost:81" target="_blank">Event Source: ws://localhost:81</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+</hgroup>
+<main class="container">
+  <h4>Ethers.js SDK with Websocket: Latest Block Number</h4>
+  <p>Nest.js Websocket with RxJS Observables with Websocket Client</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        <strong>Emitted Events - New Blocks by Block Number</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages"></article>
+      </article>
+      <div role="group">
+        <button onclick="sendMessage()"
+                title="Send websocket message to subscribe to latest blocknumber">
+          Subscribe to Blocknumber
+        </button>
+        <button class="secondary" onclick="closeConnection('User Requested')"
+                title="Close websocket connection">
+          Close Connection
+        </button>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</main>
+<footer class="container-fluid">
+  <hr />
+  <article>Websocket Demo for New Blocks by Blocknumber</article>
+</footer>
+</body>
+</html>
