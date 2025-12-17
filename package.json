@@ -39,6 +39,8 @@
     "@swc/core": "^1.13.21",
     "@wormhole-foundation/sdk": "^4.0.0",
     "axios": "^1.13.2",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
     "ethers": "^6.16.0",
     "mysql2": "^3.15.3",
     "pg": "^8.16.3",

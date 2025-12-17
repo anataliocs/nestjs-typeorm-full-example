@@ -5,12 +5,7 @@
     const socket = new WebSocket('ws://localhost:81');
     socket.onopen = function() {
       console.log(`Connected to: ${socket.url}`);
-      socket.send(
-        JSON.stringify({
-          event: 'events',
-          data: 'subscribe',
-        }),
-      );
+
       socket.onmessage = function(msg) {
         console.log(msg);
         const data = JSON.parse(msg.data).data;
@@ -29,15 +24,32 @@
       };
     };
 
-    // Example of sending a message to the server
-    function sendMessage(message) {
-      console.log('Sending message', message);
+    // Sending websocket message to the server
+    function sendMessage() {
+      console.log('Sending message to subscribe to blocknumber');
       socket.send(
         JSON.stringify({
           event: 'events',
-          data: 'test',
+          data: {
+            client: 'vanilla.js',
+            topic: 'blocknumber',
+          },
         }),
       );
+
+      console.log(socket.readyState);
+
+      if (socket.readyState === 1) {
+        document.querySelector('#connection-status')
+          .appendChild(document.createTextNode('Connected!'));
+      }
+    }
+
+    function closeConnection(reason) {
+      console.log('Closing websocket connection', reason);
+      socket.close(1000, reason);
+      document.querySelector('#connection-status').innerHTML = "";
+      document.querySelector('#progress-bar').value = 0;
     }
   </script>
   <meta charset="UTF-8" />
@@ -76,7 +88,16 @@
         <progress id="progress-bar"></progress>
         <article id="messages"></article>
       </article>
-      <button onclick="sendMessage('test')">Send WS Message</button>
+      <div role="group">
+        <button onclick="sendMessage()"
+                title="Send websocket message to subscribe to latest blocknumber">
+          Subscribe to Blocknumber
+        </button>
+        <button class="secondary" onclick="closeConnection('User Requested')"
+                title="Close websocket connection">
+          Close Connection
+        </button>
+      </div>
     </div>
     <div></div>
   </div>

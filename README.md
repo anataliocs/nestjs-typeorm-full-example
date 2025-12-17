@@ -51,11 +51,12 @@ microservice-oriented backend for a decentralized application.
 
 - REST API
     - Swagger: http://127.0.0.1:3000/api
-    - Script: `scripts/get.http`
+    - Script: [scripts/get.http](scripts/get.http)
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
 - GraphQL: WIP
 - Websockets
-    - Vanilla.js: [client/src/sse/ethers/ws-block-number.html](client/src/sse/ethers/ws-block-number.html)
+    - Vanilla.js: [client/src/ws/ethers/block-number.html](client/src/ws/ethers/block-number.html)
+    - [scripts/ws.http](scripts/ws.http)
 - SSE
     - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
     - Vanilla.js: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)

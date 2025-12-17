@@ -1,4 +1,5 @@
 import {
+  ConnectedSocket,
   MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -8,11 +9,12 @@ import {
   WebSocketServer,
   WsResponse,
 } from '@nestjs/websockets';
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { distinct, interval, mergeMap, Observable } from 'rxjs';
 import { Server } from 'ws';
 import { BlockNumber, EthersService } from './ethers.service';
+import { WebSocketSubscribeDto } from './dto/websocket-subscribe.dto';
 
 @WebSocketGateway(81, { cors: { origin: '*' } })
 export class EthersGateway
@@ -25,9 +27,14 @@ export class EthersGateway
   constructor(private readonly ethersService: EthersService) {}
 
   @SubscribeMessage('events')
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onEvent(@MessageBody() _data: unknown): Observable<WsResponse<BlockNumber>> {
-    this.logger.log(`Received message from client`);
+  onEvent(
+    @MessageBody(new ValidationPipe()) payload: WebSocketSubscribeDto,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    @ConnectedSocket() _client: WebSocket,
+  ): Observable<WsResponse<BlockNumber>> {
+    this.logger.log(
+      `Received message from client: ${payload.client} for topic: ${payload.topic}`,
+    );
 
     return interval(5000)
       .pipe(mergeMap(this.ethersService.webSocketNewBlocksStream()))

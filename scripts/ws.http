@@ -1,3 +1,14 @@
-### Simple WebSocket Request
-//TIP It is possible to send messages to server right from the Services tool window
+### WebSocket Message to subscribe to Latest Blocknumber
+//Subscribe to websocket pipe
 WEBSOCKET {{ws}}
+Content-Type: application/json // We use it for highlighting
+
+===
+{
+  "event": "events",
+  "data": {
+    "client": "vanilla.js",
+    "topic": "blocknumber"
+  }
+}
+=== wait-for-server
