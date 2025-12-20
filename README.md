@@ -49,6 +49,8 @@ microservice-oriented backend for a decentralized application.
 
 **Endpoints**
 
+Endpoints and ultra light-weight clients for consuming data.
+
 - REST API
     - Swagger: http://127.0.0.1:3000/api
     - Script: [scripts/get.http](scripts/get.http)
@@ -78,23 +80,13 @@ microservice-oriented backend for a decentralized application.
 - [Typescript](https://www.typescriptlang.org/)
 - [Endor CLI](https://docs.endor.dev/cli/)
 
-**Docs**
-
-- **Nest.js Examples:**  https://github.com/nestjs/nest/tree/master/sample
-- **Reap API:**  https://reap.readme.io/docs/
-- **Wormhole SDK:** https://wormhole.com/docs/
-- **Peaq SDK:** https://docs.peaq.xyz/home
-
-**Block Explorers**
-
-- https://wormholescan.io/
-- https://peaqscan.xyz/
-
 ----
 
 ## Quick Start
 
 **Build/install and add Endor cli.**
+
+CLI used for running local PostgreSQL and other cloud services.
 
 ```bash
 pnpm install
@@ -105,17 +97,21 @@ npm install -g @endorhq/cli
 
 **ℹ️ NOTE:** _Start each in a separate terminal tab_
 
+This will start a local PostgreSQL instance using Endor CLI.
+
 ```bash
 pnpm db
 ```
 
 **Start service:**
 
+Lint test and run dev.
+
 ```bash
 pnpm dev
 ```
 
-### Setup Config
+### Set up Config
 
 **Setup `.env` file:**
 Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
@@ -164,10 +160,6 @@ After starting the service, open the following:
 
 ----
 
-## API Docs
-
-http://localhost:3000/api
-
 ## Run local PostgreSQL
 
 The command pnpm db abstracts away the complexity of running a local PostgreSQL node.  
@@ -194,6 +186,9 @@ psql -h localhost -U postgres -d postgres
 ## Run the Project in Different Environments
 
 ```bash
+# lint test and run dev
+pnpm dev
+
 # development
 $ pnpm run start
 
@@ -212,11 +207,23 @@ https://docs.nestjs.com/cli/overview
 
 **Create a new resource:**
 
+- Generate a module
+- Generate a controller
+- Generate a service
+- OPTIONAL: Generate an entity class/interface
+- OPTIONAL: Generate Data Transfer Objects
+
 ```bash
 nest g resource new-resource
 ```
 
 **Create a new project:**
+
+Create a new project using
+
+- pnpm
+- Typescript
+- `--strict` flag
 
 Optional:
 `-c custom-schematic`
@@ -246,6 +253,11 @@ $ pnpm run test:cov
 
 In this example, we use `ethers.js` to check for new blocks
 and use an `Observable` to emit to blocks to a `html` file and display them with just a couple lines of vanilla JS.
+
+We used the `nest.js` Server Sent Event controller functionality to create
+a SSE endpoint `/ethers/sse/block-number/`.
+
+- https://docs.nestjs.com/techniques/server-sent-events
 
 ### With html and vanilla.js
 
@@ -281,16 +293,13 @@ from the previous example with vanilla.js.
          sse-swap="message"></article>
 ```
 
-We used the `nest.js` Server Sent Event controller annotation to create a SSE endpoint `/ethers/sse/block-number/`.
-
-- https://docs.nestjs.com/techniques/server-sent-events
-
 ----
 
 ## WebSocket
 
 We use, `ethers.js` to poll for new blocks and use an rxjs `Observable` to emit blocks
-via a websocket gateway and display the results using the `vanilla.js` Websocket API.
+via a `nest.js` Websocket gateway, with the `ws` adapter and display the results using the `vanilla.js` Websocket API
+on the client side..
 
 ### With html and vanilla.js
 
@@ -299,6 +308,8 @@ via a websocket gateway and display the results using the `vanilla.js` Websocket
 - Raw HTML with vanilla.js
 - Uses `WebSocket` API - https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 - Uses `picocss` delivered via public CDN for styling
+- [Nest.js Websocket Gateway](https://docs.nestjs.com/websockets/gateways)
+- [ws Adapter](https://github.com/websockets/ws)
 
 **Setting up a Websocket with a NestJS WS Gateway**
 
@@ -308,7 +319,11 @@ const socket = new WebSocket('ws://localhost:81');
 
 ----
 
-## API URL Best Practices
+## Misc
+
+Related info and links.
+
+### API URL Best Practices
 
 **Examples:**
 Format `/[version]/[domain]/[resource]/[resource_id]/[hiearchical_resource]/[hiearchical_resource_id]`
@@ -344,6 +359,14 @@ GET /v1/treasury/customers/123/orders/456
 // vs ambiguous flat structure
 GET /v1/orders/456  // Which customer? No context.
 ```
+
+### Block Explorers
+
+- https://wormholescan.io/
+- https://peaqscan.xyz/
+- https://etherscan.io/
+
+----
 
 ## License
 

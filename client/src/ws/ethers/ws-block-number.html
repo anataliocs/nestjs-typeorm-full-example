@@ -39,14 +39,14 @@
 
       if (socket.readyState === 1) {
         document.querySelector('#connection-status')
-          .appendChild(document.createTextNode('Connected!'));
+          .appendChild(document.createTextNode(`Websocket connected to: ${socket.url}`));
       }
     }
 
     function closeConnection(reason) {
-      console.log('Closing websocket connection', reason);
+      console.log(`Closing websocket connection: ${reason}`);
       socket.close(1000, reason);
-      document.querySelector('#connection-status').innerHTML = "";
+      document.querySelector('#connection-status').innerHTML = '';
       document.querySelector('#progress-bar').value = 0;
     }
   </script>
@@ -89,7 +89,7 @@
       <div role="group">
         <button onclick="sendMessage()"
                 title="Send websocket message to subscribe to latest blocknumber">
-          Subscribe to Blocknumber
+          Subscribe to block-number
         </button>
         <button class="secondary" onclick="closeConnection('User Requested')"
                 title="Close websocket connection">
@@ -102,7 +102,7 @@
 </main>
 <footer class="container-fluid">
   <hr />
-  <article>Websocket Demo for New Blocks by Blocknumber</article>
+  <article>Websocket Demo for New Blocks by block-number</article>
 </footer>
 </body>
 </html>
