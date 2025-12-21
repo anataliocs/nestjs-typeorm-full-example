@@ -1,0 +1,11 @@
+### GraphQL request for LatestBlock
+GRAPHQL {{host}}/graphql
+
+query {
+    getLatestBlock(id: "1") {
+      creationDate,
+      blockNumber,
+      id,
+      hash
+    }
+}

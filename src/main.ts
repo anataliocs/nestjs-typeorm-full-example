@@ -64,6 +64,9 @@ async function bootstrap() {
   logger.log(
     `Swagger JSON is at: http://${process.env.APP_URL}:${process.env.PORT ?? DEFAULT_PORT}/api-json`,
   );
+  logger.log(
+    `GraphQL Playground: http://${process.env.APP_URL}:${process.env.PORT ?? DEFAULT_PORT}/graphql`,
+  );
 }
 
 void bootstrap();

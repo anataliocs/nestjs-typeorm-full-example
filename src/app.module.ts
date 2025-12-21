@@ -25,6 +25,10 @@ import { EthersService } from './ethers/ethers.service';
 import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
 import EthersSseController from './ethers/ethers.sse.controller';
 import { EthersGateway } from './ethers/ethers.gateway';
+import { EthersGraphqlResolver } from './ethers/ethers-graphql.resolver';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { join } from 'node:path';
 
 @Module({
   imports: [
@@ -70,6 +74,16 @@ import { EthersGateway } from './ethers/ethers.gateway';
       rpcServerUrl: 'https://mainnet.infura.io/v3/',
       network: 'Testnet',
     } as EthersSdkConfig),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      // 'autoSchemaFile' generates the schema file automatically
+      autoSchemaFile: 'src/schema.gql',
+      // 'playground: true' enables the GraphiQL interface for testing (useful in development)
+      playground: true,
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.ts'),
+      },
+    }),
   ],
   controllers: [
     ReapController,
@@ -86,6 +100,7 @@ import { EthersGateway } from './ethers/ethers.gateway';
     WormholeService,
     EthersService,
     EthersGateway,
+    EthersGraphqlResolver,
   ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })

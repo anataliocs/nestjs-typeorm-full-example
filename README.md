@@ -55,7 +55,10 @@ Endpoints and ultra light-weight clients for consuming data.
     - Swagger: http://127.0.0.1:3000/api
     - Script: [scripts/get.http](scripts/get.http)
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
-- GraphQL: WIP
+- GraphQL:
+    - GraphQL Playground: http://localhost:3000/graphql
+    - cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
+    - Script: [scripts/graphql.http](scripts/graphql.http)
 - Websockets
     - Vanilla.js: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
     - Vanilla.js: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
