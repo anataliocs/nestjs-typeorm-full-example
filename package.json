@@ -21,7 +21,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "test:ci": "nest build --builder swc --type-check && pnpm lint && jest --ci",
-    "dep:audit": "node scripts/dependency-audit.js",
+    "dep:audit": "node security/dependency-audit.js",
     "check": "pnpm build && pnpm lint && pnpm test"
   },
   "dependencies": {

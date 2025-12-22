@@ -36,8 +36,11 @@ This project modularizes popular Web3 SDKs, handles the lifecycle management, ab
 configuration mgmt and exposes simplified interfaces in **REST API**, **GraphQL**, **Websocket** and **SSE(Server-Sent
 Events)** endpoint formats.
 
-These endpoints are consumed by ultra-lightweight, nano-clients including: raw html+vanilla.js(Single-file)
-and [htmx(single-file)](https://htmx.org/).
+These endpoints are consumed by ultra-lightweight, nano-clients including: 
+- raw html+vanilla.js(Single-file)
+- [htmx(single-file)](https://htmx.org/)
+- Swagger Web UI
+- GraphQL Playground
 
 The resulting **NestJS** app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
 microservice-oriented backend for a decentralized application.
