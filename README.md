@@ -325,6 +325,13 @@ const socket = new WebSocket('ws://localhost:81');
 
 ----
 
+## GraphQL
+
+We use, `ethers.js` to get a block by block number and use an rxjs `Observable` to emit the block
+via a `nest.js` GraphQL Resolver with an Apollo Server.
+
+----
+
 ## Misc
 
 Related info and links.
