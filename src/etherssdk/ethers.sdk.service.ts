@@ -57,6 +57,17 @@ export class EthersSdkService
     return this._rpcServer.getBlock('finalized');
   }
 
+  /**
+   * Get a block by its number.
+   * https://docs.ethers.org/v6/api/providers/#Provider-getBlock
+   *
+   * @param blockHashOrBlockTag
+   * @returns `Promise<BlockOrNull>`
+   */
+  getBlock(blockHashOrBlockTag: ethers.BlockTag): Promise<BlockOrNull> {
+    return this._rpcServer.getBlock(blockHashOrBlockTag);
+  }
+
   async onModuleInit() {
     this._network = await this._rpcServer.getNetwork();
     this.connected();

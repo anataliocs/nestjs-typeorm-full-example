@@ -1,12 +1,9 @@
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType({ description: 'latest block' })
-export class LatestBlock {
+@ObjectType({ description: 'EVM Block' })
+export class Block {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   @Field((type) => ID)
-  id: string;
-
-  @Field()
   blockNumber?: number;
 
   @Field()
@@ -14,4 +11,10 @@ export class LatestBlock {
 
   @Field()
   hash?: string;
+
+  @Field()
+  nonce?: string;
+
+  @Field()
+  transactionCount?: number;
 }

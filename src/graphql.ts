@@ -8,15 +8,16 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export interface LatestBlock {
-    id: string;
-    blockNumber: number;
+export interface Block {
+    blockNumber: string;
     creationDate: DateTime;
     hash: string;
+    nonce: string;
+    transactionCount: number;
 }
 
 export interface IQuery {
-    getLatestBlock(id: string): LatestBlock | Promise<LatestBlock>;
+    getBlockByNumber(blockNumber: number): Block | Promise<Block>;
 }
 
 export type DateTime = any;

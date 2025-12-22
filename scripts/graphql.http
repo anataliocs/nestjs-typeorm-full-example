@@ -2,10 +2,11 @@
 GRAPHQL {{host}}/graphql
 
 query {
-    getLatestBlock(id: "1") {
-      creationDate,
-      blockNumber,
-      id,
-      hash
+    getBlockByNumber(blockNumber: 24068107) {
+        creationDate,
+        blockNumber,
+        hash,
+        nonce,
+        transactionCount
     }
 }

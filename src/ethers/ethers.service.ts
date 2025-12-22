@@ -4,6 +4,7 @@ import { from, Observable } from 'rxjs';
 import { WsResponse } from '@nestjs/websockets';
 import { FinalizedBlock } from './dto/finalized-block';
 import { BlockNumber } from './dto/block-number';
+import { Block } from './models/block';
 
 @Injectable()
 export class EthersService {
@@ -29,9 +30,7 @@ export class EthersService {
     async (): Promise<FinalizedBlock> => {
       const blockOrNull = await this.ethersSdkService.getFinalizedBlock();
       if (blockOrNull === null) {
-        return {
-          blockNumber: 0,
-        } as FinalizedBlock;
+        return {} as FinalizedBlock;
       }
 
       return {
@@ -40,6 +39,25 @@ export class EthersService {
         hash: blockOrNull.hash ?? '',
       } as FinalizedBlock;
     };
+
+  /**
+   * SDK Wrapper around `ethersSdkService.getBlock(blockNumber)` to transform
+   * the returned `BlockOrNull` to `Block` GraphQL Model.
+   *
+   * Returns `{}` if ethers SDK returns `null` for the block.
+   */
+  readonly _getBlockByNumberGraphQL = async (blockNumber: number) => {
+    const blockOrNull = await this.ethersSdkService.getBlock(blockNumber);
+    return blockOrNull === null
+      ? ({} as Block)
+      : ({
+          creationDate: blockOrNull.date ?? '',
+          blockNumber: blockOrNull.number,
+          hash: blockOrNull.hash ?? '',
+          transactionCount: blockOrNull.length ?? 0,
+          nonce: blockOrNull.nonce ?? '',
+        } as Block);
+  };
 
   /**
    * For REST API controller. RPC Node connection status.
@@ -63,6 +81,15 @@ export class EthersService {
    */
   finalizedBlockForApi(): Observable<BlockOrNull> {
     return from(this.ethersSdkService.getFinalizedBlock());
+  }
+
+  /**
+   * For GraphQL resolver.  Return block details by number.
+   *
+   * @param blockNumber  Block number to retrieve details for.
+   */
+  getBlockByNumberForGraphQL(blockNumber: number): Observable<Block> {
+    return from(this._getBlockByNumberGraphQL(blockNumber));
   }
 
   /**
