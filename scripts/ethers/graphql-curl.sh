@@ -2,7 +2,7 @@
 
 set -e
 
-printf "\n Executing Graph QL Curl \n"
+printf "\n Executing Graph QL cURL request \n"
 printf "\n ------------------------- \n"
 
 curl 'http://127.0.0.1:3000/graphql' -H 'Accept-Encoding: gzip, deflate, br' \

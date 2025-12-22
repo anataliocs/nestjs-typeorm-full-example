@@ -53,7 +53,7 @@ describe('EthersService', () => {
       .spyOn(ethersSdkService, 'rpcServerStatus', 'get')
       .mockReturnValue('Connected');
 
-    const status: string = service.serverStatus();
+    const status: string = service.serverStatusForApi();
     expect(status).toBeDefined();
     expect(ethersSdkMock).toHaveBeenCalledTimes(1);
     expect(status).toBe('Connected');
@@ -64,7 +64,9 @@ describe('EthersService', () => {
       .spyOn(ethersSdkService, 'getBlockNumber')
       .mockReturnValue(Promise.resolve(123456789));
 
-    const blockNumber: number = await firstValueFrom(service.blockNumber());
+    const blockNumber: number = await firstValueFrom(
+      service.blockNumberForApi(),
+    );
     expect(blockNumber).toBeDefined();
     expect(ethersSdkMock).toHaveBeenCalledTimes(1);
     expect(blockNumber).toBe(123456789);

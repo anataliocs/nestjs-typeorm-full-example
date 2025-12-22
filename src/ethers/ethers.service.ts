@@ -2,27 +2,29 @@ import { Injectable, Logger } from '@nestjs/common';
 import { BlockOrNull, EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { from, Observable } from 'rxjs';
 import { WsResponse } from '@nestjs/websockets';
-
-export interface BlockNumber {
-  blockNumber: number;
-}
-
-export interface FinalizedBlock {
-  blockNumber: number;
-  date?: Date;
-  hash?: string;
-}
+import { FinalizedBlock } from './dto/finalized-block';
+import { BlockNumber } from './dto/block-number';
 
 @Injectable()
 export class EthersService {
   private readonly logger = new Logger(EthersService.name);
 
+  constructor(private readonly ethersSdkService: EthersSdkService) {}
+
+  /**
+   * SDK Wrapper around `ethersSdkService.getBlockNumber()` to transform
+   * the returned `number` to `BlockNumber` DTO for use in WebSockets and SSE.
+   */
   readonly _getBlockNumberJson: () => Promise<BlockNumber> =
     async (): Promise<BlockNumber> =>
       ({
         blockNumber: await this.ethersSdkService.getBlockNumber(),
       }) as BlockNumber;
 
+  /**
+   * SDK Wrapper around `ethersSdkService.getFinalizedBlock()` to transform
+   * the returned `BlockOrNull` to `FinalizedBlock` DTO for use in WebSockets and SSE.
+   */
   readonly _getFinalizedBlocksJson: () => Promise<FinalizedBlock> =
     async (): Promise<FinalizedBlock> => {
       const blockOrNull = await this.ethersSdkService.getFinalizedBlock();
@@ -39,29 +41,37 @@ export class EthersService {
       } as FinalizedBlock;
     };
 
-  constructor(private readonly ethersSdkService: EthersSdkService) {}
-
-  serverStatus(): string {
+  /**
+   * For REST API controller. RPC Node connection status.
+   */
+  serverStatusForApi(): string {
     const rpcServerStatus = this.ethersSdkService.rpcServerStatus;
     this.logger.log(`Ethers SDK Server Status: ${rpcServerStatus}`);
 
     return rpcServerStatus;
   }
 
-  blockNumber(): Observable<number> {
+  /**
+   * For REST API controller.  Latest block number.
+   */
+  blockNumberForApi(): Observable<number> {
     return from(this.ethersSdkService.getBlockNumber());
   }
 
-  finalizedBlock(): Observable<BlockOrNull> {
+  /**
+   * For REST API controller.  Latest finalized block details.
+   */
+  finalizedBlockForApi(): Observable<BlockOrNull> {
     return from(this.ethersSdkService.getFinalizedBlock());
   }
 
   /**
-   * Convert `Promise<WsResponse<BlockNumber>>` to `Observable<WsResponse<BlockNumber>>`
+   * For use by `Gateway` to emit a stream of Websocket response DTOs.
+   * Converts raw `Promise<WsResponse<BlockNumber>>` to `Observable<WsResponse<BlockNumber>>`
    *
    * @returns  `Observable<WsResponse<BlockNumber>`
    */
-  webSocketNewBlocksStream(): (
+  newBlocksStreamForWebsocket(): (
     n: number,
   ) => Observable<WsResponse<BlockNumber>> {
     return (n: number): Observable<WsResponse<BlockNumber>> =>
@@ -69,11 +79,12 @@ export class EthersService {
   }
 
   /**
+   * For use by `Gateway` to emit a stream of Websocket response DTOs.
    * Convert `Promise<WsResponse<FinalizedBlock>>` to `Observable<WsResponse<FinalizedBlock>>`
    *
    * @returns  `Observable<WsResponse<FinalizedBlock>`
    */
-  webSocketFinalizedBlocksStream(): (
+  finalizedBlocksStreamForWebsocket(): (
     n: number,
   ) => Observable<WsResponse<FinalizedBlock>> {
     return (n: number): Observable<WsResponse<FinalizedBlock>> =>
@@ -83,21 +94,25 @@ export class EthersService {
   }
 
   /**
-   * Convert `Promise<MessageEvent>` to `Observable<MessageEvent>`
+   * For use by SSE Controller to emit a stream of Websocket response DTOs.
+   * Convert `Promise<MessageEvent<BlockNumber>>` to `Observable<MessageEvent<BlockNumber>>`
    *
    * @returns  `Observable<MessageEvent<BlockNumber>`
    */
-  subscribeToNewBlocks(): (n: number) => Observable<MessageEvent<BlockNumber>> {
+  subscribeToNewBlocksForSse(): (
+    n: number,
+  ) => Observable<MessageEvent<BlockNumber>> {
     return (n: number): Observable<MessageEvent<BlockNumber>> =>
       from(this.buildMessageEvent<BlockNumber>(n, this._getBlockNumberJson));
   }
 
   /**
-   * Convert `Promise<MessageEvent>` to `Observable<MessageEvent>`
+   * For use by SSE Controller to emit a stream of Websocket response DTOs.
+   * Convert `Promise<MessageEvent<FinalizedBlock>>` to `Observable<MessageEvent<FinalizedBlock>>`
    *
    * @returns  `Observable<MessageEvent<FinalizedBlock>`
    */
-  subscribeToFinalizedBlocks(): (
+  subscribeToFinalizedBlocksForSse(): (
     n: number,
   ) => Observable<MessageEvent<FinalizedBlock>> {
     return (n: number): Observable<MessageEvent<FinalizedBlock>> =>
@@ -106,6 +121,13 @@ export class EthersService {
       );
   }
 
+  /**
+   * Build Websocket Response `WsResponse` object setting `data` to the return value
+   * of the `sdkFunction` wrapper around an ethers SDK function.
+   * `DataType` generic indicates the DTO type to be returned.
+   *
+   * @returns  `Promise<WsResponse<DataType>>`
+   */
   private async buildWsResponse<DataType>(
     n: number,
     sdkFunction: () => Promise<DataType>,
@@ -113,9 +135,16 @@ export class EthersService {
     return {
       type: 'events',
       data: await sdkFunction(),
-    } as unknown as WsResponse;
+    } as unknown as WsResponse<DataType>;
   }
 
+  /**
+   * Build SSE Response `MessageEvent` object setting `data` to the return value
+   * of the `sdkFunction` wrapper around an ethers SDK function.
+   * `DataType` generic indicates the DTO type to be returned.
+   *
+   * @returns  `Promise<MessageEvent<DataType>>`
+   */
   private async buildMessageEvent<DataType>(
     n: number,
     sdkFunction: () => Promise<DataType>,
@@ -125,6 +154,6 @@ export class EthersService {
       id: n,
       data: await sdkFunction(),
       retry: 0,
-    } as unknown as MessageEvent;
+    } as unknown as MessageEvent<DataType>;
   }
 }

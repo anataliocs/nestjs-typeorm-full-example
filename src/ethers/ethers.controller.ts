@@ -13,7 +13,7 @@ export class EthersController {
   @HttpCode(200)
   getServerStatus(): string {
     // Call Service layer to get status
-    return this.ethersService.serverStatus();
+    return this.ethersService.serverStatusForApi();
   }
 
   @Version('1')
@@ -22,7 +22,7 @@ export class EthersController {
   @HttpCode(200)
   getBlockNumber(): Observable<number> {
     // Call Service layer to get status
-    return this.ethersService.blockNumber();
+    return this.ethersService.blockNumberForApi();
   }
 
   @Version('1')
@@ -31,6 +31,6 @@ export class EthersController {
   @HttpCode(200)
   getFinalizedBlock(): Observable<BlockOrNull> {
     // Call Service layer to get status
-    return this.ethersService.finalizedBlock();
+    return this.ethersService.finalizedBlockForApi();
   }
 }

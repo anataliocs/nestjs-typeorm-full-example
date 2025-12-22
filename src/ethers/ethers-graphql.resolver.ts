@@ -1,6 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 import { EthersService } from './ethers.service';
-import { LatestBlock } from './models/LatestBlock';
+import { LatestBlock } from './models/latest-block';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 @Resolver((of) => LatestBlock)

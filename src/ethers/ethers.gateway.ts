@@ -13,8 +13,10 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { distinct, interval, mergeMap, Observable } from 'rxjs';
 import { Server } from 'ws';
-import { BlockNumber, EthersService, FinalizedBlock } from './ethers.service';
+import { EthersService } from './ethers.service';
 import { WebSocketSubscribeDto } from './dto/websocket-subscribe.dto';
+import { BlockNumber } from './dto/block-number';
+import { FinalizedBlock } from './dto/finalized-block';
 
 @WebSocketGateway(81, { cors: { origin: '*' } })
 export class EthersGateway
@@ -48,13 +50,13 @@ export class EthersGateway
 
   private finalizedBlocksStream() {
     return interval(5000)
-      .pipe(mergeMap(this.ethersService.webSocketFinalizedBlocksStream()))
+      .pipe(mergeMap(this.ethersService.finalizedBlocksStreamForWebsocket()))
       .pipe(distinct(({ data }) => data.blockNumber));
   }
 
   private newBlocksStream() {
     return interval(5000)
-      .pipe(mergeMap(this.ethersService.webSocketNewBlocksStream()))
+      .pipe(mergeMap(this.ethersService.newBlocksStreamForWebsocket()))
       .pipe(distinct(({ data }) => data.blockNumber));
   }
 
