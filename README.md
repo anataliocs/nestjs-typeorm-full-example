@@ -42,40 +42,32 @@ These endpoints are consumed by ultra-lightweight, nano-clients including:
 - Swagger Web UI
 - GraphQL Playground
 
-The resulting **NestJS** app will be a Dockerized, stateless, production-ready, cloud-native, horizontal-scalable,
+The resulting **NestJS** app will be a Dockerized, stateless, cloud-native, horizontal-scalable,
 microservice-oriented backend for a decentralized application.
 
-- [Reap](https://reap.readme.io/reference/test-environment)
-- [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
-- [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
-- [Ethers](https://docs.ethers.org/v6/)
+Reactive, async, non-blocking, event-driven back-ends are very powerful for on-chain, blockchain-powered dApps.
 
 **Endpoints**
 
 Endpoints and ultra light-weight clients for consuming data.
 
-- REST API
+- **REST API**
     - Swagger: http://127.0.0.1:3000/api
     - Script: [scripts/get.http](scripts/get.http)
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
-- GraphQL:
+    - Vanilla.js:  [client/src/restapi/ethers/rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
+- **GraphQL**
     - GraphQL Playground: http://localhost:3000/graphql
     - cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
     - Script: [scripts/graphql.http](scripts/graphql.http)
-- Websockets
+- **Websockets**
     - Vanilla.js: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
     - Vanilla.js: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
     - [scripts/ws.http](scripts/ws.http)
-- SSE
+- **SSE**
     - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
     - Vanilla.js: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
     - HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
-
-**WIP**
-
-- Observability - WIP
-- K8s readiness - WIP
-- Other production readiness features - WIP
 
 #### Tech Stack:
 
@@ -85,6 +77,12 @@ Endpoints and ultra light-weight clients for consuming data.
 - [Swagger](https://swagger.io/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Endor CLI](https://docs.endor.dev/cli/)
+
+**The SDKs used in this example:**
+- Stablecoin cards: [Reap](https://reap.readme.io/reference/test-environment)
+- Interoperability: [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
+- On-chain IoT: [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
+- EVM: [Ethers](https://docs.ethers.org/v6/)
 
 ----
 

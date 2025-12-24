@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BlockOrNull, EthersSdkService } from '../etherssdk/ethers.sdk.service';
+import { EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { from, Observable } from 'rxjs';
 import { WsResponse } from '@nestjs/websockets';
 import { FinalizedBlock } from './dto/finalized-block';
@@ -14,7 +14,7 @@ export class EthersService {
 
   /**
    * SDK Wrapper around `ethersSdkService.getBlockNumber()` to transform
-   * the returned `number` to `BlockNumber` DTO for use in WebSockets and SSE.
+   * the returned `number` to `BlockNumber` DTO for use in WebSockets, SSE and REST.
    */
   readonly _getBlockNumberJson: () => Promise<BlockNumber> =
     async (): Promise<BlockNumber> =>
@@ -24,7 +24,7 @@ export class EthersService {
 
   /**
    * SDK Wrapper around `ethersSdkService.getFinalizedBlock()` to transform
-   * the returned `BlockOrNull` to `FinalizedBlock` DTO for use in WebSockets and SSE.
+   * the returned `BlockOrNull` to `FinalizedBlock` DTO for use in WebSockets, SSE and REST.
    */
   readonly _getFinalizedBlocksJson: () => Promise<FinalizedBlock> =
     async (): Promise<FinalizedBlock> => {
@@ -72,15 +72,15 @@ export class EthersService {
   /**
    * For REST API controller.  Latest block number.
    */
-  blockNumberForApi(): Observable<number> {
-    return from(this.ethersSdkService.getBlockNumber());
+  blockNumberForApi(): Observable<BlockNumber> {
+    return from(this._getBlockNumberJson());
   }
 
   /**
    * For REST API controller.  Latest finalized block details.
    */
-  finalizedBlockForApi(): Observable<BlockOrNull> {
-    return from(this.ethersSdkService.getFinalizedBlock());
+  finalizedBlockForApi(): Observable<FinalizedBlock> {
+    return from(this._getFinalizedBlocksJson());
   }
 
   /**
