@@ -34,15 +34,8 @@ async function bootstrap() {
       'http://localhost:63342/nestjs-typeorm-full-example/client/src/mock-sse.html',
     ],
     credentials: true,
-    preflightContinue: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    exposedHeaders: ['Access-Control-Allow-Credentials', true],
-    allowedHeaders: [
-      'Access-Control-Allow-Headers',
-      'Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization',
-      'Access-Control-Allow-Credentials',
-      true,
-    ],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
   } as CorsOptions);
   logger.warn(`WARNING: CORS is enabled for local development only.`);
 

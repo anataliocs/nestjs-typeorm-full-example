@@ -36,7 +36,8 @@ This project modularizes popular Web3 SDKs, handles the lifecycle management, ab
 configuration mgmt and exposes simplified interfaces in **REST API**, **GraphQL**, **Websocket** and **SSE(Server-Sent
 Events)** endpoint formats.
 
-These endpoints are consumed by ultra-lightweight, nano-clients including: 
+These endpoints are consumed by ultra-lightweight, nano-clients including:
+
 - raw html+vanilla.js(Single-file)
 - [htmx(single-file)](https://htmx.org/)
 - Swagger Web UI
@@ -55,11 +56,14 @@ Endpoints and ultra light-weight clients for consuming data.
     - Swagger: http://127.0.0.1:3000/api
     - Script: [scripts/get.http](scripts/get.http)
     - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
-    - Vanilla.js:  [client/src/restapi/ethers/rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
+    -
+    Vanilla.js: [client/src/restapi/ethers/rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
 - **GraphQL**
     - GraphQL Playground: http://localhost:3000/graphql
     - cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
     - Script: [scripts/graphql.http](scripts/graphql.http)
+    -
+    Vanilla.js: [client/src/graphql/ethers/graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
 - **Websockets**
     - Vanilla.js: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
     - Vanilla.js: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
@@ -79,6 +83,7 @@ Endpoints and ultra light-weight clients for consuming data.
 - [Endor CLI](https://docs.endor.dev/cli/)
 
 **The SDKs used in this example:**
+
 - Stablecoin cards: [Reap](https://reap.readme.io/reference/test-environment)
 - Interoperability: [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - On-chain IoT: [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
@@ -271,7 +276,7 @@ a SSE endpoint `/ethers/sse/block-number/`.
 - Uses `EventSource` API - https://developer.mozilla.org/en-US/docs/Web/API/EventSource
 - Uses `picocss` delivered via public CDN for styling
 
-**Setting up a EventSource with a NestJS SSE Endpoint**
+**Setting up a EventSource to the NestJS SSE Endpoint**
 
 ```typescript
 const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
@@ -301,9 +306,9 @@ from the previous example with vanilla.js.
 
 ## WebSocket
 
-We use, `ethers.js` to poll for new blocks and use an rxjs `Observable` to emit blocks
+We use, `ethers.js` to poll for new blocks and use a rxjs `Observable` to emit blocks
 via a `nest.js` Websocket gateway, with the `ws` adapter and display the results using the `vanilla.js` Websocket API
-on the client side..
+on the client side.
 
 ### With html and vanilla.js
 
@@ -315,7 +320,7 @@ on the client side..
 - [Nest.js Websocket Gateway](https://docs.nestjs.com/websockets/gateways)
 - [ws Adapter](https://github.com/websockets/ws)
 
-**Setting up a Websocket with a NestJS WS Gateway**
+**Setting up a Websocket to the NestJS WS Gateway**
 
 ```typescript
 const socket = new WebSocket('ws://localhost:81');
@@ -325,8 +330,33 @@ const socket = new WebSocket('ws://localhost:81');
 
 ## GraphQL
 
-We use, `ethers.js` to get a block by block number and use an rxjs `Observable` to emit the block
+We use, `ethers.js` to get a block-by-block number and use a rxjs `Observable` to emit the block
 via a `nest.js` GraphQL Resolver with an Apollo Server.
+
+### With html and vanilla.js
+
+**Example minimal client using `.html` file: `client/src/graphql/ethers/graphql-block-query.html`**
+
+- Raw HTML with vanilla.js
+- Uses `Fetch` API - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+- Uses `picocss` delivered via public CDN for styling
+- [Nest.js GraphQL Resolver](https://docs.nestjs.com/graphql/resolvers)
+- [Apollo Driver](https://www.apollographql.com/docs/apollo-server)
+
+**Making a GraphQL request to the NestJS GraphQL Resolver**
+
+```typescript
+const res = await fetch('http://127.0.0.1:3000/graphql', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    query: query,
+    variables: { blockNumber: blockNumber }
+  })
+});
+```
 
 ----
 
