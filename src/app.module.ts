@@ -30,6 +30,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'node:path';
 import { SolkitModule } from './solkit/solkit.module';
+import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
 
 @Module({
   imports: [
@@ -75,6 +76,11 @@ import { SolkitModule } from './solkit/solkit.module';
       rpcServerUrl: 'https://mainnet.infura.io/v3/',
       network: 'Testnet',
     } as EthersSdkConfig),
+    SolkitSdkModule.register({
+      network: 'Devnet',
+      rpcServerUrl: 'https://devnet.helius-rpc.com/',
+      wsServerUrl: 'wss://devnet.helius-rpc.com/',
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       // 'autoSchemaFile' generates the schema file automatically

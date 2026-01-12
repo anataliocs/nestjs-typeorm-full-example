@@ -70,7 +70,7 @@ These rules apply to all new and existing code in this repository. They codify T
 - Use `takeUntil`/`finalize` to release resources when clients disconnect.
 
 ## Ethers/External SDK Integration
-- Wrap SDK calls in adapter services (e.g., `EthersSdkService`). Do not return SDK types from public service APIs; map to internal models/DTOs.
+- Wrap SDK calls in adapter services (e.g., `SolkitSdkService`). Do not return SDK types from public service APIs; map to internal models/DTOs.
 - Normalize optional/missing fields once at the adapter/service boundary (avoid repeated `?? ''` throughout the app).
 - Prefer pure transformation functions for mapping SDK -> DTO/GraphQL model. Unit test these mappings.
 
