@@ -24,9 +24,9 @@ export class SolkitSdkService
 {
   private readonly logger: Logger = new Logger(SolkitSdkService.name);
 
-  private readonly _rpcServerUrl: string;
-  private readonly _wsServerUrl: string;
-  private readonly _providerKeyPrefix: string;
+  private readonly rpcServerUrl: string;
+  private readonly wsServerUrl: string;
+  private readonly providerKeyPrefix: string;
   private _network: string;
 
   constructor(
@@ -35,29 +35,24 @@ export class SolkitSdkService
     private options: ethersSdkConfig.SolkitSdkConfig,
   ) {
     super(`Solana Kit SDK Rpc Server is not initialized.`);
-    // Use environment variable if set, otherwise use the value from module options
-    this._rpcServerUrl =
-      this.configService.get<string>('SOLKIT_RPC_SERVER_URL') ||
-      options.rpcServerUrl;
-    this._wsServerUrl =
-      this.configService.get<string>('SOLKIT_WS_SERVER_URL') ||
-      options.wsServerUrl;
-    this._providerKeyPrefix =
-      this.configService.get<string>('SOLKIT_RPC_PROVIDER_KEY_PREFIX') || '';
+    this.rpcServerUrl = options.rpcServerUrl;
+    this.wsServerUrl = options.wsServerUrl;
+    this.providerKeyPrefix = options.providerKeyPrefix;
     this._network = options.network;
+
     this._rpcServer = {
-      rpc: createSolanaRpc(this._rpcServerUrl + this.apiKeyString()),
+      rpc: createSolanaRpc(this.rpcServerUrl + this.apiKeyString()),
       rpcSubscriptions: createSolanaRpcSubscriptions(
-        this._wsServerUrl + this.apiKeyString(),
+        this.wsServerUrl + this.apiKeyString(),
       ),
     } as SolKitClient;
 
-    this.logger.log(`Ethers SDK Rpc Server Type: ${this._network}`);
+    this.logger.log(`Solana kit SDK Rpc Server Type: ${this._network}`);
   }
 
   private apiKeyString() {
     return (
-      this._providerKeyPrefix +
+      this.providerKeyPrefix +
       this.configService.get<string>('SOLKIT_RPC_API_KEY')
     );
   }
@@ -76,13 +71,13 @@ export class SolkitSdkService
     // TODO init logic
     this.connected();
     this.logger.log(
-      `Solkit SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this._rpcServerUrl}`,
+      `Solana kit SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this.rpcServerUrl}`,
     );
   }
 
   onApplicationShutdown(_signal?: string) {
     // TODO shut down logic
     this.disconnected();
-    this.logger.log(`Closing Solkit SDK Rpc Server Connection: ${_signal}`);
+    this.logger.log(`Closing Solana kit SDK Rpc Server Connection: ${_signal}`);
   }
 }

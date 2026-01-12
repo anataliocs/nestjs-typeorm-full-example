@@ -15,4 +15,6 @@ export interface SolkitSdkConfig {
    * Example: TODO
    */
   network: string;
+
+  providerKeyPrefix: string;
 }

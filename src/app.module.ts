@@ -31,6 +31,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'node:path';
 import { SolkitModule } from './solkit/solkit.module';
 import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
+import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
 
 @Module({
   imports: [
@@ -76,10 +77,18 @@ import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
       rpcServerUrl: 'https://mainnet.infura.io/v3/',
       network: 'Testnet',
     } as EthersSdkConfig),
-    SolkitSdkModule.register({
-      network: 'Devnet',
-      rpcServerUrl: 'https://devnet.helius-rpc.com/',
-      wsServerUrl: 'wss://devnet.helius-rpc.com/',
+    SolkitSdkModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        ({
+          network: 'Devnet',
+          rpcServerUrl: configService.get<string>('SOLKIT_RPC_SERVER_URL'),
+          wsServerUrl: configService.get<string>('SOLKIT_WS_SERVER_URL'),
+          providerKeyPrefix: configService.get<string>(
+            'SOLKIT_RPC_PROVIDER_KEY_PREFIX',
+          ),
+        }) as SolkitSdkConfig,
+      inject: [ConfigService],
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
