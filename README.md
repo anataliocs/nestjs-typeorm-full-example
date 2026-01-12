@@ -88,6 +88,7 @@ Endpoints and ultra light-weight clients for consuming data.
 - Interoperability: [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - On-chain IoT: [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
 - EVM: [Ethers](https://docs.ethers.org/v6/)
+- Solana: [Solana kit](https://www.solanakit.com/)
 
 ----
 
@@ -406,6 +407,7 @@ GET /v1/orders/456  // Which customer? No context.
 - https://wormholescan.io/
 - https://peaqscan.xyz/
 - https://etherscan.io/
+- https://solscan.io/
 
 ----
 
