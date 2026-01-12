@@ -29,6 +29,7 @@ import { EthersGraphqlResolver } from './ethers/ethers-graphql.resolver';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'node:path';
+import { SolkitModule } from './solkit/solkit.module';
 
 @Module({
   imports: [
@@ -84,6 +85,7 @@ import { join } from 'node:path';
         path: join(process.cwd(), 'src/graphql.ts'),
       },
     }),
+    SolkitModule,
   ],
   controllers: [
     ReapController,
