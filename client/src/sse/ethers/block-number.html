@@ -1,62 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script type="text/javascript">
-    const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
-      withCredentials: false,
-    });
-
-    eventSource.onmessage = (msg) => {
-      const data = JSON.parse(msg.data);
-      console.log(data);
-      const message = document.createElement('div');
-      message.appendChild(document.createTextNode(msg.data));
-      message.appendChild(document.createElement('br'));
-      const link = document.createElement('a');
-      link.href = `https://etherscan.io/block/${data.blockNumber}`;
-      link.text = data.blockNumber;
-      link.target = '_blank';
-      link.title = 'Open Block in Etherscan';
-      message.appendChild(link);
-      message.appendChild(document.createElement('hr'));
-      document.querySelector('#messages').appendChild(message);
-    };
-
-    eventSource.onerror = (err) => {
-      console.log('Error: ' + JSON.stringify(err));
-      const message = document.createElement('div');
-      message.innerText = 'New Error: ' + JSON.stringify(err);
-      document.body.appendChild(message);
-    };
-
-    eventSource.onopen = () => {
-      console.log(`Event source state: ${eventSource.readyState}`);
-      console.log(`Event source URL: ${eventSource.url}`);
-      console.log('SSE connection opened');
-      if (eventSource.readyState === 1) {
-        document.querySelector('#connection-status')
-          .appendChild(document.createTextNode('Connected!'));
-      }
-    };
-
-    eventSource.onclose = () => {
-      console.log('SSE connection closed');
-    };
-
-    function closeEventSource() {
-      document.querySelector('#connection-status').innerHTML = "";
-      document.querySelector('#progress-bar').value = 0;
-      console.log('Closing SSE connection...');
-      eventSource.close();
-    }
-
-  </script>
+  <script type="module" src="js/sseBlockNumber.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+  <link rel="stylesheet" href="../../../css/pico.min.css">
   <title>Ethers.js SDK with SSE: Latest Block Number</title>
 </head>
 <body class="pico-background-pumpkin-30">

@@ -1,61 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script>
-    const socket = new WebSocket('ws://localhost:81');
-    socket.onopen = function() {
-      console.log(`Connected to: ${socket.url}`);
-
-      socket.onmessage = function(msg) {
-        console.log(msg);
-        const data = JSON.parse(msg.data).data;
-        console.log(data);
-        const message = document.createElement('div');
-        message.appendChild(document.createTextNode(msg.data));
-        message.appendChild(document.createElement('br'));
-        const link = document.createElement('a');
-        link.href = `https://etherscan.io/block/${data.blockNumber}`;
-        link.text = data.blockNumber;
-        link.target = '_blank';
-        link.title = 'Open Block in Etherscan';
-        message.appendChild(link);
-        message.appendChild(document.createElement('hr'));
-        document.querySelector('#messages').appendChild(message);
-      };
-    };
-
-    // Sending websocket message to the server
-    function sendMessage() {
-      console.log('Sending message to subscribe to finalized blocks');
-      socket.send(
-        JSON.stringify({
-          event: 'events',
-          data: {
-            client: 'vanilla.js',
-            topic: 'finalized-blocks',
-          },
-        }),
-      );
-
-      if (socket.readyState === 1) {
-        document.querySelector('#connection-status')
-          .appendChild(document.createTextNode('Connected!'));
-      }
-    }
-
-    function closeConnection(reason) {
-      console.log('Closing websocket connection', reason);
-      socket.close(1000, reason);
-      document.querySelector('#connection-status').innerHTML = "";
-      document.querySelector('#progress-bar').value = 0;
-    }
-  </script>
+  <script type="module" src="js/wsFinalizedBlock.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
+  <link rel="stylesheet" href="../../../css/pico.min.css">
   <title>Ethers.js SDK with Websocket: Finalized Blocks</title>
 </head>
 <body class="pico-background-pumpkin-30">
