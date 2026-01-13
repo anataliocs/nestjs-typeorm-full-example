@@ -79,6 +79,24 @@ GET {{host}}/v1/ethers/finalized-block
   });
 %}
 
+### GET request for Solana Kit server status
+GET {{host}}/v1/solkit/server-status
+
+> {%
+  client.test("Get Solana Kit server status request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
+### GET request for Solana Kit latest block number
+GET {{host}}/v1/solkit/block-number
+
+> {%
+  client.test("Get Solana Kit latest block number request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
 ### GET request for local users
 GET {{host}}/user
 

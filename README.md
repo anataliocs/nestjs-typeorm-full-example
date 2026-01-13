@@ -53,28 +53,34 @@ Reactive, async, non-blocking, event-driven back-ends are very powerful for on-c
 
 Endpoints and ultra light-weight clients for consuming data.
 
-- **REST API**
-    - Swagger: http://127.0.0.1:3000/api
-    - Script: [scripts/get.http](scripts/get.http)
-    - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
-    -
-    Vanilla.js: [client/src/restapi/ethers/rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
-- **GraphQL**
-    - GraphQL Playground: http://localhost:3000/graphql
-    - cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
-    - Script: [scripts/graphql.http](scripts/graphql.http)
-    -
-    Vanilla.js: [client/src/graphql/ethers/graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
-- **Websockets**
-    - Vanilla.js: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
-    - Vanilla.js: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
-    - [scripts/ws.http](scripts/ws.http)
-- **SSE**
-    - Vanilla.js: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
-    - Vanilla.js: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
-    - HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
+### REST API
 
-#### Tech Stack:
+- Swagger: http://127.0.0.1:3000/api
+- Script: [scripts/get.http](scripts/get.http)
+- OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
+- VanillaJS: [rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
+- VanillaJS: [sol-rest-block-number.html](client/src/restapi/solkit/sol-rest-block-number.html)
+
+### GraphQL
+
+- GraphQL Playground: http://localhost:3000/graphql
+- cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
+- Script: [scripts/graphql.http](scripts/graphql.http)
+- VanillaJS: [client/src/graphql/ethers/graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
+
+### Websockets
+
+- Script: [scripts/ws.http](scripts/ws.http)
+- VanillaJS: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
+- VanillaJS: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
+
+### SSE
+
+- VanillaJS: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
+- VanillaJS: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
+- HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
+
+### Tech Stack:
 
 - [Nest](https://github.com/nestjs/nest)
 - [TypeORM](https://docs.nestjs.com/techniques/database#typeorm-integration)
@@ -125,7 +131,10 @@ pnpm dev
 ### Set up Config
 
 **Setup `.env` file:**
-Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
+
+- Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
+- Get a RPC node for Ethereum from: https://www.infura.io/
+- Get a RPC node for Solana from: https://www.helius.dev/
 
 ```dotenv
 REAP_BASE_URL=https://sandbox.api.caas.reap.global/
@@ -135,6 +144,14 @@ APP_URL=127.0.0.1
 PEAQ_RPC_SERVER_URL=https://quicknode1.peaq.xyz
 PEAQ_WSS_SERVER_URL=wss://quicknode1.peaq.xyz
 ETH_DEV_SEED=
+ETH_DEV_ADDRESS=
+
+ETHERS_RPC_SERVER_URL=
+ETHERS_RPC_API_KEY=
+
+SOLKIT_RPC_SERVER_URL=
+SOLKIT_WS_SERVER_URL=
+SOLKIT_RPC_API_KEY=
 ```
 
 **Install Foundry CLI:**
