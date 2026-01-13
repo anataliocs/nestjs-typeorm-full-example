@@ -31,15 +31,16 @@
 
 # Nestjs TypeORM Full Example for Web3 SDKs
 
-Example of a **NestJS** application with **PostgreSQL** and **Axios** integrating into multiple Web3 SDKs.
+Example of a **NestJS** application with **PostgreSQL** and **Axios** integrating into multiple Web3 SDKs to demonstrate
+how to handle complex integration scenarios where you are building on multiple chains and APIs.
 
 This project modularizes popular Web3 SDKs, handles the lifecycle management, abstracts away complexity, adds
 configuration mgmt and exposes simplified interfaces in **REST API**, **GraphQL**, **Websocket** and **SSE(Server-Sent
 Events)** endpoint formats.
 
-These endpoints are consumed by ultra-lightweight, nano-clients including:
+**These endpoints are consumed by ultra-lightweight, nano-clients including:**
 
-- raw html+vanilla.js(Single-file)
+- raw html+vanilla.js
 - [htmx(single-file)](https://htmx.org/)
 - Swagger Web UI
 - GraphQL Playground
@@ -49,36 +50,93 @@ microservice-oriented backend for a decentralized application.
 
 Reactive, async, non-blocking, event-driven back-ends are very powerful for on-chain, blockchain-powered dApps.
 
-**Endpoints**
+## Client Examples:
 
 Endpoints and ultra light-weight clients for consuming data.
+
+---
+
+<div style="text-align: center;" align="center">
+    <strong>General Examples</strong>
+</div>
+
+---
 
 ### REST API
 
 - Swagger: http://127.0.0.1:3000/api
 - Script: [scripts/get.http](scripts/get.http)
 - OpenAPI JSON(Import into Postman): http://127.0.0.1:3000/api-json
-- VanillaJS: [rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
-- VanillaJS: [sol-rest-block-number.html](client/src/restapi/solkit/sol-rest-block-number.html)
 
 ### GraphQL
 
 - GraphQL Playground: http://localhost:3000/graphql
 - cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
 - Script: [scripts/graphql.http](scripts/graphql.http)
-- VanillaJS: [client/src/graphql/ethers/graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
 
 ### Websockets
 
 - Script: [scripts/ws.http](scripts/ws.http)
-- VanillaJS: [client/src/ws/ethers/ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
-- VanillaJS: [client/src/ws/ethers/ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
 
 ### SSE
 
-- VanillaJS: [client/src/sse/ethers/block-number.html](client/src/sse/ethers/block-number.html)
-- VanillaJS: [client/src/sse/ethers/finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
-- HTMX: [client/src/sse/ethers/htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
+- TODO
+
+---
+
+<div style="text-align: center;" align="center">
+    <img alt="Ethereum clients" src="client/img/eth-diamond.svg" width="30"><br/>
+    <strong>Ethers.js Examples</strong>
+</div>
+
+---
+
+### REST API
+
+- VanillaJS: [rest-finalized-block.html](client/src/restapi/ethers/rest-finalized-block.html)
+
+### GraphQL
+
+- VanillaJS: [graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
+
+### Websockets
+
+- VanillaJS: [ws-block-number.html](client/src/ws/ethers/ws-block-number.html)
+- VanillaJS: [ws-finalized-blocks.html](client/src/ws/ethers/ws-finalized-blocks.html)
+
+### SSE
+
+- VanillaJS: [block-number.html](client/src/sse/ethers/block-number.html)
+- VanillaJS: [finalized-blocks.html](client/src/sse/ethers/finalized-blocks.html)
+- HTMX: [htmx-block-number.html](client/src/sse/ethers/htmx-block-number.html)
+
+---
+
+<div style="text-align: center;" align="center">
+    <img alt="Ethereum clients" src="client/img/solana-logo.svg" width="120"><br/>
+    <strong>Solana Kit Examples</strong>
+</div>
+
+---
+
+### REST API
+
+- VanillaJS: [sol-rest-block-number.html](client/src/restapi/solkit/sol-rest-block-number.html)
+
+### GraphQL
+
+- VanillaJS: TODO
+
+### Websockets
+
+- VanillaJS: TODO
+- VanillaJS: TODO
+
+### SSE
+
+- VanillaJS: TODO
+
+----
 
 ### Tech Stack:
 
@@ -132,9 +190,9 @@ pnpm dev
 
 **Setup `.env` file:**
 
-- Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
 - Get a RPC node for Ethereum from: https://www.infura.io/
 - Get a RPC node for Solana from: https://www.helius.dev/
+- (OPTIONAL)Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
 
 ```dotenv
 REAP_BASE_URL=https://sandbox.api.caas.reap.global/
@@ -168,7 +226,7 @@ foundryup
 Set this as your `ETH_DEV_SEED`. Only use this for dev.
 https://getfoundry.sh/cast/reference/wallet
 
-```
+```bash
 cast wallet new
 ```
 
@@ -178,6 +236,9 @@ cast wallet new
 anvil --fork-url https://reth-ethereum.ithaca.xyz/rpc
 ```
 
+**Faucets:**
+
+- https://cloud.google.com/application/web3/faucet/ethereum
 - Fund wallet with peaq: https://docs.peaq.xyz/build/getting-started/fund-your-wallet
 
 **Open browser:**
@@ -190,7 +251,7 @@ After starting the service, open the following:
 
 ## Run local PostgreSQL
 
-The command pnpm db abstracts away the complexity of running a local PostgreSQL node.  
+The command `pnpm db` abstracts away the complexity of running a local PostgreSQL node.  
 Here are more details on how it's used.
 
 https://docs.endor.dev/cli/services/postgres/
@@ -210,6 +271,8 @@ endor run postgres
 ```bash
 psql -h localhost -U postgres -d postgres
 ```
+
+----
 
 ## Run the Project in Different Environments
 
@@ -295,7 +358,7 @@ a SSE endpoint `/ethers/sse/block-number/`.
 - Uses `EventSource` API - https://developer.mozilla.org/en-US/docs/Web/API/EventSource
 - Uses `picocss` delivered via public CDN for styling
 
-**Setting up a EventSource to the NestJS SSE Endpoint**
+**Setting up an EventSource to the NestJS SSE Endpoint**
 
 ```typescript
 const eventSource = new EventSource('http://127.0.0.1:3000/ethers/sse/block-number/', {
@@ -409,14 +472,14 @@ Format `/[version]/[domain]/[resource]/[resource_id]/[hiearchical_resource]/[hie
 **GOOD**
 
 ```bash
-// Clear hierarchy and context
+# Clear hierarchy and context
 GET /v1/treasury/customers/123/orders/456
 ```
 
 **BAD**
 
 ```bash
-// vs ambiguous flat structure
+# vs ambiguous flat structure
 GET /v1/orders/456  // Which customer? No context.
 ```
 

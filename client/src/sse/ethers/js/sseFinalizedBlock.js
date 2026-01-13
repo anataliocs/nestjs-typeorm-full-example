@@ -1,4 +1,4 @@
-import { SSEConnect } from '../../shared/sseConnect.js';
+import { SSEConnect } from '../../common/sseConnect.js';
 
 const eventSource = new SSEConnect(
   'http://127.0.0.1:3000/ethers/sse/finalized-blocks/',

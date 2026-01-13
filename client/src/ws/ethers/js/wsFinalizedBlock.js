@@ -1,4 +1,4 @@
-import { WsConnect } from '../../shared/wsConnect.js';
+import { WsConnect } from '../../common/wsConnect.js';
 
 const websocket = new WsConnect('ws://localhost:81');
 
