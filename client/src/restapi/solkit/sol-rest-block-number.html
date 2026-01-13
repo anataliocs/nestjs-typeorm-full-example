@@ -3,8 +3,8 @@
 <head>
   <script type="text/javascript">
 
-    async function getFinalizedBlock() {
-      const res = await fetch('http://127.0.0.1:3000/v1/ethers/finalized-block');
+    async function getLatestBlockNumber() {
+      const res = await fetch('http://127.0.0.1:3000/v1/solkit/block-number');
       const json = await res.json();
       console.log(res);
       console.log(json);
@@ -13,10 +13,10 @@
       message.appendChild(document.createTextNode(JSON.stringify(json)));
       message.appendChild(document.createElement('br'));
       const link = document.createElement('a');
-      link.href = `https://etherscan.io/block/${json.blockNumber}`;
+      link.href = `https://solscan.io/block/${json.blockNumber}`;
       link.text = json.blockNumber;
       link.target = '_blank';
-      link.title = 'Open Block in Etherscan';
+      link.title = 'Open Block in Solscan.io';
       message.appendChild(link);
       message.appendChild(document.createElement('hr'));
       document.querySelector('#messages').appendChild(message);
@@ -29,40 +29,39 @@
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.1.1/css/pico.min.css">
-  <title>Ethers.js SDK with Rest API: Latest Finalized Block</title>
+  <title>Solana Kit SDK with REST API: Latest Block Number</title>
 </head>
 <body class="pico-background-pumpkin-30">
 <hgroup>
   <header class="container-fluid pico-background-pumpkin-50">
     <nav>
       <ul>
-        <li><img src="../../../img/eth-diamond.svg" alt="Solana Logo" width="40" /></li>
-        <li>Ethereum</li>
+        <li><img src="../../../img/solanaLogo.svg" alt="Solana Logo" width="100" /></li>
       </ul>
       <ul>
-        <li><a href="http://127.0.0.1:3000/v1/ethers/finalized-block" target="_blank">Source:
-          http://127.0.0.1:3000/v1/ethers/finalized-block</a></li>
+        <li><a href="http://127.0.0.1:3000/v1/solkit/block-number" target="_blank">Source:
+          http://127.0.0.1:3000/v1/solkit/block-number</a></li>
       </ul>
     </nav>
     <hr />
   </header>
 </hgroup>
 <main class="container">
-  <h4>Ethers.js SDK with REST API Thin Client: Latest Finalized Block</h4>
+  <h4>Solana Kit SDK with REST API Thin Client: Latest Block Number</h4>
   <p>Nest.js REST API with RxJS Observables with Vanilla.js Client</p>
 
   <div class="grid">
     <div>
       <article>
-        <strong>REST API Response - Latest Finalized Block</strong>
+        <strong>REST API Response - Latest Block Number</strong>
         <p>
           <ins id="connection-status"></ins>
         </p>
         <article id="messages"></article>
       </article>
-      <button onclick="getFinalizedBlock()"
-              title="Get latest finalized block">
-        Get Finalized Block
+      <button onclick="getLatestBlockNumber()"
+              title="Get latest block number">
+        Get Latest Block Number
       </button>
     </div>
     <div></div>

@@ -29,9 +29,10 @@ import { EthersGraphqlResolver } from './ethers/ethers-graphql.resolver';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'node:path';
-import { SolkitModule } from './solkit/solkit.module';
 import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
 import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
+import { SolkitService } from './solkit/solkit.service';
+import { SolkitController } from './solkit/solkit.controller';
 
 @Module({
   imports: [
@@ -100,7 +101,6 @@ import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
         path: join(process.cwd(), 'src/graphql.ts'),
       },
     }),
-    SolkitModule,
   ],
   controllers: [
     ReapController,
@@ -109,6 +109,7 @@ import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
     WormholeController,
     EthersController,
     EthersSseController,
+    SolkitController,
   ],
   providers: [
     ReapService,
@@ -118,6 +119,7 @@ import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
     EthersService,
     EthersGateway,
     EthersGraphqlResolver,
+    SolkitService,
   ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })

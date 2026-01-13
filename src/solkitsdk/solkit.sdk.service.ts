@@ -47,7 +47,7 @@ export class SolkitSdkService
       ),
     } as SolKitClient;
 
-    this.logger.log(`Solana kit SDK Rpc Server Type: ${this._network}`);
+    this.logger.log(`Solana Kit SDK Rpc Server Type: ${this._network}`);
   }
 
   private apiKeyString() {
@@ -71,13 +71,13 @@ export class SolkitSdkService
     // TODO init logic
     this.connected();
     this.logger.log(
-      `Solana kit SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this.rpcServerUrl}`,
+      `Solana Kit SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this.rpcServerUrl}`,
     );
   }
 
   onApplicationShutdown(_signal?: string) {
     // TODO shut down logic
     this.disconnected();
-    this.logger.log(`Closing Solana kit SDK Rpc Server Connection: ${_signal}`);
+    this.logger.log(`Closing Solana Kit SDK Rpc Server Connection: ${_signal}`);
   }
 }
