@@ -6,6 +6,7 @@ import { EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { EthersSdkConfig } from '../etherssdk/ethersSdkConfig';
 import { firstValueFrom } from 'rxjs';
 import { BlockNumber } from './dto/block-number';
+import { CONFIG_OPTIONS } from '../sdk/sdk.common';
 
 describe('EthersController', () => {
   let controller: EthersController;
@@ -20,22 +21,26 @@ describe('EthersController', () => {
         EthersService,
         EthersSdkService,
         {
+          provide: CONFIG_OPTIONS,
+          useValue: {
+            rpcServerUrl: 'https://mainnet.infura.io/v3/', // note trailing slash
+            network: 'mainnet',
+            apiKey: '0e041bf23121eef2131f2321abf',
+          } as EthersSdkConfig,
+        },
+        {
           provide: ConfigService,
           useValue: {
-            get: jest.fn(() => 'https://mainnet.infura.io/v3/'),
+            get: jest.fn((key: string) => {
+              if (key === 'ETHERS_RPC_SERVER_URL')
+                return 'https://mainnet.infura.io/v3/';
+              if (key === 'ETHERS_RPC_API_KEY')
+                return '0e041bf23121eef2131f2321abf';
+            }),
           },
         },
       ],
-    })
-      .useMocker((token) => {
-        if (token === 'CONFIG_OPTIONS') {
-          return jest.fn().mockReturnValue({
-            rpcServerUrl: 'https://mainnet.infura.io/v3/',
-            network: 'Testnet',
-          } as EthersSdkConfig);
-        }
-      })
-      .compile();
+    }).compile();
 
     controller = module.get<EthersController>(EthersController);
     service = module.get<EthersService>(EthersService);

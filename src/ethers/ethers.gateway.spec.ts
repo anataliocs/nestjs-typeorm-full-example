@@ -4,6 +4,7 @@ import { EthersService } from './ethers.service';
 import { EthersSdkConfig } from '../etherssdk/ethersSdkConfig';
 import { EthersSdkService } from '../etherssdk/ethers.sdk.service';
 import { ConfigService } from '@nestjs/config';
+import { CONFIG_OPTIONS } from '../sdk/sdk.common';
 
 describe('EthersGateway', () => {
   let gateway: EthersGateway;
@@ -18,22 +19,26 @@ describe('EthersGateway', () => {
         EthersService,
         EthersSdkService,
         {
+          provide: CONFIG_OPTIONS,
+          useValue: {
+            rpcServerUrl: 'https://mainnet.infura.io/v3/', // note trailing slash
+            network: 'mainnet',
+            apiKey: '0e041bf23121eef2131f2321abf',
+          } as EthersSdkConfig,
+        },
+        {
           provide: ConfigService,
           useValue: {
-            get: jest.fn(() => 'https://mainnet.infura.io/v3/'),
+            get: jest.fn((key: string) => {
+              if (key === 'ETHERS_RPC_SERVER_URL')
+                return 'https://mainnet.infura.io/v3/';
+              if (key === 'ETHERS_RPC_API_KEY')
+                return '0e041bf23121eef2131f2321abf';
+            }),
           },
         },
       ],
-    })
-      .useMocker((token) => {
-        if (token === 'CONFIG_OPTIONS') {
-          return jest.fn().mockReturnValue({
-            rpcServerUrl: 'https://mainnet.infura.io/v3/',
-            network: 'Testnet',
-          } as EthersSdkConfig);
-        }
-      })
-      .compile();
+    }).compile();
 
     gateway = module.get<EthersGateway>(EthersGateway);
     service = module.get<EthersService>(EthersService);
