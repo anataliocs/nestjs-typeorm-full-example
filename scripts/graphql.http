@@ -1,4 +1,4 @@
-### GraphQL request for LatestBlock
+### GraphQL request for Block by Number from ethers.js
 GRAPHQL {{host}}/graphql
 
 query {
@@ -10,3 +10,16 @@ query {
         transactionCount
     }
 }
+
+### GraphQL request for Block by Number from Solana Kit
+GRAPHQL {{host}}/graphql
+
+query {
+    getSolanaBlockByNumber(blockNumber: "393324959") {
+        creationDate,
+        blockNumber,
+        hash,
+        transactionCount
+    }
+}
+

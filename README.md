@@ -71,7 +71,6 @@ Endpoints and ultra light-weight clients for consuming data.
 ### GraphQL
 
 - GraphQL Playground: http://localhost:3000/graphql
-- cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
 - Script: [scripts/graphql.http](scripts/graphql.http)
 
 ### Websockets
@@ -98,6 +97,7 @@ Endpoints and ultra light-weight clients for consuming data.
 ### GraphQL
 
 - VanillaJS: [graphql-block-query.html](client/src/graphql/ethers/graphql-block-query.html)
+- cURL Shell Script: [scripts/ethers/graphql-curl.sh](scripts/ethers/graphql-curl.sh)
 
 ### Websockets
 
@@ -126,6 +126,7 @@ Endpoints and ultra light-weight clients for consuming data.
 ### GraphQL
 
 - VanillaJS: TODO
+- cURL Shell Script: [graphql-curl.sh](scripts/solkit/graphql-curl.sh)
 
 ### Websockets
 

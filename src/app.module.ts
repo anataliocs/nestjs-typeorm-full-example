@@ -33,6 +33,7 @@ import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
 import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
 import { SolkitService } from './solkit/solkit.service';
 import { SolkitController } from './solkit/solkit.controller';
+import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
 
 @Module({
   imports: [
@@ -82,7 +83,7 @@ import { SolkitController } from './solkit/solkit.controller';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>
         ({
-          network: 'Devnet',
+          network: 'Mainnet',
           rpcServerUrl: configService.get<string>('SOLKIT_RPC_SERVER_URL'),
           wsServerUrl: configService.get<string>('SOLKIT_WS_SERVER_URL'),
           providerKeyPrefix: configService.get<string>(
@@ -120,6 +121,7 @@ import { SolkitController } from './solkit/solkit.controller';
     EthersGateway,
     EthersGraphqlResolver,
     SolkitService,
+    SolkitGraphqlResolver,
   ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })

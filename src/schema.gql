@@ -16,6 +16,15 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""Solana Block"""
+type SolanaBlock {
+  blockNumber: ID!
+  creationDate: String!
+  hash: String!
+  transactionCount: Float!
+}
+
 type Query {
   getBlockByNumber(blockNumber: Float!): Block!
+  getSolanaBlockByNumber(blockNumber: String!): SolanaBlock!
 }

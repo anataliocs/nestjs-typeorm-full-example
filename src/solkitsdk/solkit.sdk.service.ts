@@ -5,6 +5,7 @@ import { CONFIG_OPTIONS, SdkService, SdkServiceBase } from '../sdk/sdk.common';
 import {
   createSolanaRpc,
   createSolanaRpcSubscriptions,
+  GetBlockApi,
   PendingRpcRequest,
   Rpc,
   RpcSubscriptions,
@@ -12,14 +13,15 @@ import {
   SolanaRpcSubscriptionsApi,
 } from '@solana/kit';
 
-export type SolKitClient = {
-  rpc: Rpc<SolanaRpcApi>;
+export type SolanaRpcServer = {
+  rpcBlockHeightApi: Rpc<SolanaRpcApi>;
+  rpcGetBlockApi: Rpc<GetBlockApi>;
   rpcSubscriptions: RpcSubscriptions<SolanaRpcSubscriptionsApi>;
 };
 
 @Injectable()
 export class SolkitSdkService
-  extends SdkServiceBase<SolKitClient>
+  extends SdkServiceBase<SolanaRpcServer>
   implements SdkService
 {
   private readonly logger: Logger = new Logger(SolkitSdkService.name);
@@ -27,7 +29,7 @@ export class SolkitSdkService
   private readonly rpcServerUrl: string;
   private readonly wsServerUrl: string;
   private readonly providerKeyPrefix: string;
-  private _network: string;
+  private readonly network: string;
 
   constructor(
     private configService: ConfigService,
@@ -38,16 +40,22 @@ export class SolkitSdkService
     this.rpcServerUrl = options.rpcServerUrl;
     this.wsServerUrl = options.wsServerUrl;
     this.providerKeyPrefix = options.providerKeyPrefix;
-    this._network = options.network;
+    this.network = options.network;
 
     this._rpcServer = {
-      rpc: createSolanaRpc(this.rpcServerUrl + this.apiKeyString()),
+      rpcBlockHeightApi: createSolanaRpc(
+        this.rpcServerUrl + this.apiKeyString(),
+      ),
+      rpcGetBlockApi: createSolanaRpc(
+        this.rpcServerUrl + this.apiKeyString(),
+        {},
+      ),
       rpcSubscriptions: createSolanaRpcSubscriptions(
         this.wsServerUrl + this.apiKeyString(),
       ),
-    } as SolKitClient;
+    } as SolanaRpcServer;
 
-    this.logger.log(`Solana Kit SDK Rpc Server Type: ${this._network}`);
+    this.logger.log(`Solana Kit SDK Rpc Server Type: ${this.network}`);
   }
 
   private apiKeyString() {
@@ -64,7 +72,23 @@ export class SolkitSdkService
    * @returns  `PendingRpcRequest<bigint>`
    */
   getBlockNumber(): PendingRpcRequest<bigint> {
-    return this._rpcServer.rpc.getBlockHeight();
+    return this._rpcServer.rpcBlockHeightApi.getBlockHeight({
+      commitment: 'finalized',
+    });
+  }
+
+  /**
+   * Get block by number.
+   * https://www.solanakit.com/api/type-aliases/GetBlockApi#getblock
+   *
+   * @returns  `PendingRpcRequest<bigint>`
+   */
+  getBlockByNumber(blockNumber: string) {
+    return this._rpcServer.rpcGetBlockApi
+      .getBlock(BigInt(blockNumber), {
+        maxSupportedTransactionVersion: 0,
+      })
+      .send();
   }
 
   onModuleInit() {
