@@ -9,4 +9,9 @@ export interface EthersSdkConfig {
    * Example: TODO
    */
   network: string;
+  /*
+   * TODO
+   * Example: TODO
+   */
+  apiKey?: string;
 }

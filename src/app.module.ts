@@ -75,10 +75,16 @@ import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
       wormholeNetwork: 'Testnet',
       platformArray: [evm, solana],
     } as WormholeSdkConfig),
-    EthersSdkModule.register({
-      rpcServerUrl: 'https://mainnet.infura.io/v3/',
-      network: 'Testnet',
-    } as EthersSdkConfig),
+    EthersSdkModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        ({
+          network: 'Mainnet',
+          rpcServerUrl: configService.get<string>('ETHERS_RPC_SERVER_URL'),
+          apiKey: configService.get<string>('ETHERS_RPC_API_KEY'),
+        }) as EthersSdkConfig,
+      inject: [ConfigService],
+    }),
     SolkitSdkModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>

@@ -16,25 +16,22 @@ export class EthersSdkService
   private readonly logger: Logger = new Logger(EthersSdkService.name);
 
   private readonly _rpcServerUrl: string;
-  private _network: string | ethers.Network;
+  private network: string | ethers.Network;
 
   constructor(
-    private configService: ConfigService,
+    private _configService: ConfigService,
     @Inject(CONFIG_OPTIONS)
     private options: ethersSdkConfig.EthersSdkConfig,
   ) {
     super(`Ethers SDK Rpc Server is not initialized.`);
-    // Use environment variable if set, otherwise use the value from module options
-    this._rpcServerUrl =
-      this.configService.get<string>('ETHERS_RPC_SERVER_URL') ||
-      options.rpcServerUrl;
-    this._network = options.network;
+    this._rpcServerUrl = options.rpcServerUrl;
+    this.network = options.network;
     // https://docs.ethers.org/v6/api/providers/jsonrpc/#JsonRpcProvider
     this._rpcServer = new ethers.JsonRpcProvider(
-      this._rpcServerUrl + this.configService.get<string>('ETHERS_RPC_API_KEY'),
+      this._rpcServerUrl + options.apiKey,
     );
 
-    this.logger.log(`Ethers SDK Rpc Server Type: ${this._network}`);
+    this.logger.log(`Ethers SDK Rpc Server Type: ${this.network}`);
   }
 
   /**
@@ -69,7 +66,7 @@ export class EthersSdkService
   }
 
   async onModuleInit() {
-    this._network = await this._rpcServer.getNetwork();
+    this.network = await this._rpcServer.getNetwork();
     this.connected();
     this.logger.log(
       `Ethers SDK Rpc Server Status: ${this._rpcServerStatus} - RPC Server URL: ${this._rpcServerUrl}`,
