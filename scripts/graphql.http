@@ -2,7 +2,7 @@
 GRAPHQL {{host}}/graphql
 
 query {
-    getBlockByNumber(blockNumber: 24068107) {
+    getSolBlockByNumber(blockNumber: 24068107) {
         creationDate,
         blockNumber,
         hash,

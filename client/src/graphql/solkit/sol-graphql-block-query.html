@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
-  <script type="module" src="js/getBlockByNumber.js"></script>
+  <script type="module" src="js/getSolBlockByNumber.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
   <link rel="stylesheet" href="../../../css/pico.min.css">
-  <title>Ethers.js SDK with GraphQL: Block Query</title>
+  <title>Solana Kit SDK with GraphQL: Block Query</title>
 </head>
 <body class="pico-background-pumpkin-30">
 <hgroup>
   <header class="container-fluid pico-background-pumpkin-50">
     <nav>
       <ul>
-        <li><img src="../../../img/eth-diamond.svg" alt="Solana Logo" width="40" /></li>
-        <li>Ethereum</li>
+        <li><img src="../../../img/solana-logo.svg" alt="Solana Logo" width="100" /></li>
       </ul>
       <ul>
         <li><a href="http://127.0.0.1:3000/graphql" target="_blank">Source:
@@ -25,16 +24,17 @@
   </header>
 </hgroup>
 <main class="container">
-  <h4>Ethers.js SDK with GraphQL Thin Client: Block Query</h4>
+  <h4>Solana Kit SDK with GraphQL Thin Client: Block Query</h4>
   <p>Nest.js GraphQL API with RxJS Observables with Vanilla.js Client</p>
 
   <div class="grid">
     <div>
       <article>
-        <strong>GraphQL Query - Get Block by Number</strong>
+        <strong>GraphQL Query - Get Solana Block by Number</strong>
         <p>
           <label for="blockNumber">Block Number:</label>
-          <input type="number" id="blockNumber" name="blockNumber" placeholder="Enter block number (e.g., 21500000)" value="21500000" min="0">
+          <input type="text" id="blockNumber" name="blockNumber"
+                 placeholder="Enter block number (e.g., 393324959)" value="393324959">
         </p>
         <article id="messages"></article>
       </article>

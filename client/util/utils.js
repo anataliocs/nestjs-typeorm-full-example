@@ -1,7 +1,7 @@
-export function createLinkSol(json) {
+export function createLinkSol(block) {
   const link = document.createElement('a');
-  link.href = `https://solscan.io/block/${json.blockNumber}`;
-  link.text = json.blockNumber;
+  link.href = `https://solscan.io/block/${block.blockNumber}`;
+  link.text = `View Block ${block.blockNumber} on Solscan.io`;
   link.target = '_blank';
   link.title = 'Open Block in Solscan.io';
   return link;
