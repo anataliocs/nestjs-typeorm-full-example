@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script type="module" src="js/wsSolFinalizedBlock.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="../../../css/pico.min.css">
+  <title>Solana Kit SDK with Websocket: Finalized Blocks</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <nav>
+      <ul>
+        <li><img src="../../../img/solana-logo.svg" alt="Solana Logo" width="100" /></li>
+      </ul>
+      <ul>
+        <li><a href="ws://localhost:81" target="_blank">Event Source: ws://localhost:81</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+</hgroup>
+<main class="container">
+  <h4>Solana Kit SDK with Websocket: Finalized Blocks</h4>
+  <p>Nest.js Websocket with RxJS Observables with Websocket Client</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        <strong>Emitted Events - Finalized Blocks</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages"></article>
+      </article>
+      <div role="group">
+        <button id="send-message-button"
+                title="Send websocket message to subscribe to Finalized Blocks">
+          Subscribe to Finalized Blocks
+        </button>
+        <button class="secondary" id="close-connection-button"
+                title="Close websocket connection">
+          Close Connection
+        </button>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</main>
+<footer class="container-fluid">
+  <hr />
+  <article>Websocket Demo for Finalized Blocks</article>
+</footer>
+</body>
+</html>

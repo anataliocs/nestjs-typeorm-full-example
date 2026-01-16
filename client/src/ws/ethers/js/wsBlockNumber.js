@@ -1,6 +1,11 @@
 import { WsConnect } from '../../common/wsConnect.js';
+import { createLinkEth } from '../../../../util/utils.js';
 
-const websocket = new WsConnect('ws://localhost:81');
+const websocket = new WsConnect(
+  'ws://localhost:81',
+  'ethers-subscribe-blocks',
+  createLinkEth,
+);
 
 // Sending websocket message to the server
 document.querySelector('#send-message-button').addEventListener('click', () => {

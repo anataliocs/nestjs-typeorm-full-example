@@ -1,10 +1,10 @@
 import { WsConnect } from '../../common/wsConnect.js';
-import { createLinkEth } from '../../../../util/utils.js';
+import { createLinkSol } from '../../../../util/utils.js';
 
 const websocket = new WsConnect(
   'ws://localhost:81',
-  'ethers-subscribe-blocks',
-  createLinkEth,
+  'solkit-subscribe-blocks',
+  createLinkSol,
 );
 
 // Sending websocket message to the server

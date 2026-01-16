@@ -129,8 +129,8 @@ Endpoints and ultra light-weight clients for consuming data.
 
 ### Websockets
 
-- VanillaJS: TODO
-- VanillaJS: TODO
+- VanillaJS: [ws-sol-block-number.html](client/src/ws/solkit/ws-sol-block-number.html)
+- VanillaJS: [ws-sol-finalized-blocks.html](client/src/ws/solkit/ws-sol-finalized-blocks.html)
 
 ### SSE
 

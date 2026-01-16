@@ -1,9 +1,11 @@
 import { createLinkEth } from '../../../util/utils.js';
 
 export class WsConnect {
-  constructor(url) {
+  constructor(url,eventName,linkFunction) {
     this.url = url;
     this.socket = new WebSocket(url);
+    this.eventName = eventName;
+    this.linkFunction = linkFunction;
     this.setEventHandlers();
   }
 
@@ -19,7 +21,7 @@ export class WsConnect {
       const message = document.createElement('div');
       message.appendChild(document.createTextNode(msg.data));
       message.appendChild(document.createElement('br'));
-      const link = createLinkEth(data);
+      const link = this.linkFunction(data);
       message.appendChild(link);
       message.appendChild(document.createElement('hr'));
       document.querySelector('#messages').appendChild(message);
@@ -29,7 +31,7 @@ export class WsConnect {
   sendMessage(topic) {
     this.socket.send(
       JSON.stringify({
-        event: 'events',
+        event: this.eventName,
         data: {
           client: 'vanilla.js',
           topic: topic,
