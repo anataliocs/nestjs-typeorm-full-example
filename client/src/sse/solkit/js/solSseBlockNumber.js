@@ -1,9 +1,9 @@
 import { SSEConnect } from '../../common/sseConnect.js';
-import { createLinkEth } from '../../../../util/utils.js';
+import { createLinkSol } from '../../../../util/utils.js';
 
 const eventSource = new SSEConnect(
-  'http://127.0.0.1:3000/ethers/sse/finalized-blocks/',
-  createLinkEth,
+  'http://127.0.0.1:3000/solkit/sse/block-number/',
+  createLinkSol,
 );
 
 // Close SSE connection

@@ -34,6 +34,7 @@ import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
 import { SolkitService } from './solkit/solkit.service';
 import { SolkitController } from './solkit/solkit.controller';
 import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
+import SolkitSseController from './solkit/solkit.sse.controller';
 
 @Module({
   imports: [
@@ -117,6 +118,7 @@ import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
     EthersController,
     EthersSseController,
     SolkitController,
+    SolkitSseController,
   ],
   providers: [
     ReapService,

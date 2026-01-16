@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script type="module" src="js/solSseBlockNumber.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="../../../css/pico.min.css">
+  <title>Solana Kit SDK with SSE: Latest Block Number</title>
+</head>
+<body class="pico-background-pumpkin-30">
+<hgroup>
+  <header class="container-fluid pico-background-pumpkin-50">
+    <nav>
+      <ul>
+        <li><img src="../../../img/solana-logo.svg" alt="Solana Logo" width="100" /></li>
+      </ul>
+      <ul>
+        <li><a href="http://127.0.0.1:3000/solkit/sse/block-number/" target="_blank">Event Source:
+          http://127.0.0.1:3000/solkit/sse/block-number/</a></li>
+      </ul>
+    </nav>
+    <hr />
+  </header>
+</hgroup>
+<main class="container">
+  <h4>Solana Kit SDK with SSE: Latest Block Number</h4>
+  <p>Nest.js Server Sent Events with RxJS Observables with EventSource Client</p>
+
+  <div class="grid">
+    <div>
+      <article>
+        <strong>Emitted Events - New Blocks by Block Number</strong>
+        <p>
+          <ins id="connection-status"></ins>
+        </p>
+        <progress id="progress-bar"></progress>
+        <article id="messages"></article>
+      </article>
+      <button id="close-connection-button">Close Stream</button>
+    </div>
+    <div></div>
+  </div>
+</main>
+<footer class="container-fluid">
+  <hr />
+  <article>Server Sent Events Demo</article>
+</footer>
+</body>
+</html>

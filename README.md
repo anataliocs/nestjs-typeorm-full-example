@@ -126,7 +126,6 @@ Endpoints and ultra light-weight clients for consuming data.
 ### GraphQL
 
 - VanillaJS: [sol-graphql-block-query.html](client/src/graphql/solkit/sol-graphql-block-query.html)
-- cURL Shell Script: [graphql-curl.sh](scripts/solkit/graphql-curl.sh)
 
 ### Websockets
 

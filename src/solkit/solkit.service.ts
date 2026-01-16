@@ -5,6 +5,7 @@ import { SolanaBlockNumber } from './dto/solana-block-number';
 import { SolanaBlock } from './model/solana-block';
 import { UnixTimestamp } from '@solana/kit';
 import { SolanaFinalizedBlock } from './dto/solana-finalized-block';
+import { buildMessageEvent } from '../common/message-utils';
 
 @Injectable()
 export class SolkitService {
@@ -110,5 +111,18 @@ export class SolkitService {
    */
   getBlockByNumberForGraphQL(blockNumber: string): Observable<SolanaBlock> {
     return from(this.getBlockByNumberFromSdk(blockNumber));
+  }
+
+  /**
+   * For use by SSE Controller to emit a stream of Websocket response DTOs.
+   * Convert `Promise<MessageEvent<SolanaBlockNumber>>` to `Observable<MessageEvent<SolanaBlockNumber>>`
+   *
+   * @returns  `Observable<MessageEvent<BlockNumber>`
+   */
+  subscribeToNewBlockNumbersForSse(): (
+    n: number,
+  ) => Observable<MessageEvent<SolanaBlockNumber>> {
+    return (n: number): Observable<MessageEvent<SolanaBlockNumber>> =>
+      from(buildMessageEvent<SolanaBlockNumber>(n, this.getBlockNumberJson));
   }
 }

@@ -2,10 +2,11 @@ import { createLinkEth } from '../../../util/utils.js';
 
 export class SSEConnect {
   // Example: http://127.0.0.1:3000/ethers/sse/block-number/
-  constructor(url) {
+  constructor(url, linkFunction) {
     this.eventSource = new EventSource(url, {
       withCredentials: false,
     });
+    this.linkFunction = linkFunction;
     this.setEventHandlers();
   }
 
@@ -16,7 +17,7 @@ export class SSEConnect {
       const message = document.createElement('div');
       message.appendChild(document.createTextNode(msg.data));
       message.appendChild(document.createElement('br'));
-      const link = createLinkEth(data);
+      const link = this.linkFunction(data);
       message.appendChild(link);
       message.appendChild(document.createElement('hr'));
       document.querySelector('#messages').appendChild(message);
