@@ -5,7 +5,7 @@ import { WsResponse } from '@nestjs/websockets';
 import { FinalizedBlock } from './dto/finalized-block';
 import { BlockNumber } from './dto/block-number';
 import { Block } from './models/block';
-import { buildMessageEvent } from '../common/message-utils';
+import { buildMessageEvent, buildWsResponse } from '../common/message-utils';
 
 @Injectable()
 export class EthersService {
@@ -103,7 +103,7 @@ export class EthersService {
     n: number,
   ) => Observable<WsResponse<BlockNumber>> {
     return (n: number): Observable<WsResponse<BlockNumber>> =>
-      from(this.buildWsResponse<BlockNumber>(n, this._getBlockNumberJson));
+      from(buildWsResponse<BlockNumber>(n, this._getBlockNumberJson));
   }
 
   /**
@@ -116,9 +116,7 @@ export class EthersService {
     n: number,
   ) => Observable<WsResponse<FinalizedBlock>> {
     return (n: number): Observable<WsResponse<FinalizedBlock>> =>
-      from(
-        this.buildWsResponse<FinalizedBlock>(n, this._getFinalizedBlocksJson),
-      );
+      from(buildWsResponse<FinalizedBlock>(n, this._getFinalizedBlocksJson));
   }
 
   /**
@@ -145,22 +143,5 @@ export class EthersService {
   ) => Observable<MessageEvent<FinalizedBlock>> {
     return (n: number): Observable<MessageEvent<FinalizedBlock>> =>
       from(buildMessageEvent<FinalizedBlock>(n, this._getFinalizedBlocksJson));
-  }
-
-  /**
-   * Build Websocket Response `WsResponse` object setting `data` to the return value
-   * of the `sdkFunction` wrapper around an ethers SDK function.
-   * `DataType` generic indicates the DTO type to be returned.
-   *
-   * @returns  `Promise<WsResponse<DataType>>`
-   */
-  private async buildWsResponse<DataType>(
-    n: number,
-    sdkFunction: () => Promise<DataType>,
-  ): Promise<WsResponse<DataType>> {
-    return {
-      type: 'events',
-      data: await sdkFunction(),
-    } as unknown as WsResponse<DataType>;
   }
 }

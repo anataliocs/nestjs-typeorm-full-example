@@ -1,10 +1,10 @@
-### WebSocket Message to subscribe to Latest Blocknumber
+### WebSocket Message to subscribe to ethers.js Latest Blocknumber
 WEBSOCKET {{ws}}
 Content-Type: application/json // We use it for highlighting
 
 ===
 {
-  "event": "events",
+  "event": "ethers-subscribe-blocks",
   "data": {
     "client": "vanilla.js",
     "topic": "block-number"
@@ -12,13 +12,41 @@ Content-Type: application/json // We use it for highlighting
 }
 === wait-for-server
 
-### WebSocket Message to subscribe to Finalized Blocks
+### WebSocket Message to subscribe to ethers.js Finalized Blocks
 WEBSOCKET {{ws}}
 Content-Type: application/json // We use it for highlighting
 
 ===
 {
-  "event": "events",
+  "event": "ethers-subscribe-blocks",
+  "data": {
+    "client": "vanilla.js",
+    "topic": "finalized-blocks"
+  }
+}
+=== wait-for-server
+
+### WebSocket Message to subscribe to Solana Kit Latest Blocknumber
+WEBSOCKET {{ws}}
+Content-Type: application/json // We use it for highlighting
+
+===
+{
+  "event": "solkit-subscribe-blocks",
+  "data": {
+    "client": "vanilla.js",
+    "topic": "block-number"
+  }
+}
+=== wait-for-server
+
+### WebSocket Message to subscribe to Solana Kit Finalized Blocks
+WEBSOCKET {{ws}}
+Content-Type: application/json // We use it for highlighting
+
+===
+{
+  "event": "solkit-subscribe-blocks",
   "data": {
     "client": "vanilla.js",
     "topic": "finalized-blocks"

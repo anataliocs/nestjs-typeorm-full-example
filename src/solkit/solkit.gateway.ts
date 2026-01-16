@@ -13,31 +13,33 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 
 import { distinct, interval, mergeMap, Observable } from 'rxjs';
 import { Server } from 'ws';
-import { EthersService } from './ethers.service';
 import { WebSocketSubscribeDto } from '../common/dto/websocket-subscribe.dto';
-import { BlockNumber } from './dto/block-number';
-import { FinalizedBlock } from './dto/finalized-block';
 import { IncomingMessage } from 'node:http';
 import { errorMsgWsResponse, WsError } from '../common/message-utils';
+import { SolkitService } from './solkit.service';
+import { SolanaBlockNumber } from './dto/solana-block-number';
+import { SolanaFinalizedBlock } from './dto/solana-finalized-block';
 
 @WebSocketGateway(81, { cors: { origin: '*' } })
-export class EthersGateway
+export class SolkitGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  private readonly logger = new Logger(EthersGateway.name);
+  private readonly logger = new Logger(SolkitGateway.name);
 
   @WebSocketServer() server: Server;
 
-  constructor(private readonly ethersService: EthersService) {}
+  constructor(private readonly solkitService: SolkitService) {}
 
-  @SubscribeMessage('ethers-subscribe-blocks')
+  @SubscribeMessage('solkit-subscribe-blocks')
   onEvent(
     @MessageBody(new ValidationPipe()) payload: WebSocketSubscribeDto,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     @ConnectedSocket() _client: WebSocket,
-  ): Observable<WsResponse<BlockNumber | FinalizedBlock | WsError>> {
+  ): Observable<
+    WsResponse<SolanaBlockNumber | SolanaFinalizedBlock | WsError>
+  > {
     this.logger.log(
-      `Event: ethers-subscribe-blocks Client: ${payload.client} Topic: ${payload.topic}`,
+      `Event: solkit-subscribe-blocks Client: ${payload.client} Topic: ${payload.topic}`,
     );
 
     switch (payload.topic) {
@@ -52,13 +54,13 @@ export class EthersGateway
 
   private finalizedBlocksStream() {
     return interval(5000)
-      .pipe(mergeMap(this.ethersService.finalizedBlocksStreamForWebsocket()))
+      .pipe(mergeMap(this.solkitService.finalizedBlocksStreamForWebsocket()))
       .pipe(distinct(({ data }) => data.blockNumber));
   }
 
   private newBlocksStream() {
     return interval(5000)
-      .pipe(mergeMap(this.ethersService.newBlocksStreamForWebsocket()))
+      .pipe(mergeMap(this.solkitService.newBlocksStreamForWebsocket()))
       .pipe(distinct(({ data }) => data.blockNumber));
   }
 

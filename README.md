@@ -84,7 +84,7 @@ Endpoints and ultra light-weight clients for consuming data.
 ---
 
 <div style="text-align: center;" align="center">
-    <img alt="Ethereum clients" src="client/img/eth-diamond.svg" width="30"><br/>
+    <img alt="Ethereum logo" src="client/img/eth-diamond.svg" width="30"><br/>
     <strong>Ethers.js Examples</strong>
 </div>
 
@@ -113,7 +113,7 @@ Endpoints and ultra light-weight clients for consuming data.
 ---
 
 <div style="text-align: center;" align="center">
-    <img alt="Ethereum clients" src="client/img/solana-logo.svg" width="120"><br/>
+    <img alt="Solana logo" src="client/img/solana-logo.svg" width="120"><br/>
     <strong>Solana Kit Examples</strong>
 </div>
 
@@ -134,7 +134,7 @@ Endpoints and ultra light-weight clients for consuming data.
 
 ### SSE
 
-- VanillaJS: TODO
+- VanillaJS: [sol-block-number.html](client/src/sse/solkit/sol-block-number.html)
 
 ----
 

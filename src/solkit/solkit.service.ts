@@ -5,7 +5,8 @@ import { SolanaBlockNumber } from './dto/solana-block-number';
 import { SolanaBlock } from './model/solana-block';
 import { UnixTimestamp } from '@solana/kit';
 import { SolanaFinalizedBlock } from './dto/solana-finalized-block';
-import { buildMessageEvent } from '../common/message-utils';
+import { buildMessageEvent, buildWsResponse } from '../common/message-utils';
+import { WsResponse } from '@nestjs/websockets';
 
 @Injectable()
 export class SolkitService {
@@ -17,7 +18,7 @@ export class SolkitService {
    * SDK Wrapper around `solkitSdkService.getBlockNumber()` to transform
    * the returned `number` to `SolanaBlockNumber` DTO for use in WebSockets, SSE and REST.
    */
-  readonly getBlockNumberJson: () => Promise<SolanaBlockNumber> =
+  private readonly _getBlockNumberJson: () => Promise<SolanaBlockNumber> =
     async (): Promise<SolanaBlockNumber> =>
       ({
         blockNumber: (
@@ -29,7 +30,7 @@ export class SolkitService {
    * SDK Wrapper around `ethersSdkService.getFinalizedBlock()` to transform
    * the returned `BlockOrNull` to `FinalizedBlock` DTO for use in WebSockets, SSE and REST.
    */
-  readonly _getFinalizedBlocksJson: () => Promise<SolanaFinalizedBlock> =
+  private readonly _getFinalizedBlocksJson: () => Promise<SolanaFinalizedBlock> =
     async (): Promise<SolanaFinalizedBlock> => {
       const finalizedBlock = await (
         await this.solkitSdkService.getFinalizedBlock()
@@ -60,7 +61,7 @@ export class SolkitService {
    * For REST API controller.  Latest Solana block number.
    */
   blockNumberForApi(): Observable<SolanaBlockNumber> {
-    return from(this.getBlockNumberJson());
+    return from(this._getBlockNumberJson());
   }
 
   /**
@@ -123,6 +124,52 @@ export class SolkitService {
     n: number,
   ) => Observable<MessageEvent<SolanaBlockNumber>> {
     return (n: number): Observable<MessageEvent<SolanaBlockNumber>> =>
-      from(buildMessageEvent<SolanaBlockNumber>(n, this.getBlockNumberJson));
+      from(buildMessageEvent<SolanaBlockNumber>(n, this._getBlockNumberJson));
+  }
+
+  /**
+   * For use by SSE Controller to emit a stream of Websocket response DTOs.
+   * Convert `Promise<MessageEvent<SolanaFinalizedBlock>>` to `Observable<MessageEvent<SolanaFinalizedBlock>>`
+   *
+   * @returns  `Observable<MessageEvent<SolanaFinalizedBlock>`
+   */
+  subscribeToFinalizedBlocksForSse(): (
+    n: number,
+  ) => Observable<MessageEvent<SolanaFinalizedBlock>> {
+    return (n: number): Observable<MessageEvent<SolanaFinalizedBlock>> =>
+      from(
+        buildMessageEvent<SolanaFinalizedBlock>(
+          n,
+          this._getFinalizedBlocksJson,
+        ),
+      );
+  }
+
+  /**
+   * For use by `Gateway` to emit a stream of Websocket response DTOs.
+   * Converts raw `Promise<WsResponse<SolanaBlockNumber>>` to `Observable<WsResponse<SolanaBlockNumber>>`
+   *
+   * @returns  `Observable<WsResponse<SolanaBlockNumber>`
+   */
+  newBlocksStreamForWebsocket(): (
+    n: number,
+  ) => Observable<WsResponse<SolanaBlockNumber>> {
+    return (n: number): Observable<WsResponse<SolanaBlockNumber>> =>
+      from(buildWsResponse<SolanaBlockNumber>(n, this._getBlockNumberJson));
+  }
+
+  /**
+   * For use by `Gateway` to emit a stream of Websocket response DTOs.
+   * Convert `Promise<WsResponse<SolanaFinalizedBlock>>` to `Observable<WsResponse<SolanaFinalizedBlock>>`
+   *
+   * @returns  `Observable<WsResponse<SolanaFinalizedBlock>`
+   */
+  finalizedBlocksStreamForWebsocket(): (
+    n: number,
+  ) => Observable<WsResponse<SolanaFinalizedBlock>> {
+    return (n: number): Observable<WsResponse<SolanaFinalizedBlock>> =>
+      from(
+        buildWsResponse<SolanaFinalizedBlock>(n, this._getFinalizedBlocksJson),
+      );
   }
 }

@@ -35,6 +35,7 @@ import { SolkitService } from './solkit/solkit.service';
 import { SolkitController } from './solkit/solkit.controller';
 import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
 import SolkitSseController from './solkit/solkit.sse.controller';
+import { SolkitGateway } from './solkit/solkit.gateway';
 
 @Module({
   imports: [
@@ -130,6 +131,7 @@ import SolkitSseController from './solkit/solkit.sse.controller';
     EthersGraphqlResolver,
     SolkitService,
     SolkitGraphqlResolver,
+    SolkitGateway,
   ],
   exports: [PeaqSdkModule, WormholeSdkModule],
 })
