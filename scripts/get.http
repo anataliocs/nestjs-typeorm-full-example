@@ -97,6 +97,15 @@ GET {{host}}/v1/solkit/block-number
   });
 %}
 
+### GET request for Solana Kit finalized block
+GET {{host}}/v1/solkit/finalized-block
+
+> {%
+  client.test("Get Solana Kit latest finalized block request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
 ### GET request for local users
 GET {{host}}/user
 

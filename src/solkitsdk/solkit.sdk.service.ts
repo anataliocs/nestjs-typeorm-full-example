@@ -6,6 +6,7 @@ import {
   createSolanaRpc,
   createSolanaRpcSubscriptions,
   GetBlockApi,
+  GetSlotApi,
   PendingRpcRequest,
   Rpc,
   RpcSubscriptions,
@@ -16,6 +17,7 @@ import {
 export type SolanaRpcServer = {
   rpcBlockHeightApi: Rpc<SolanaRpcApi>;
   rpcGetBlockApi: Rpc<GetBlockApi>;
+  rpcGetSlotApi: Rpc<GetSlotApi>;
   rpcSubscriptions: RpcSubscriptions<SolanaRpcSubscriptionsApi>;
 };
 
@@ -50,6 +52,7 @@ export class SolkitSdkService
         this.rpcServerUrl + this.apiKeyString(),
         {},
       ),
+      rpcGetSlotApi: createSolanaRpc(this.rpcServerUrl + this.apiKeyString()),
       rpcSubscriptions: createSolanaRpcSubscriptions(
         this.wsServerUrl + this.apiKeyString(),
       ),
@@ -66,8 +69,8 @@ export class SolkitSdkService
   }
 
   /**
-   * Get the current block number (block height).
-   * https://www.solanakit.com/api/type-aliases/GetBlockHeightApi
+   * Get the latest block number (block height).
+   * @see https://www.solanakit.com/api/type-aliases/GetBlockHeightApi
    *
    * @returns  `PendingRpcRequest<bigint>`
    */
@@ -78,8 +81,28 @@ export class SolkitSdkService
   }
 
   /**
+   * Get the latest finalized block.
+   * @see https://www.solanakit.com/api/type-aliases/Commitment
+   * @see https://www.solanakit.com/api/type-aliases/GetSlotApi
+   * @see https://www.solanakit.com/api/type-aliases/GetBlockApi
+   *
+   * @returns  `PendingRpcRequest<bigint>`
+   */
+  async getFinalizedBlock() {
+    const finalizedSlot: bigint = await this._rpcServer.rpcGetSlotApi
+      .getSlot({ commitment: 'finalized' })
+      .send();
+
+    return this._rpcServer.rpcGetBlockApi.getBlock(finalizedSlot, {
+      commitment: 'finalized',
+      maxSupportedTransactionVersion: 0,
+    });
+  }
+
+  /**
    * Get block by number.
-   * https://www.solanakit.com/api/type-aliases/GetBlockApi#getblock
+   * - maxSupportedTransactionVersion: 0
+   * @see https://www.solanakit.com/api/type-aliases/GetBlockApi#getblock
    *
    * @returns  `PendingRpcRequest<bigint>`
    */

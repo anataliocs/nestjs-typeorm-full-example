@@ -3,6 +3,8 @@ import { SolkitSdkService } from '../solkitsdk/solkit.sdk.service';
 import { from, Observable } from 'rxjs';
 import { SolanaBlockNumber } from './dto/solana-block-number';
 import { SolanaBlock } from './model/solana-block';
+import { UnixTimestamp } from '@solana/kit';
+import { SolanaFinalizedBlock } from './dto/solana-finalized-block';
 
 @Injectable()
 export class SolkitService {
@@ -23,6 +25,27 @@ export class SolkitService {
       }) as SolanaBlockNumber;
 
   /**
+   * SDK Wrapper around `ethersSdkService.getFinalizedBlock()` to transform
+   * the returned `BlockOrNull` to `FinalizedBlock` DTO for use in WebSockets, SSE and REST.
+   */
+  readonly _getFinalizedBlocksJson: () => Promise<SolanaFinalizedBlock> =
+    async (): Promise<SolanaFinalizedBlock> => {
+      const finalizedBlock = await (
+        await this.solkitSdkService.getFinalizedBlock()
+      ).send();
+
+      if (finalizedBlock === null) {
+        throw new NotFoundException(`Latest finalized block not found.`);
+      }
+
+      return {
+        blockNumber: finalizedBlock.blockHeight?.toString() ?? '0',
+        date: this.getCreationDateIso(finalizedBlock.blockTime),
+        hash: String(finalizedBlock.blockhash ?? ''),
+      } as SolanaFinalizedBlock;
+    };
+
+  /**
    * For REST API controller. RPC Node connection status.
    */
   serverStatusForApi(): string {
@@ -40,10 +63,17 @@ export class SolkitService {
   }
 
   /**
+   * For REST API controller.  Latest finalized block details.
+   */
+  finalizedBlockForApi(): Observable<SolanaFinalizedBlock> {
+    return from(this._getFinalizedBlocksJson());
+  }
+
+  /**
    * SDK Wrapper around `solkitSdkService.getBlockByNumber(blockNumber)` to transform
    * the returned `` to `Block` GraphQL Model.
    *
-   * Returns `{}` if Solkit SDK returns `null` for the block.
+   * @returns a `SolanaBlock`
    */
   readonly getBlockByNumberFromSdk = async (
     blockNumber: string,
@@ -57,20 +87,21 @@ export class SolkitService {
       );
     }
 
-    const creationDateIso =
-      solkitBlock.blockTime != null
-        ? new Date(Number(solkitBlock.blockTime) * 1000).toISOString()
-        : new Date(0).toISOString();
-
     return {
       blockNumber: solkitBlock.blockHeight?.toString() ?? '0',
-      creationDate: creationDateIso,
+      creationDate: this.getCreationDateIso(solkitBlock.blockTime),
       hash: String(solkitBlock.blockhash ?? ''),
       transactionCount: Array.isArray(solkitBlock.transactions)
         ? solkitBlock.transactions.length
         : 0,
     } as SolanaBlock;
   };
+
+  private getCreationDateIso(solkitBlockTime: UnixTimestamp) {
+    return solkitBlockTime != null
+      ? new Date(Number(solkitBlockTime) * 1000).toISOString()
+      : new Date(0).toISOString();
+  }
 
   /**
    * For GraphQL resolver.  Return block details by number.
