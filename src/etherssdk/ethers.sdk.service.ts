@@ -36,7 +36,7 @@ export class EthersSdkService
 
   /**
    * Get the current block number (block height).
-   * https://docs.ethers.org/v6/api/providers/#Block
+   * @see https://docs.ethers.org/v6/api/providers/#Block
    *
    * @returns  `Promise<number>`
    */
@@ -56,7 +56,7 @@ export class EthersSdkService
 
   /**
    * Get a block by its number.
-   * https://docs.ethers.org/v6/api/providers/#Provider-getBlock
+   * @see https://docs.ethers.org/v6/api/providers/#Provider-getBlock
    *
    * @param blockHashOrBlockTag
    * @returns `Promise<BlockOrNull>`
