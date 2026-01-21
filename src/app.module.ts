@@ -36,6 +36,7 @@ import { SolkitController } from './solkit/solkit.controller';
 import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
 import SolkitSseController from './solkit/solkit.sse.controller';
 import { SolkitGateway } from './solkit/solkit.gateway';
+import { BitcoinModule } from './bitcoin/bitcoin.module';
 
 @Module({
   imports: [
@@ -110,6 +111,7 @@ import { SolkitGateway } from './solkit/solkit.gateway';
         path: join(process.cwd(), 'src/graphql.ts'),
       },
     }),
+    BitcoinModule,
   ],
   controllers: [
     ReapController,

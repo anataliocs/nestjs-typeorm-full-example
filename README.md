@@ -32,7 +32,8 @@
 # Nestjs TypeORM Full Example for Web3 SDKs
 
 Example of a **NestJS** application with **PostgreSQL** and **Axios** integrating into multiple Web3 SDKs to demonstrate
-how to handle complex integration scenarios where you are building on multiple chains and APIs.
+how to handle complex integration scenarios where you are building on multiple chains and APIs including Ethereum,
+Solana and Bitcoin(WIP).
 
 This project modularizes popular Web3 SDKs, handles the lifecycle management, abstracts away complexity, adds
 configuration mgmt and exposes simplified interfaces in **REST API**, **GraphQL**, **Websocket** and **SSE(Server-Sent
@@ -138,6 +139,32 @@ Endpoints and ultra light-weight clients for consuming data.
 
 ----
 
+<div style="text-align: center;" align="center">
+    <img alt="Bitcoin logo" src="client/img/bitcoin-btc-logo-full.svg" width="120"><br/>
+    <strong>Bitcoinjs-lib Examples</strong>
+</div>
+
+---
+
+### REST API
+
+- VanillaJS: WIP
+
+### GraphQL
+
+- VanillaJS: WIP
+
+### Websockets
+
+- VanillaJS: WIP
+- VanillaJS: WIP
+
+### SSE
+
+- VanillaJS: WIP
+
+----
+
 ### Tech Stack:
 
 - [Nest](https://github.com/nestjs/nest)
@@ -152,8 +179,9 @@ Endpoints and ultra light-weight clients for consuming data.
 - Stablecoin cards: [Reap](https://reap.readme.io/reference/test-environment)
 - Interoperability: [Wormhole](https://wormhole.com/docs/tools/typescript-sdk/sdk-reference/)
 - On-chain IoT: [Peaq](https://docs.peaq.xyz/build/getting-started/install-peaq-sdk)
-- EVM: [Ethers](https://docs.ethers.org/v6/)
+- EVM: [Ethers.js](https://docs.ethers.org/v6/)
 - Solana: [Solana kit](https://www.solanakit.com/)
+- Bitcoin(WIP): [bitcoinjs-lib](https://github.com/bitcoinjs/bitcoinjs-lib)
 
 ----
 
