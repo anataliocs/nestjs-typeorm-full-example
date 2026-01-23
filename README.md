@@ -218,9 +218,14 @@ pnpm dev
 
 **Setup `.env` file:**
 
-- Get a RPC node for Ethereum from: https://www.infura.io/
-- Get a RPC node for Solana from: https://www.helius.dev/
+- Get an RPC node for Ethereum from: https://www.infura.io/
+- Get an RPC node for Solana from: https://www.helius.dev/
+- Get an RPC node for Bitcoin from: https://www.alchemy.com/
 - (OPTIONAL)Login to [Reap](https://dashboard.reap.global/login) to provision an API key.
+
+```bash
+cp .env.example .env
+```
 
 ```dotenv
 REAP_BASE_URL=https://sandbox.api.caas.reap.global/
@@ -238,6 +243,9 @@ ETHERS_RPC_API_KEY=
 SOLKIT_RPC_SERVER_URL=
 SOLKIT_WS_SERVER_URL=
 SOLKIT_RPC_API_KEY=
+
+BITCOIN_RPC_SERVER_URL=
+BITCOIN_RPC_API_KEY=
 ```
 
 **Install Foundry CLI:**

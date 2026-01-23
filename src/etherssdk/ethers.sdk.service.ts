@@ -73,8 +73,7 @@ export class EthersSdkService
     );
   }
 
-  async onApplicationShutdown(_signal?: string) {
-    await this._rpcServer?.off({});
+  onApplicationShutdown(_signal?: string) {
     this.disconnected();
     this.logger.log(`Closing Ethers SDK Rpc Server Connection: ${_signal}`);
   }

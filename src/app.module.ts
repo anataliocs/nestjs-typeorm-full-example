@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ReapController } from './reap/reap.controller';
 import { ReapService } from './reap/reap.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from './user/entities/user.entity';
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { HttpModule } from '@nestjs/axios';
 import { Sdk } from '@peaq-network/sdk';
 import { PeaqController } from './peaq/peaq.controller';
 import { PeaqService } from './peaq/peaq.service';
@@ -19,17 +18,14 @@ import { WormholeSdkConfig } from './wormholesdk/wormholeSdkConfig';
 import { PeaqSdkConfig } from './peaqsdk/peaqSdkConfig';
 import { PeaqSdkModule } from './peaqsdk/peaqSdk.module';
 import { WormholeSdkModule } from './wormholesdk/wormholeSdk.module';
-import { EthersSdkModule } from './etherssdk/ethersSdk.module';
 import { EthersController } from './ethers/ethers.controller';
 import { EthersService } from './ethers/ethers.service';
 import { EthersSdkConfig } from './etherssdk/ethersSdkConfig';
 import EthersSseController from './ethers/ethers.sse.controller';
 import { EthersGateway } from './ethers/ethers.gateway';
 import { EthersGraphqlResolver } from './ethers/ethers-graphql.resolver';
-import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'node:path';
-import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
 import { SolkitSdkConfig } from './solkitsdk/solkitSdkConfig';
 import { SolkitService } from './solkit/solkit.service';
 import { SolkitController } from './solkit/solkit.controller';
@@ -37,6 +33,10 @@ import { SolkitGraphqlResolver } from './solkit/solkit-graphql.resolver';
 import SolkitSseController from './solkit/solkit.sse.controller';
 import { SolkitGateway } from './solkit/solkit.gateway';
 import { BitcoinModule } from './bitcoin/bitcoin.module';
+import { HttpModule } from '@nestjs/axios';
+import { EthersSdkModule } from './etherssdk/ethersSdk.module';
+import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
   imports: [
@@ -44,17 +44,22 @@ import { BitcoinModule } from './bitcoin/bitcoin.module';
       envFilePath: ['.env.dev.local', '.env'],
       isGlobal: true,
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '',
-      database: 'postgres',
-      entities: [User],
-      //synchronize: true should NOT be used in production
-      synchronize: true,
-      autoLoadEntities: true,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) =>
+        ({
+          type: 'postgres',
+          host: configService.get<string>('POSTGRES_HOST'),
+          port: configService.get<string>('POSTGRES_PORT'),
+          username: configService.get<string>('POSTGRES_USER'),
+          password: configService.get<string>('POSTGRES_PW'),
+          database: configService.get<string>('POSTGRES_DB'),
+          entities: [User],
+          //synchronize: true should NOT be used in production
+          synchronize: true,
+          autoLoadEntities: true,
+        }) as TypeOrmModuleOptions,
+      inject: [ConfigService],
     }),
     HttpModule.registerAsync({
       imports: [ConfigModule],

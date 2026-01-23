@@ -5,7 +5,9 @@ onlyBuiltDependencies:
   - '@swc/core'
   - bigint-buffer
   - bufferutil
+  - cpu-features
   - protobufjs
   - secp256k1
+  - ssh2
   - unrs-resolver
   - utf-8-validate
