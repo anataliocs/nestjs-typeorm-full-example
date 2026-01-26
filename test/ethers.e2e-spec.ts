@@ -8,13 +8,27 @@ import {
   StartedPostgreSqlContainer,
 } from '@testcontainers/postgresql';
 import { Wait } from 'testcontainers';
+import {
+  AnvilContainer,
+  LogVerbosity,
+  StartedAnvilContainer,
+} from '@hellaweb3/foundryanvil-testcontainers-nodejs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
   let container: StartedPostgreSqlContainer;
+  let anvil: StartedAnvilContainer;
 
   beforeAll(async () => {
     container = await new PostgreSqlContainer('postgres:13.3-alpine')
+      .withWaitStrategy(Wait.forListeningPorts())
+      .start();
+
+    anvil = await new AnvilContainer()
+      .verboseLogs(LogVerbosity.Five)
+      .jsonLogFormat()
+      .withRandomMnemonic()
+      .autoImpersonate()
       .withWaitStrategy(Wait.forListeningPorts())
       .start();
 
@@ -23,6 +37,9 @@ describe('AppController (e2e)', () => {
     process.env.POSTGRES_USER = container.getUsername();
     process.env.POSTGRES_PW = container.getPassword();
     process.env.POSTGRES_DB = container.getDatabase();
+
+    process.env.ETHERS_RPC_SERVER_URL = anvil.rpcUrl;
+    process.env.ETHERS_RPC_API_KEY = '';
   }, 60000);
 
   beforeEach(async () => {
@@ -36,6 +53,7 @@ describe('AppController (e2e)', () => {
 
   afterAll(async () => {
     if (container) await container.stop();
+    if (anvil) await anvil.stop();
     await app.close();
   });
 
