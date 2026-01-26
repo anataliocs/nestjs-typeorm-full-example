@@ -11,3 +11,6 @@ onlyBuiltDependencies:
   - ssh2
   - unrs-resolver
   - utf-8-validate
+
+overrides:
+  foundryanvil-testcontainers-nodejs: link:../../Library/pnpm/global/5/node_modules/foundryanvil-testcontainers-nodejs
