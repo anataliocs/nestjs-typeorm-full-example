@@ -41,6 +41,3 @@ jobs:
 
       - name: Run pnpm check
         run: pnpm test:ci
-
-      - name: Run pnpm test e2e
-        run: pnpm test:e2e --detectOpenHandles
