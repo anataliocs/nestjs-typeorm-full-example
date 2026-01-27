@@ -37,6 +37,7 @@ import { HttpModule } from '@nestjs/axios';
 import { EthersSdkModule } from './etherssdk/ethersSdk.module';
 import { SolkitSdkModule } from './solkitsdk/solkitSdk.module';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ReapModule } from './reap/reap.module';
 
 @Module({
   imports: [
@@ -117,6 +118,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       },
     }),
     BitcoinModule,
+    ReapModule,
   ],
   controllers: [
     ReapController,

@@ -39,9 +39,9 @@ export class SolkitSdkService
     private options: ethersSdkConfig.SolkitSdkConfig,
   ) {
     super(`Solana Kit SDK Rpc Server is not initialized.`);
-    this.rpcServerUrl = options.rpcServerUrl;
-    this.wsServerUrl = options.wsServerUrl;
-    this.providerKeyPrefix = options.providerKeyPrefix;
+    this.rpcServerUrl = options.rpcServerUrl || '';
+    this.wsServerUrl = options.wsServerUrl || '';
+    this.providerKeyPrefix = options.providerKeyPrefix || '';
     this.network = options.network;
 
     this._rpcServer = {
@@ -63,8 +63,8 @@ export class SolkitSdkService
 
   private apiKeyString() {
     return (
-      this.providerKeyPrefix +
-      this.configService.get<string>('SOLKIT_RPC_API_KEY')
+      (this.providerKeyPrefix || '') +
+      (this.configService.get<string>('SOLKIT_RPC_API_KEY') || '')
     );
   }
 

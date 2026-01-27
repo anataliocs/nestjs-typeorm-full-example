@@ -27,9 +27,8 @@ export class EthersSdkService
     this._rpcServerUrl = options.rpcServerUrl;
     this.network = options.network;
     // https://docs.ethers.org/v6/api/providers/jsonrpc/#JsonRpcProvider
-    this._rpcServer = new ethers.JsonRpcProvider(
-      this._rpcServerUrl + options.apiKey,
-    );
+    const rpcUrl = (options.rpcServerUrl || '') + (options.apiKey || '');
+    this._rpcServer = new ethers.JsonRpcProvider(rpcUrl);
 
     this.logger.log(`Ethers SDK Rpc Server Type: ${this.network}`);
   }
