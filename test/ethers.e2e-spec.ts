@@ -52,9 +52,9 @@ describe('AppController (e2e)', () => {
   });
 
   afterAll(async () => {
+    await app.close();
     if (container) await container.stop();
     if (anvil) await anvil.stop();
-    await app.close();
   });
 
   it('/ (GET)', () => {
