@@ -249,7 +249,7 @@ BITCOIN_RPC_API_KEY=
 ```
 
 **Install Foundry CLI:**
-[Foundry](https://getfoundry.sh/introduction/installation) is a CLI too suite for working with Ethereum/Solidity smart
+[Foundry](https://getfoundry.sh/introduction/installation) is a CLI tool suite for working with Ethereum/Solidity smart
 contracts.
 We will use `cast` to create a new wallet.
 
@@ -526,11 +526,17 @@ GET /v1/orders/456  // Which customer? No context.
 - https://etherscan.io/
 - https://solscan.io/
 
+### Related Articles
+
+- https://hella.website/websocket-sse-graphql-nestjs-thinclient
+
 ----
 
 ## License
 
 This project is licensed under the MIT License—see the [LICENSE](./LICENSE) file for details.
+
+Maintained by [Hella Labs](https://hella.website/).
 
 ----
 

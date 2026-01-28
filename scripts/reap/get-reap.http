@@ -1,0 +1,17 @@
+### GET request for reap main account balance
+GET {{host}}/v1/reap/balance
+
+> {%
+  client.test("Main account balance request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
+
+### GET request for reap cards
+GET {{host}}/v1/reap/cards
+
+> {%
+  client.test("Get cards request successful", function() {
+    client.assert(response.status === 200, "Status is NOT 200");
+  });
+%}
