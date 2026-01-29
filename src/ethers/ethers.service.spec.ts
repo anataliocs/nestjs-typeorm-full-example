@@ -6,7 +6,10 @@ import { EthersSdkConfig } from '../etherssdk/ethersSdkConfig';
 import { firstValueFrom } from 'rxjs';
 import { BlockNumber } from './dto/block-number';
 import { WsResponse } from '@nestjs/websockets';
-import { mockBlock, mockFinalizedBlock } from './testutil/ethers.testhelper';
+import {
+  mockBlock,
+  mockFinalizedBlock,
+} from './__testutil__/ethers.testhelper';
 import { CONFIG_OPTIONS } from '../sdk/sdk.common';
 
 describe('EthersService', () => {
