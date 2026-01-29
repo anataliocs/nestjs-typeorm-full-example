@@ -123,6 +123,9 @@ importers:
         specifier: ^8.18.3
         version: 8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     devDependencies:
+      '@beeman/testcontainers':
+        specifier: ^1.0.0
+        version: 1.0.0(testcontainers@11.11.0)(typescript@5.9.3)
       '@eslint/eslintrc':
         specifier: ^3.2.0
         version: 3.3.1
@@ -564,6 +567,12 @@ packages:
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  '@beeman/testcontainers@1.0.0':
+    resolution: {integrity: sha512-g76LYVMx6y6Xom/MCkX6e81jrbVMGYky3zbkFvvardQpYxx6C80gyqoiklV+V3wgGEGfVkQjO8giJpX6tIlpCA==}
+    peerDependencies:
+      testcontainers: ^11
+      typescript: ^5
 
   '@borewit/text-codec@0.1.1':
     resolution: {integrity: sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA==}
@@ -6634,6 +6643,11 @@ snapshots:
   '@bangjelkoski/store2@2.14.3': {}
 
   '@bcoe/v8-coverage@0.2.3': {}
+
+  '@beeman/testcontainers@1.0.0(testcontainers@11.11.0)(typescript@5.9.3)':
+    dependencies:
+      testcontainers: 11.11.0
+      typescript: 5.9.3
 
   '@borewit/text-codec@0.1.1': {}
 

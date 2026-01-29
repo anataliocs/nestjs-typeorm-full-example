@@ -13,11 +13,16 @@ import {
   LogVerbosity,
   StartedAnvilContainer,
 } from '@hellaweb3/foundryanvil-testcontainers-nodejs';
+import {
+  SolanaTestValidatorContainer,
+  StartedSolanaTestValidatorContainer,
+} from '@beeman/testcontainers';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
   let container: StartedPostgreSqlContainer;
   let anvil: StartedAnvilContainer;
+  let solana: StartedSolanaTestValidatorContainer;
 
   beforeAll(async () => {
     container = await new PostgreSqlContainer('postgres:13.3-alpine')
@@ -32,6 +37,8 @@ describe('AppController (e2e)', () => {
       .withWaitStrategy(Wait.forListeningPorts())
       .start();
 
+    solana = await new SolanaTestValidatorContainer().start();
+
     process.env.POSTGRES_HOST = container.getHost();
     process.env.POSTGRES_PORT = container.getMappedPort(5432).toString();
     process.env.POSTGRES_USER = container.getUsername();
@@ -40,6 +47,11 @@ describe('AppController (e2e)', () => {
 
     process.env.ETHERS_RPC_SERVER_URL = anvil.rpcUrl;
     process.env.ETHERS_RPC_API_KEY = '';
+
+    process.env.SOLKIT_RPC_SERVER_URL = solana.url;
+    process.env.SOLKIT_WS_SERVER_URL = solana.urlWs;
+    process.env.SOLKIT_RPC_PROVIDER_KEY_PREFIX = '';
+    process.env.SOLKIT_RPC_API_KEY = '';
   }, 60000);
 
   beforeEach(async () => {
