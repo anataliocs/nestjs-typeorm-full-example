@@ -20,7 +20,7 @@ import { SolkitService } from './solkit.service';
 import { SolanaBlockNumber } from './dto/solana-block-number';
 import { SolanaFinalizedBlock } from './dto/solana-finalized-block';
 
-@WebSocketGateway(81, { cors: { origin: '*' } })
+@WebSocketGateway({ cors: { origin: '*' } })
 export class SolkitGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {

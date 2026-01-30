@@ -123,6 +123,9 @@ importers:
         specifier: ^8.18.3
         version: 8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     devDependencies:
+      '@beeman/testcontainers':
+        specifier: ^1.0.0
+        version: 1.0.0(testcontainers@11.11.0)(typescript@5.9.3)
       '@eslint/eslintrc':
         specifier: ^3.2.0
         version: 3.3.1
@@ -132,6 +135,9 @@ importers:
       '@hellaweb3/foundryanvil-testcontainers-nodejs':
         specifier: ^0.1.2
         version: 0.1.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
+      '@hellaweb3/wiremock-testcontainers-nodejs':
+        specifier: ^0.1.2
+        version: 0.1.2
       '@nestjs/cli':
         specifier: ^11.0.14
         version: 11.0.14(@swc/cli@0.7.9(@swc/core@1.15.3(@swc/helpers@0.5.17))(chokidar@4.0.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/node@22.19.2)
@@ -565,6 +571,12 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
+  '@beeman/testcontainers@1.0.0':
+    resolution: {integrity: sha512-g76LYVMx6y6Xom/MCkX6e81jrbVMGYky3zbkFvvardQpYxx6C80gyqoiklV+V3wgGEGfVkQjO8giJpX6tIlpCA==}
+    peerDependencies:
+      testcontainers: ^11
+      typescript: ^5
+
   '@borewit/text-codec@0.1.1':
     resolution: {integrity: sha512-5L/uBxmjaCIX5h8Z+uu+kA9BQLkc/Wl06UGR5ajNRxu+/XjonB5i8JpgFMrPj3LXTCPA0pv8yxUvbUi+QthGGA==}
 
@@ -767,6 +779,10 @@ packages:
 
   '@hellaweb3/foundryanvil-testcontainers-nodejs@0.1.2':
     resolution: {integrity: sha512-vVus2arvvbti1nifm8CQgeJdzS/76nfyrmMCzLH9rV58pgtEwmE3gpZSf4bcXlP7c0XlXjqDbB0c25cS1pFCvw==}
+    engines: {node: '>=22'}
+
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
+    resolution: {integrity: sha512-9D0mbW3n0Y8Gd2sVHbTJEZm3wplTKPB9Pz7Cyk4aV//te88+nZ5EMELWiTHFkjkrmbSoXQWgMlqWUiOkuqaVHg==}
     engines: {node: '>=22'}
 
   '@humanfs/core@0.19.1':
@@ -6635,6 +6651,11 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
+  '@beeman/testcontainers@1.0.0(testcontainers@11.11.0)(typescript@5.9.3)':
+    dependencies:
+      testcontainers: 11.11.0
+      typescript: 5.9.3
+
   '@borewit/text-codec@0.1.1': {}
 
   '@colors/colors@1.5.0':
@@ -7006,6 +7027,15 @@ snapshots:
       - typescript
       - utf-8-validate
       - zod
+
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
+    dependencies:
+      testcontainers: 11.11.0
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - react-native-b4a
+      - supports-color
 
   '@humanfs/core@0.19.1': {}
 

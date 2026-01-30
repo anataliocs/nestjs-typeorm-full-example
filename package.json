@@ -64,9 +64,11 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
+    "@beeman/testcontainers": "^1.0.0",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.19.0",
     "@hellaweb3/foundryanvil-testcontainers-nodejs": "^0.1.2",
+    "@hellaweb3/wiremock-testcontainers-nodejs": "^0.1.2",
     "@nestjs/cli": "^11.0.14",
     "@nestjs/schematics": "^11.0.9",
     "@nestjs/testing": "^11.1.9",

@@ -2,7 +2,7 @@ import { WsConnect } from '../../common/wsConnect.js';
 import { createLinkSol } from '../../../../util/utils.js';
 
 const websocket = new WsConnect(
-  'ws://localhost:81',
+  'ws://localhost:3000',
   'solkit-subscribe-blocks',
   createLinkSol,
 );
