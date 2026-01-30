@@ -3,6 +3,8 @@
 Anvil:
 https://www.npmjs.com/package/@hellaweb3/foundryanvil-testcontainers-nodejs
 
+Solana test validator:
+https://www.npmjs.com/package/@beeman/testcontainers
 
 ----
 

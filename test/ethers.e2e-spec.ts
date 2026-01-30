@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from '../src/app.module';
+import { WsAdapter } from '@nestjs/platform-ws';
 import {
   PostgreSqlContainer,
   StartedPostgreSqlContainer,
@@ -17,12 +18,17 @@ import {
   SolanaTestValidatorContainer,
   StartedSolanaTestValidatorContainer,
 } from '@beeman/testcontainers';
+import {
+  StartedWiremockContainer,
+  WiremockContainer,
+} from '@hellaweb3/wiremock-testcontainers-nodejs';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication<App>;
   let container: StartedPostgreSqlContainer;
   let anvil: StartedAnvilContainer;
   let solana: StartedSolanaTestValidatorContainer;
+  let wiremock: StartedWiremockContainer;
 
   beforeAll(async () => {
     container = await new PostgreSqlContainer('postgres:13.3-alpine')
@@ -39,6 +45,10 @@ describe('AppController (e2e)', () => {
 
     solana = await new SolanaTestValidatorContainer().start();
 
+    wiremock = await new WiremockContainer()
+      .withMappings('./test/__mocks__/wiremock')
+      .start();
+
     process.env.POSTGRES_HOST = container.getHost();
     process.env.POSTGRES_PORT = container.getMappedPort(5432).toString();
     process.env.POSTGRES_USER = container.getUsername();
@@ -52,6 +62,8 @@ describe('AppController (e2e)', () => {
     process.env.SOLKIT_WS_SERVER_URL = solana.urlWs;
     process.env.SOLKIT_RPC_PROVIDER_KEY_PREFIX = '';
     process.env.SOLKIT_RPC_API_KEY = '';
+
+    process.env.REAP_BASE_URL = wiremock.rpcUrl;
   }, 60000);
 
   beforeEach(async () => {
@@ -60,6 +72,7 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.useWebSocketAdapter(new WsAdapter(app));
     await app.init();
   });
 
@@ -67,6 +80,15 @@ describe('AppController (e2e)', () => {
     if (app) await app.close();
     if (container) await container.stop();
     if (anvil) await anvil.stop();
+    if (solana) await solana.stop();
+    if (wiremock) await wiremock.stop();
+  });
+
+  it('testcontainers should be defined', () => {
+    expect(container).toBeDefined();
+    expect(anvil).toBeDefined();
+    expect(solana).toBeDefined();
+    expect(wiremock).toBeDefined();
   });
 
   it('/ (GET)', () => {

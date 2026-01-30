@@ -2,7 +2,7 @@ import { WsConnect } from '../../common/wsConnect.js';
 import { createLinkEth } from '../../../../util/utils.js';
 
 const websocket = new WsConnect(
-  'ws://localhost:81',
+  'ws://localhost:3000',
   'ethers-subscribe-blocks',
   createLinkEth,
 );

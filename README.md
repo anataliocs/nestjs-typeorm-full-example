@@ -441,7 +441,10 @@ on the client side.
 **Setting up a Websocket to the NestJS WS Gateway**
 
 ```typescript
-const socket = new WebSocket('ws://localhost:81');
+// For Ethers
+const ethersSocket = new WebSocket('ws://localhost:3000');
+// For Solkit
+const solkitSocket = new WebSocket('ws://localhost:3000');
 ```
 
 ----

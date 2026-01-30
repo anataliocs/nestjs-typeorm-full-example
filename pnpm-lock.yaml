@@ -135,6 +135,9 @@ importers:
       '@hellaweb3/foundryanvil-testcontainers-nodejs':
         specifier: ^0.1.2
         version: 0.1.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
+      '@hellaweb3/wiremock-testcontainers-nodejs':
+        specifier: ^0.1.2
+        version: 0.1.2
       '@nestjs/cli':
         specifier: ^11.0.14
         version: 11.0.14(@swc/cli@0.7.9(@swc/core@1.15.3(@swc/helpers@0.5.17))(chokidar@4.0.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/node@22.19.2)
@@ -776,6 +779,10 @@ packages:
 
   '@hellaweb3/foundryanvil-testcontainers-nodejs@0.1.2':
     resolution: {integrity: sha512-vVus2arvvbti1nifm8CQgeJdzS/76nfyrmMCzLH9rV58pgtEwmE3gpZSf4bcXlP7c0XlXjqDbB0c25cS1pFCvw==}
+    engines: {node: '>=22'}
+
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
+    resolution: {integrity: sha512-9D0mbW3n0Y8Gd2sVHbTJEZm3wplTKPB9Pz7Cyk4aV//te88+nZ5EMELWiTHFkjkrmbSoXQWgMlqWUiOkuqaVHg==}
     engines: {node: '>=22'}
 
   '@humanfs/core@0.19.1':
@@ -7020,6 +7027,15 @@ snapshots:
       - typescript
       - utf-8-validate
       - zod
+
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
+    dependencies:
+      testcontainers: 11.11.0
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - react-native-b4a
+      - supports-color
 
   '@humanfs/core@0.19.1': {}
 

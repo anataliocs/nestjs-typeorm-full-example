@@ -20,7 +20,7 @@ import { FinalizedBlock } from './dto/finalized-block';
 import { IncomingMessage } from 'node:http';
 import { errorMsgWsResponse, WsError } from '../common/message-utils';
 
-@WebSocketGateway(81, { cors: { origin: '*' } })
+@WebSocketGateway({ cors: { origin: '*' } })
 export class EthersGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
