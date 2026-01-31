@@ -11,6 +11,7 @@ import {
 import { Wait } from 'testcontainers';
 import {
   AnvilContainer,
+  AnvilOptions,
   LogVerbosity,
   StartedAnvilContainer,
 } from '@hellaweb3/foundryanvil-testcontainers-nodejs';
@@ -35,13 +36,13 @@ describe('AppController (e2e)', () => {
       .withWaitStrategy(Wait.forListeningPorts())
       .start();
 
-    anvil = await new AnvilContainer()
+    const anvilOptions: AnvilOptions = new AnvilOptions().logs
       .verboseLogs(LogVerbosity.Five)
-      .jsonLogFormat()
-      .withRandomMnemonic()
-      .autoImpersonate()
-      .withWaitStrategy(Wait.forListeningPorts())
-      .start();
+      .logs.jsonLogFormat()
+      .account.withRandomMnemonic()
+      .evm.autoImpersonate();
+
+    anvil = await new AnvilContainer(anvilOptions).start();
 
     solana = await new SolanaTestValidatorContainer().start();
 
