@@ -133,8 +133,8 @@ importers:
         specifier: ^9.19.0
         version: 9.38.0
       '@hellaweb3/foundryanvil-testcontainers-nodejs':
-        specifier: ^0.2.1
-        version: 0.2.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
+        specifier: ^0.2.2
+        version: 0.2.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
       '@hellaweb3/wiremock-testcontainers-nodejs':
         specifier: ^0.1.2
         version: 0.1.2
@@ -777,8 +777,8 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@hellaweb3/foundryanvil-testcontainers-nodejs@0.2.1':
-    resolution: {integrity: sha512-nJ1f6ENmvlnCdpMbBMANGTf7wEDbAbILyWW10ti+mI7xKne4+Npp9lb0yuMIG8ufnyk6cdNree7BPeLMF5YOAA==}
+  '@hellaweb3/foundryanvil-testcontainers-nodejs@0.2.2':
+    resolution: {integrity: sha512-EWQKNLYK8/q8nwxLjkObTq7DL34UQBmzgEGxbNdoan8n4m3RMIDr/lpM84pQBzklFeyh0dKOk5HNwgZgo7PEcA==}
     engines: {node: '>=22'}
 
   '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
@@ -7014,7 +7014,7 @@ snapshots:
       protobufjs: 7.5.4
       yargs: 17.7.2
 
-  '@hellaweb3/foundryanvil-testcontainers-nodejs@0.2.1(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)':
+  '@hellaweb3/foundryanvil-testcontainers-nodejs@0.2.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)':
     dependencies:
       testcontainers: 11.11.0
       viem: 2.45.0(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
