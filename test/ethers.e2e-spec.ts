@@ -32,23 +32,25 @@ describe('AppController (e2e)', () => {
   let wiremock: StartedWiremockContainer;
 
   beforeAll(async () => {
-    container = await new PostgreSqlContainer('postgres:13.3-alpine')
-      .withWaitStrategy(Wait.forListeningPorts())
-      .start();
+    const [_container, _anvil, _solana, _wiremock] = await Promise.all([
+      new PostgreSqlContainer('postgres:13.3-alpine')
+        .withWaitStrategy(Wait.forListeningPorts())
+        .start(),
+      new AnvilContainer(
+        new AnvilOptions().logs
+          .verboseLogs(LogVerbosity.Five)
+          .logs.jsonLogFormat()
+          .account.withRandomMnemonic()
+          .evm.autoImpersonate(),
+      ).start(),
+      new SolanaTestValidatorContainer().start(),
+      new WiremockContainer().withMappings('./test/__mocks__/wiremock').start(),
+    ]);
 
-    const anvilOptions: AnvilOptions = new AnvilOptions().logs
-      .verboseLogs(LogVerbosity.Five)
-      .logs.jsonLogFormat()
-      .account.withRandomMnemonic()
-      .evm.autoImpersonate();
-
-    anvil = await new AnvilContainer(anvilOptions).start();
-
-    solana = await new SolanaTestValidatorContainer().start();
-
-    wiremock = await new WiremockContainer()
-      .withMappings('./test/__mocks__/wiremock')
-      .start();
+    container = _container;
+    anvil = _anvil;
+    solana = _solana;
+    wiremock = _wiremock;
 
     process.env.POSTGRES_HOST = container.getHost();
     process.env.POSTGRES_PORT = container.getMappedPort(5432).toString();
@@ -78,11 +80,13 @@ describe('AppController (e2e)', () => {
   });
 
   afterAll(async () => {
-    if (app) await app.close();
-    if (container) await container.stop();
-    if (anvil) await anvil.stop();
-    if (solana) await solana.stop();
-    if (wiremock) await wiremock.stop();
+    await Promise.allSettled([
+      app?.close(),
+      container?.stop(),
+      anvil?.stop(),
+      solana?.stop(),
+      wiremock?.stop(),
+    ]);
   });
 
   it('testcontainers should be defined', () => {
