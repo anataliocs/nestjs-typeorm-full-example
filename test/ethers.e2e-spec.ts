@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, VersioningType } from '@nestjs/common';
 import request from 'supertest';
 import { App } from 'supertest/types';
 import { AppModule } from '../src/app.module';
@@ -75,6 +75,9 @@ describe('AppController (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
+    app.enableVersioning({
+      type: VersioningType.URI,
+    });
     app.useWebSocketAdapter(new WsAdapter(app));
     await app.init();
   });
@@ -96,10 +99,32 @@ describe('AppController (e2e)', () => {
     expect(wiremock).toBeDefined();
   });
 
-  it('/ (GET)', () => {
+  it('/ethers/server-status (GET)', () => {
     return request(app.getHttpServer())
-      .get('/ethers/server-status')
+      .get('/v1/ethers/server-status')
       .expect(200)
       .expect('Connected');
+  });
+
+  it('/ethers/block-number (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/v1/ethers/block-number')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('blockNumber');
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        expect(typeof res.body.blockNumber).toBe('number');
+      });
+  });
+
+  it('/ethers/finalized-block (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/v1/ethers/finalized-block')
+      .expect(200)
+      .expect((res) => {
+        expect(res.body).toHaveProperty('blockNumber');
+        expect(res.body).toHaveProperty('date');
+        expect(res.body).toHaveProperty('hash');
+      });
   });
 });
