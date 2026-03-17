@@ -173,6 +173,7 @@ Endpoints and ultra light-weight clients for consuming data.
 - [Swagger](https://swagger.io/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Endor CLI](https://docs.endor.dev/cli/)
+- [Foundry Anvil Testcontainers](https://www.npmjs.com/package/@hellaweb3/foundryanvil-testcontainers-nodejs)
 
 **The SDKs used in this example:**
 
