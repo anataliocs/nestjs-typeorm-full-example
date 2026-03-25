@@ -552,4 +552,8 @@ Maintained by [Hella Labs](https://hella.website/).
 
 [🥚](%F0%9F%A5%9A)
 
+----
+
+[Chris Anatalio](https://twitter.com/chris_anatalio)
+
 
