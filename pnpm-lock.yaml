@@ -136,8 +136,8 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
       '@hellaweb3/wiremock-testcontainers-nodejs':
-        specifier: ^0.1.2
-        version: 0.1.2
+        specifier: ^0.2.1
+        version: 0.2.1
       '@nestjs/cli':
         specifier: ^11.0.14
         version: 11.0.14(@swc/cli@0.7.9(@swc/core@1.15.3(@swc/helpers@0.5.17))(chokidar@4.0.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/node@22.19.2)
@@ -801,9 +801,9 @@ packages:
     resolution: {integrity: sha512-EM4tuJxWqc/zImva8ul9QfsIYNlTdkmXthpM1F4kBkhMmKn8CPj07SJLzeeBDiYUJF7GB3jtlNwmS4Aduy5IgQ==}
     engines: {node: '>=22'}
 
-  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
-    resolution: {integrity: sha512-9D0mbW3n0Y8Gd2sVHbTJEZm3wplTKPB9Pz7Cyk4aV//te88+nZ5EMELWiTHFkjkrmbSoXQWgMlqWUiOkuqaVHg==}
-    engines: {node: '>=22'}
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.2.1':
+    resolution: {integrity: sha512-qzGRuamZfBDUbnHAB8dT5MJd/2t43pG2XA2SqWhXqTrPO89A2vbjVzDupYSaLxqbYRf8eIyylZGiJbsnjYV/iw==}
+    engines: {node: '>=22.22'}
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1252,6 +1252,9 @@ packages:
 
   '@js-sdsl/ordered-map@4.4.2':
     resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
+
+  '@kwsites/file-exists@1.1.1':
+    resolution: {integrity: sha512-m9/5YGR18lIwxSFDwfE3oA7bWuq9kdau6ugN4H2rJeyhFQZcG9AgSHkQtSD15a8WvTgfz9aikZMrKPHvbpqFiw==}
 
   '@lukeed/csprng@1.1.0':
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
@@ -2374,6 +2377,9 @@ packages:
   '@types/dockerode@3.3.47':
     resolution: {integrity: sha512-ShM1mz7rCjdssXt7Xz0u1/R2BJC7piWa3SJpUBiVjCf2A3XNn4cP6pUVaD8bLanpPVVn4IKzJuw3dOvkJ8IbYw==}
 
+  '@types/dockerode@4.0.2':
+    resolution: {integrity: sha512-hA4myZ0XzwHG/p/eCLElYsQS3y1XZfvi6AfLFKVp1SNpPkO6J3xLatacAFVkReTxXRoIa3eHJmhJi9w6I3+zNA==}
+
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
@@ -2421,9 +2427,6 @@ packages:
 
   '@types/node@18.19.130':
     resolution: {integrity: sha512-GRaXQx6jGfL8sKfaIDD6OupbIHBr9jv7Jnaml9tB7l4v068PAOXqfcujMMo5PhbIs6ggR1XODELqahT2R8v0fg==}
-
-  '@types/node@22.19.17':
-    resolution: {integrity: sha512-wGdMcf+vPYM6jikpS/qhg6WiqSV/OhG+jeeHT/KlVqxYfD40iYJf9/AE1uQxVWFvU7MipKRkRv8NSHiCGgPr8Q==}
 
   '@types/node@22.19.18':
     resolution: {integrity: sha512-9v00a+dn2yWVsYDEunWC4g/TcRKVq3r8N5FuZp7u0SGrPvdN9c2yXI9bBuf5Fl0hNCb+QTIePTn5pJs2pwBOQQ==}
@@ -3677,13 +3680,25 @@ packages:
     resolution: {integrity: sha512-7Gevk/5eGD50+eMD+XDnFnOrruFkL0kSd7jEG4cjmqweDSUhB7i0g8is/nBdVpl+Bx338SqIB2GLKm32M+Vs6g==}
     engines: {node: '>= 6.0.0'}
 
+  docker-compose@1.5.0:
+    resolution: {integrity: sha512-O+eD6c63+BJORUWddXA7uAlI6H1KLDPd/aS14k73nXYpFliM48C3xrrKB3sXsR1Fp/rHUZQe7+fJ+QA7+jepyw==}
+    engines: {node: '>= 6.0.0'}
+
   docker-modem@5.0.6:
     resolution: {integrity: sha512-ens7BiayssQz/uAxGzH8zGXCtiV24rRWXdjNha5V4zSOcxmAZsfGVm/PPFbwQdqEkDnhG+SyR9E3zSHUbOKXBQ==}
+    engines: {node: '>= 8.0'}
+
+  docker-modem@5.0.7:
+    resolution: {integrity: sha512-XJgGhoR/CLpqshm4d3L7rzH6t8NgDFUIIpztYlLHIApeJjMZKYJMz2zxPsYxnejq5h3ELYSw/RBsi3t5h7gNTA==}
     engines: {node: '>= 8.0'}
 
   dockerode@4.0.9:
     resolution: {integrity: sha512-iND4mcOWhPaCNh54WmK/KoSb35AFqPAUWFMffTQcp52uQt36b5uNwEJTSXntJZBbeGad72Crbi/hvDIv6us/6Q==}
     engines: {node: '>= 8.0'}
+
+  dockerode@5.0.1:
+    resolution: {integrity: sha512-avsq/xk4YPIrn0CgleX5bjT9Y8IT1p9PxrNQ++RBQ2WEyFfHCTDsT9kmyxz+H/axnjAwg8wJWEIuPGOUuNupiA==}
+    engines: {node: '>= 14.17'}
 
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
@@ -4114,6 +4129,10 @@ packages:
   get-package-type@0.1.0:
     resolution: {integrity: sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==}
     engines: {node: '>=8.0.0'}
+
+  get-port@5.1.1:
+    resolution: {integrity: sha512-g/Q1aTSDOxFpchXC4i8ZWvxA1lnPqx/JHqcpIw0/LX9T8x/GBbi6YnlN5nhaKIFkT8oFsscUKgDJYxfwfS6QsQ==}
+    engines: {node: '>=8'}
 
   get-port@7.1.0:
     resolution: {integrity: sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==}
@@ -4879,6 +4898,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  mkdirp@3.0.1:
+    resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}
+    engines: {node: '>=10'}
+    hasBin: true
+
   mock-socket@9.3.1:
     resolution: {integrity: sha512-qxBgB7Qa2sEQgHFjj0dSigq7fX4k6Saisd5Nelwp2q8mlbAFh5dHV9JTTlF8viYJLSSWgMCZFUom8PJcMNBoJw==}
     engines: {node: '>= 8'}
@@ -5234,6 +5258,10 @@ packages:
   properties-reader@2.3.0:
     resolution: {integrity: sha512-z597WicA7nDZxK12kZqHr2TcvwNU1GCfA5UwfDY/HDp3hXPoPlb5rlEx9bwGTiJnc0OqbBTkU975jDToth8Gxw==}
     engines: {node: '>=14'}
+
+  properties-reader@3.0.1:
+    resolution: {integrity: sha512-WPn+h9RGEExOKdu4bsF4HksG/uzd3cFq3MFtq8PsFeExPse5Ha/VOjQNyHhjboBFwGXGev6muJYTSPAOkROq2g==}
+    engines: {node: '>=18'}
 
   protobufjs@6.11.6:
     resolution: {integrity: sha512-k8BHqgPBOtrlougZZqF2uUk5Z7bN8f0wj+3e8M3hvtSv0NBAz4VBy5f6R5Nxq/l+i7mRFTgNZb2trxqTpHNY/A==}
@@ -5734,6 +5762,9 @@ packages:
   tar-fs@3.1.1:
     resolution: {integrity: sha512-LZA0oaPOc2fVo82Txf3gw+AkEd38szODlptMYejQUhndHMLQ9M059uXR+AfS7DNo0NpINvSqDsvyaCrBVkptWg==}
 
+  tar-fs@3.1.3:
+    resolution: {integrity: sha512-/hU4AXnIdZu+Gvl1pk0oI5f5HxWsCJRtY2aFaJdk9VvyL48DWU6iU5WAIPG+wIi1YvWA6eTJvIviP/tMAZZNwQ==}
+
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
     engines: {node: '>=6'}
@@ -5769,6 +5800,10 @@ packages:
   testcontainers@11.11.0:
     resolution: {integrity: sha512-nKTJn3n/gkyGg/3SVkOwX+isPOGSHlfI+CWMobSmvQrsj7YW01aWvl2pYIfV4LMd+C8or783yYrzKSK2JlP+Qw==}
 
+  testcontainers@12.2.1:
+    resolution: {integrity: sha512-JfbCyOvLdzatwgqUI3AvYCwRW0P5mCkKQVBPO8U5qSH1efC2kHvnfWmi9VHloy1rAFG2MEqWZObRH4bq0gU1kQ==}
+    engines: {node: '>= 22.22'}
+
   text-decoder@1.2.3:
     resolution: {integrity: sha512-3/o9z3X0X0fTupwsYvR03pJ/DjWuqqrfwBgTQzdWDiQSm9KitAyz/9WqsT2JQW7KV2m+bC2ol/zqpW37NHxLaA==}
 
@@ -5784,6 +5819,10 @@ packages:
 
   tmp@0.2.5:
     resolution: {integrity: sha512-voyz6MApa1rQGUxT3E+BK7/ROe8itEx7vD8/HEvt4xwXucvQ5G5oeEiHkmHZJuBO21RpOf+YYm9MOivj709jow==}
+    engines: {node: '>=14.14'}
+
+  tmp@0.2.7:
+    resolution: {integrity: sha512-e0votIpp4Uo2AJYSzVHV6xCcawuiez3DzqDAbrTc3YxBkplN6e+dM13ZeIcZnDg/QpSuU2zfZ3rzwY8ukEnaXw==}
     engines: {node: '>=14.14'}
 
   tmpl@1.0.5:
@@ -6033,6 +6072,10 @@ packages:
   undici@7.25.0:
     resolution: {integrity: sha512-xXnp4kTyor2Zq+J1FfPI6Eq3ew5h6Vl0F/8d9XU5zZQf1tX9s2Su1/3PiMmUANFULpmksxkClamIZcaUqryHsQ==}
     engines: {node: '>=20.18.1'}
+
+  undici@8.12.4:
+    resolution: {integrity: sha512-8Mx+uNKKER2bA4AdtedkqRbwUCIJFr2nJckXRe5yrDqzePqwLP7VNcctN8/XdmDSbF7mS+jJKIszlL+vbam1VA==}
+    engines: {node: '>=22.19.0'}
 
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
@@ -7140,9 +7183,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@hellaweb3/wiremock-testcontainers-nodejs@0.1.2':
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.2.1':
     dependencies:
-      testcontainers: 11.11.0
+      testcontainers: 12.2.1
     transitivePeerDependencies:
       - bare-abort-controller
       - bare-buffer
@@ -7754,6 +7797,12 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.5
 
   '@js-sdsl/ordered-map@4.4.2': {}
+
+  '@kwsites/file-exists@1.1.1':
+    dependencies:
+      debug: 4.4.3
+    transitivePeerDependencies:
+      - supports-color
 
   '@lukeed/csprng@1.1.0': {}
 
@@ -9281,6 +9330,12 @@ snapshots:
       '@types/node': 22.19.3
       '@types/ssh2': 1.15.5
 
+  '@types/dockerode@4.0.2':
+    dependencies:
+      '@types/docker-modem': 3.0.6
+      '@types/node': 22.19.18
+      '@types/ssh2': 1.15.5
+
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
@@ -9337,14 +9392,9 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@22.19.17':
-    dependencies:
-      undici-types: 6.21.0
-
   '@types/node@22.19.18':
     dependencies:
       undici-types: 6.21.0
-    optional: true
 
   '@types/node@22.19.2':
     dependencies:
@@ -9404,7 +9454,7 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 22.19.17
+      '@types/node': 22.19.18
 
   '@types/ws@8.18.1':
     dependencies:
@@ -10965,7 +11015,20 @@ snapshots:
     dependencies:
       yaml: 2.8.2
 
+  docker-compose@1.5.0:
+    dependencies:
+      yaml: 2.8.2
+
   docker-modem@5.0.6:
+    dependencies:
+      debug: 4.4.3
+      readable-stream: 3.6.2
+      split-ca: 1.0.1
+      ssh2: 1.17.0
+    transitivePeerDependencies:
+      - supports-color
+
+  docker-modem@5.0.7:
     dependencies:
       debug: 4.4.3
       readable-stream: 3.6.2
@@ -10983,6 +11046,17 @@ snapshots:
       protobufjs: 7.5.6
       tar-fs: 2.1.4
       uuid: 10.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  dockerode@5.0.1:
+    dependencies:
+      '@balena/dockerignore': 1.0.2
+      '@grpc/grpc-js': 1.14.3
+      '@grpc/proto-loader': 0.7.15
+      docker-modem: 5.0.7
+      protobufjs: 7.5.6
+      tar-fs: 2.1.4
     transitivePeerDependencies:
       - supports-color
 
@@ -11501,6 +11575,8 @@ snapshots:
       math-intrinsics: 1.1.0
 
   get-package-type@0.1.0: {}
+
+  get-port@5.1.1: {}
 
   get-port@7.1.0: {}
 
@@ -12381,6 +12457,8 @@ snapshots:
 
   mkdirp@1.0.4: {}
 
+  mkdirp@3.0.1: {}
+
   mock-socket@9.3.1: {}
 
   ms@2.1.3: {}
@@ -12711,6 +12789,13 @@ snapshots:
     dependencies:
       mkdirp: 1.0.4
 
+  properties-reader@3.0.1:
+    dependencies:
+      '@kwsites/file-exists': 1.1.1
+      mkdirp: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
+
   protobufjs@6.11.6:
     dependencies:
       '@protobufjs/aspromise': 1.1.2
@@ -12724,7 +12809,7 @@ snapshots:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.1
       '@types/long': 4.0.2
-      '@types/node': 22.19.17
+      '@types/node': 22.19.18
       long: 4.0.0
 
   protobufjs@7.5.6:
@@ -13327,6 +13412,18 @@ snapshots:
       - bare-buffer
       - react-native-b4a
 
+  tar-fs@3.1.3:
+    dependencies:
+      pump: 3.0.3
+      tar-stream: 3.1.7
+    optionalDependencies:
+      bare-fs: 4.5.2
+      bare-path: 3.0.0
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - react-native-b4a
+
   tar-stream@2.2.0:
     dependencies:
       bl: 4.1.0
@@ -13391,6 +13488,29 @@ snapshots:
       - react-native-b4a
       - supports-color
 
+  testcontainers@12.2.1:
+    dependencies:
+      '@balena/dockerignore': 1.0.2
+      '@types/dockerode': 4.0.2
+      archiver: 7.0.1
+      async-lock: 1.4.1
+      byline: 5.0.0
+      debug: 4.4.3
+      docker-compose: 1.5.0
+      dockerode: 5.0.1
+      get-port: 5.1.1
+      proper-lockfile: 4.1.2
+      properties-reader: 3.0.1
+      ssh-remote-port-forward: 1.0.4
+      tar-fs: 3.1.3
+      tmp: 0.2.7
+      undici: 8.12.4
+    transitivePeerDependencies:
+      - bare-abort-controller
+      - bare-buffer
+      - react-native-b4a
+      - supports-color
+
   text-decoder@1.2.3:
     dependencies:
       b4a: 1.7.3
@@ -13407,6 +13527,8 @@ snapshots:
       picomatch: 4.0.4
 
   tmp@0.2.5: {}
+
+  tmp@0.2.7: {}
 
   tmpl@1.0.5: {}
 
@@ -13612,6 +13734,8 @@ snapshots:
   undici-types@7.18.2: {}
 
   undici@7.25.0: {}
+
+  undici@8.12.4: {}
 
   universalify@2.0.1: {}
 
