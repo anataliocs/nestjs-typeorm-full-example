@@ -136,8 +136,8 @@ importers:
         specifier: ^0.2.3
         version: 0.2.3(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)
       '@hellaweb3/wiremock-testcontainers-nodejs':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.4.0
+        version: 0.4.0
       '@nestjs/cli':
         specifier: ^11.0.14
         version: 11.0.14(@swc/cli@0.7.9(@swc/core@1.15.3(@swc/helpers@0.5.17))(chokidar@4.0.3))(@swc/core@1.15.3(@swc/helpers@0.5.17))(@types/node@22.19.2)
@@ -801,9 +801,14 @@ packages:
     resolution: {integrity: sha512-EM4tuJxWqc/zImva8ul9QfsIYNlTdkmXthpM1F4kBkhMmKn8CPj07SJLzeeBDiYUJF7GB3jtlNwmS4Aduy5IgQ==}
     engines: {node: '>=22'}
 
-  '@hellaweb3/wiremock-testcontainers-nodejs@0.2.1':
-    resolution: {integrity: sha512-qzGRuamZfBDUbnHAB8dT5MJd/2t43pG2XA2SqWhXqTrPO89A2vbjVzDupYSaLxqbYRf8eIyylZGiJbsnjYV/iw==}
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.4.0':
+    resolution: {integrity: sha512-1lkxH95f36iQBdAg0Dnh3LNWZHlTWTzgjQL9BKTjsZXC+GycaZvp74sawNMneAyJh3RrF+ndXPvknwBAFc5e4A==}
     engines: {node: '>=22.22'}
+    peerDependencies:
+      wiremock: '>=3.0.0'
+    peerDependenciesMeta:
+      wiremock:
+        optional: true
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -7183,7 +7188,7 @@ snapshots:
       - utf-8-validate
       - zod
 
-  '@hellaweb3/wiremock-testcontainers-nodejs@0.2.1':
+  '@hellaweb3/wiremock-testcontainers-nodejs@0.4.0':
     dependencies:
       testcontainers: 12.2.1
     transitivePeerDependencies:
