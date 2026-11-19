@@ -540,7 +540,7 @@ GET /v1/orders/456  // Which customer? No context.
 
 This project is licensed under the MIT License—see the [LICENSE](./LICENSE) file for details.
 
-Maintained by [Hella Labs](https://hella.website/).
+Maintained by [Hella Labs](https://hellalabs.dev/).
 
 ----
 
