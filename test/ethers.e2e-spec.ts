@@ -34,15 +34,8 @@ import {
   recordedRpcCalls,
   RPC_PATH,
 } from './support/rpc-faults';
+import { GENESIS, SLOTS_IN_AN_EPOCH } from './support/fixtures';
 
-/** Genesis timestamp, so block dates are deterministic. */
-const GENESIS = new Date('2025-01-01T00:00:00.000Z');
-
-/**
- * anvil derives `finalized` as `head − 2 · slotsInAnEpoch` (clamped at
- * genesis). One slot per epoch makes finality lag the head by two blocks.
- */
-const SLOTS_IN_AN_EPOCH = 1;
 const FINALITY_LAG = 2 * SLOTS_IN_AN_EPOCH;
 
 /** The SSE controller and WebSocket gateway poll the node every 5 s. */
@@ -87,15 +80,28 @@ const BLOCK_QUERY = /* GraphQL */ `
   }
 `;
 
+function getQueryBlock() {
+  return (app: INestApplication<App>, blockNumber: unknown) =>
+    request(app.getHttpServer())
+      .post('/graphql')
+      .send({ query: BLOCK_QUERY, variables: { blockNumber } });
+}
+
+function sendSubscribeMsg(socket: WebSocket, topic: string) {
+  socket.send(
+    JSON.stringify({
+      event: 'ethers-subscribe-blocks',
+      data: { client: 'e2e', topic },
+    }),
+  );
+}
+
 describe('Ethers API (e2e)', () => {
   let network: StartedNetwork;
   let postgres: StartedPostgreSqlContainer;
   let solana: StartedSolanaTestValidatorContainer;
   let wiremock: StartedWiremockContainer;
 
-  // One anvil node for the file: started in beforeAll, snapshot-restored after
-  // every test (mined blocks, time travel, reorgs never leak), stopped in afterAll.
-  // It joins a Docker network so that WireMock can proxy to it as `anvil:8545`.
   const anvil = useAnvil({
     start: async () => {
       network = await new Network().start();
@@ -192,10 +198,7 @@ describe('Ethers API (e2e)', () => {
   const blockAt = (blockNumber: bigint) =>
     anvil.testClient.getBlock({ blockNumber });
 
-  const queryBlock = (app: INestApplication<App>, blockNumber: unknown) =>
-    request(app.getHttpServer())
-      .post('/graphql')
-      .send({ query: BLOCK_QUERY, variables: { blockNumber } });
+  const queryBlock = getQueryBlock();
 
   /** Subscribes over WebSocket and hands out pushed messages in order. */
   async function subscribe(app: INestApplication<App>, topic: string) {
@@ -214,12 +217,7 @@ describe('Ethers API (e2e)', () => {
       socket.once('open', resolve);
       socket.once('error', reject);
     });
-    socket.send(
-      JSON.stringify({
-        event: 'ethers-subscribe-blocks',
-        data: { client: 'e2e', topic },
-      }),
-    );
+    sendSubscribeMsg(socket, topic);
     return {
       next: <T>(): Promise<T> =>
         queued.length > 0

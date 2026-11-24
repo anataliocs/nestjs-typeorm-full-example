@@ -32,7 +32,6 @@ export class EthersSdkService
 
     this.logger.log(`Ethers SDK Rpc Server Type: ${this.network}`);
   }
-
   /**
    * Get the current block number (block height).
    * @see https://docs.ethers.org/v6/api/providers/#Block
